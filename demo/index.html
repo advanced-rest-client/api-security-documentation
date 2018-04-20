@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>api-request-editor demo</title>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="../../shadycss/apply-shim.html">
+    <link rel="import" href="../../polymer/lib/elements/custom-style.html">
+    <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../raml-aware/raml-aware.html">
+    <link rel="import" href="../../api-navigation/api-navigation.html">
+    <link rel="import" href="../../paper-styles/typography.html">
+    <link rel="import" href="../api-security-documentation.html">
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      :root {
+        --arc-font-display1: {
+          @apply --paper-font-display1;
+        };
+        --arc-font-headline: {
+          @apply --paper-font-headline;
+        };
+        --arc-font-title: {
+          @apply --paper-font-title;
+        };
+        --arc-font-subhead: {
+          @apply --paper-font-subhead;
+        };
+        --arc-font-body1: {
+          @apply --paper-font-body1;
+          word-break: break-word;
+        };
+        --arc-font-common-code: {
+          @apply --paper-font-common-code;
+          word-break: break-word !important;
+          overflow: auto;
+          white-space: pre-wrap !important;
+        };
+        --arc-font-code1: {
+          @apply --paper-font-code1;
+          word-wrap: break-word;
+          word-break: break-all;
+          overflow: auto;
+        };
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      [role="main"] {
+        max-width: 1100px;
+        @apply --layout-horizontal;
+        @apply --layout-start;
+      }
+
+      api-navigation {
+        width: 320px;
+        min-width: 320px;
+        overflow: auto;
+      }
+
+      api-security-documentation {
+        margin-left: 40px;
+        @apply --layout-flex;
+      }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <dom-bind id="demo">
+      <template is="dom-bind">
+        <raml-aware raml="{{amfModel}}" scope="model"></raml-aware>
+        <div class="vertical-section-container centered" role="main">
+          <api-navigation aware="model" security-opened></api-navigation>
+
+          <template is="dom-if" if="[[hasData]]">
+            <api-security-documentation aware="model" security="[[security]]"></api-security-documentation>
+          </template>
+          <template is="dom-if" if="[[!hasData]]">
+            <p>Select security in the navigation to see the demo.</p>
+          </template>
+        </div>
+      </template>
+    </dom-bind>
+    <script>
+    (function(app) {
+      app.hasData = false;
+      app._load = function() {
+        fetch('./demo-api.json')
+        .then((response) => response.json())
+        .then((data) => {
+          app.amfModel = data;
+        });
+      };
+      app._navChanged = function(e) {
+        const type = e.detail.type;
+        if (type === 'security') {
+          app.setTypeData(e.detail.selected);
+          app.hasType = true;
+        } else {
+          app.hasType = false;
+        }
+      };
+
+      app.setTypeData = function(id) {
+        const d = app.amfModel[0]['http://raml.org/vocabularies/document#declares'];
+        const security = d.find((item) => item['@id'] === id);
+        if (!security) {
+          app.hasData = false;
+          console.error('Security not found');
+          return;
+        }
+        app.security = security;
+        app.hasData = true;
+      };
+      window.addEventListener('api-navigation-selection-changed', app._navChanged);
+      window.addEventListener('WebComponentsReady', () => app._load());
+    })(document.getElementById('demo'));
+  </script>
+  </body>
+</html>
