@@ -572,6 +572,14 @@
                           {
                             "@value": "http://api.domain.com/oauth1/access_token"
                           }
+                        ],
+                        "http://raml.org/vocabularies/security#signature": [
+                          {
+                            "@value": "RSA-SHA1"
+                          },
+                          {
+                            "@value": "HMAC-SHA1"
+                          }
                         ]
                       }
                     ]
@@ -4414,6 +4422,14 @@
               {
                 "@value": "http://api.domain.com/oauth1/access_token"
               }
+            ],
+            "http://raml.org/vocabularies/security#signature": [
+              {
+                "@value": "RSA-SHA1"
+              },
+              {
+                "@value": "HMAC-SHA1"
+              }
             ]
           }
         ]
@@ -5862,6 +5878,14 @@
                 "http://raml.org/vocabularies/security#tokenCredentialsUri": [
                   {
                     "@value": "http://api.domain.com/oauth1/access_token"
+                  }
+                ],
+                "http://raml.org/vocabularies/security#signature": [
+                  {
+                    "@value": "RSA-SHA1"
+                  },
+                  {
+                    "@value": "HMAC-SHA1"
                   }
                 ]
               }

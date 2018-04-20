@@ -1,0 +1,158 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../markdown-styles/markdown-styles.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../amf-helper-mixin/amf-helper-mixin.html">
+
+<dom-module id="api-oauth2-settings-document">
+  <template>
+    <style include="markdown-styles"></style>
+    <style>
+    :host {
+      display: block;
+      @apply --api-oauth2-settings-document;
+    }
+
+    h4 {
+      @apply --arc-font-subhead;
+    }
+
+    .settings-value {
+      background: var(--code-background-color, #f5f2f0);
+      display: block;
+      padding: 1em;
+      margin: .5em 0;
+    }
+    </style>
+    <template is="dom-if" if="[[hasAccessTokenUri]]">
+      <h4>Access token URI</h4>
+      <code class="settings-value">[[accessTokenUri]]</code>
+    </template>
+
+    <template is="dom-if" if="[[hasAuthorizationUri]]">
+      <h4>Authorization URI</h4>
+      <code class="settings-value">[[authorizationUri]]</code>
+    </template>
+
+    <template is="dom-if" if="[[hasAuthorizationGrants]]">
+      <h4>Authorization grants</h4>
+      <uL>
+        <template is="dom-repeat" items="[[authorizationGrants]]">
+          <li class="">[[item]]</li>
+        </template>
+      </ul>
+    </template>
+
+    <template is="dom-if" if="[[hasScopes]]">
+      <h4>Authorization scopes</h4>
+      <uL>
+        <template is="dom-repeat" items="[[scopes]]">
+          <li class="">[[item.label]]</li>
+        </template>
+      </ul>
+    </template>
+  </template>
+  <script>
+  /**
+   * `api-oauth2-settings-document`
+   *
+   * Documentation view for AMF OAuth2 security settings
+   *
+   * ## Styling
+   *
+   * `<api-oauth2-settings-document>` provides the following custom properties and mixins for styling:
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--api-oauth2-settings-document` | Mixin applied to this elment | `{}`
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/index.html
+   * @memberof ApiElements
+   * @appliesMixin ApiComponents.AmfHelperMixin
+   */
+  class ApiOauth2SettingsDocument extends ApiComponents.AmfHelperMixin(Polymer.Element) {
+    static get is() { return 'api-oauth2-settings-document'; }
+    static get properties() {
+      return {
+        settings: Object,
+        /**
+         * Computed value from current `method`. True if the model contains
+         * custom properties (annotations in RAML).
+         */
+        hasCustomProperties: {
+          type: Boolean,
+          computed: '_computeHasCustomProperties(settings)'
+        },
+
+        accessTokenUri: {
+          type: String,
+          computed: '_computeAccessTokenUri(settings)'
+        },
+
+        hasAccessTokenUri: {
+          type: Boolean,
+          computed: '_computeHasStringValue(accessTokenUri)'
+        },
+
+        authorizationUri: {
+          type: String,
+          computed: '_computeAuthorizationUri(settings)'
+        },
+
+        hasAuthorizationUri: {
+          type: Boolean,
+          computed: '_computeHasStringValue(authorizationUri)'
+        },
+
+        authorizationGrants: {
+          type: Array,
+          computed: '_computeAuthorizationGrants(settings)'
+        },
+
+        hasAuthorizationGrants: {
+          type: Boolean,
+          computed: '_computeHasArrayValue(authorizationGrants)'
+        },
+
+        scopes: {
+          type: Array,
+          computed: '_computeScopes(settings)'
+        },
+
+        hasScopes: {
+          type: Array,
+          computed: '_computeHasArrayValue(scopes)'
+        }
+      };
+    }
+
+    _computeAccessTokenUri(settings) {
+      return this._getValue(settings, 'http://raml.org/vocabularies/security#accessTokenUri');
+    }
+
+    _computeAuthorizationUri(settings) {
+      return this._getValue(settings, 'http://raml.org/vocabularies/security#authorizationUri');
+    }
+
+    _computeAuthorizationGrants(settings) {
+      return this._getValueArray(settings, 'http://raml.org/vocabularies/security#authorizationGrant');
+    }
+
+    _computeScopes(settings) {
+      if (!this._hasProperty(settings, 'http://raml.org/vocabularies/security#scope')) {
+        return;
+      }
+      const scopes = settings['http://raml.org/vocabularies/security#scope'];
+      return scopes.map((item) => {
+        return {
+          description: this._computeDescription(item),
+          label: this._getValue(item, 'http://raml.org/vocabularies/security#name')
+        };
+      });
+    }
+  }
+  window.customElements.define(ApiOauth2SettingsDocument.is, ApiOauth2SettingsDocument);
+  </script>
+</dom-module>

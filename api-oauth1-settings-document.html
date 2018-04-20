@@ -1,0 +1,146 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../markdown-styles/markdown-styles.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../amf-helper-mixin/amf-helper-mixin.html">
+
+<dom-module id="api-oauth1-settings-document">
+  <template>
+    <style include="markdown-styles"></style>
+    <style>
+    :host {
+      display: block;
+      @apply --api-oauth1-settings-document;
+    }
+
+    h4 {
+      @apply --arc-font-subhead;
+    }
+
+    .settings-value {
+      background: var(--code-background-color, #f5f2f0);
+      display: block;
+      padding: 1em;
+      margin: .5em 0;
+    }
+    </style>
+    <template is="dom-if" if="[[hasRequestTokenUri]]">
+      <h4>Request token URI</h4>
+      <code class="settings-value">[[requestTokenUri]]</code>
+    </template>
+
+    <template is="dom-if" if="[[hasAuthorizationUri]]">
+      <h4>Authorization URI</h4>
+      <code class="settings-value">[[authorizationUri]]</code>
+    </template>
+
+    <template is="dom-if" if="[[hasTokenCredentialsUri]]">
+      <h4>Token credentials URI</h4>
+      <code class="settings-value">[[tokenCredentialsUri]]</code>
+    </template>
+
+    <template is="dom-if" if="[[hasSignatures]]">
+      <h4>Suppoerted signatures</h4>
+      <uL>
+        <template is="dom-repeat" items="[[signatures]]">
+          <li>[[item]]</li>
+        </template>
+      </ul>
+    </template>
+  </template>
+  <script>
+  /**
+   * `api-oauth1-settings-document`
+   *
+   * Documentation view for AMF OAuth2 security settings
+   *
+   * ## Styling
+   *
+   * `<api-oauth1-settings-document>` provides the following custom properties and mixins for styling:
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--api-oauth1-settings-document` | Mixin applied to this elment | `{}`
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/index.html
+   * @memberof ApiElements
+   * @appliesMixin ApiComponents.AmfHelperMixin
+   */
+  class ApiOauth1SettingsDocument extends ApiComponents.AmfHelperMixin(Polymer.Element) {
+    static get is() { return 'api-oauth1-settings-document'; }
+    static get properties() {
+      return {
+        settings: Object,
+        /**
+         * Computed value from current `method`. True if the model contains
+         * custom properties (annotations in RAML).
+         */
+        hasCustomProperties: {
+          type: Boolean,
+          computed: '_computeHasCustomProperties(settings)'
+        },
+
+        requestTokenUri: {
+          type: String,
+          computed: '_computeRequestTokenUri(requestTokenUri)'
+        },
+
+        hasRequestTokenUri: {
+          type: Boolean,
+          computed: '_computeHasStringValue(requestTokenUri)'
+        },
+
+        authorizationUri: {
+          type: String,
+          computed: '_computeAuthorizationUri(settings)'
+        },
+
+        hasAuthorizationUri: {
+          type: Boolean,
+          computed: '_computeHasStringValue(authorizationUri)'
+        },
+
+        tokenCredentialsUri: {
+          type: String,
+          computed: '_computeTokenCredentialsUri(settings)'
+        },
+
+        hasTokenCredentialsUri: {
+          type: Boolean,
+          computed: '_computeHasStringValue(authorizationGrants)'
+        },
+
+        signatures: {
+          type: Array,
+          computed: '_computeSignatures(settings)'
+        },
+
+        hasSignatures: {
+          type: Boolean,
+          computed: '_computeHasArrayValue(scopes)'
+        }
+      };
+    }
+
+    _computeRequestTokenUri(settings) {
+      return this._getValue(settings, 'http://raml.org/vocabularies/security#requestTokenUri');
+    }
+
+    _computeAuthorizationUri(settings) {
+      return this._getValue(settings, 'http://raml.org/vocabularies/security#authorizationUri');
+    }
+
+    _computeTokenCredentialsUri(settings) {
+      return this._getValueArray(settings, 'http://raml.org/vocabularies/security#tokenCredentialsUri');
+    }
+
+    _computeSignatures(settings) {
+      return this._getValueArray(settings, 'http://raml.org/vocabularies/security#signature');
+    }
+
+  }
+  window.customElements.define(ApiOauth1SettingsDocument.is, ApiOauth1SettingsDocument);
+  </script>
+</dom-module>

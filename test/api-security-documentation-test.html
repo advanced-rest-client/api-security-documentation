@@ -6,6 +6,8 @@
   <title>api-security-documentation test</title>
   <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
+  <script src="amf-loader.js"></script>
+  <link rel="import" href="../../arc-polyfills/arc-polyfills.html">
   <link rel="import" href="../api-security-documentation.html">
 </head>
 <body>
@@ -16,15 +18,211 @@
   </test-fixture>
 
   <script>
+  /* global AmfLoader */
   suite('api-security-documentation', () => {
-    let element;
-    setup(() => {
-      element = fixture('Basic');
+    let amf;
+    let declares;
+    suiteSetup(() => {
+      return AmfLoader.load(2, 0)
+      .then((data) => {
+        amf = data[0];
+        declares = data[1];
+      });
     });
 
-    test('Initializes the element', () => {
-      assert.ok(element);
+    suite('Custom schema', () => {
+      let element;
+      setup((done) => {
+        element = fixture('Basic');
+        element.security = declares[1];
+        flush(() => done());
+      });
+
+      test('type is computed', () => {
+        assert.equal(element.type, 'x-custom');
+      });
+
+      test('name is computed', () => {
+        assert.equal(element.name, 'x-custom');
+      });
+
+      test('hasName is computed', () => {
+        assert.isTrue(element.hasName);
+      });
+
+      test('hasDescription is computed', () => {
+        assert.isTrue(element.hasDescription);
+      });
+
+      test('description is computed', () => {
+        assert.typeOf(element.description, 'string');
+      });
+
+      test('hasSettings is undefined', () => {
+        assert.isUndefined(element.hasSettings);
+      });
+
+      test('settings is undefined', () => {
+        assert.isUndefined(element.settings);
+      });
+
+      test('isOauth2Settings is undefined', () => {
+        assert.isUndefined(element.isOauth2Settings);
+      });
+
+      test('isOauth1Settings is undefined', () => {
+        assert.isUndefined(element.isOauth1Settings);
+      });
+
+      test('isCustomSettings is undefined', () => {
+        assert.isUndefined(element.isCustomSettings);
+      });
+
+      test('api-oauth2-settings-document table is not rendered', () => {
+        const node = element.shadowRoot.querySelector('api-oauth2-settings-document');
+        assert.notOk(node);
+      });
+
+      test('hasQueryParameters is computed', () => {
+        assert.isTrue(element.hasQueryParameters);
+      });
+
+      test('queryParameters is computed', () => {
+        assert.typeOf(element.queryParameters, 'array');
+        assert.lengthOf(element.queryParameters, 2);
+      });
+
+      test('Query Parameters table is rendered', () => {
+        const node = element.shadowRoot.querySelector('api-parameters-document');
+        assert.ok(node);
+      });
+
+      test('hasHeaders is computed', () => {
+        assert.isTrue(element.hasHeaders);
+      });
+
+      test('headers is computed', () => {
+        assert.typeOf(element.headers, 'array');
+        assert.lengthOf(element.headers, 1);
+      });
+
+      test('headers table is rendered', () => {
+        const node = element.shadowRoot.querySelector('api-headers-document');
+        assert.ok(node);
+      });
+
+      test('hasResponses is computed', () => {
+        assert.isTrue(element.hasResponses);
+      });
+
+      test('responses is computed', () => {
+        assert.typeOf(element.responses, 'array');
+        assert.lengthOf(element.responses, 2);
+      });
+
+      test('responses table is rendered', () => {
+        const node = element.shadowRoot.querySelector('api-responses-document');
+        assert.ok(node);
+      });
     });
+
+
+    suite('Custom schema', () => {
+      let element;
+      setup((done) => {
+        element = fixture('Basic');
+        element.security = declares[6];
+        flush(() => done());
+      });
+
+      test('type is computed', () => {
+        assert.equal(element.type, 'OAuth 2.0');
+      });
+
+      test('name is computed', () => {
+        assert.equal(element.name, 'oauth_2_0');
+      });
+
+      test('hasName is computed', () => {
+        assert.isTrue(element.hasName);
+      });
+
+      test('hasDescription is computed', () => {
+        assert.isTrue(element.hasDescription);
+      });
+
+      test('description is computed', () => {
+        assert.typeOf(element.description, 'string');
+      });
+
+      test('hasSettings is true', () => {
+        assert.isTrue(element.hasSettings);
+      });
+
+      test('settings is an object', () => {
+        assert.typeOf(element.settings, 'object');
+      });
+
+      test('isOauth2Settings is true', () => {
+        assert.isTrue(element.isOauth2Settings);
+      });
+
+      test('isOauth1Settings is false', () => {
+        assert.isFalse(element.isOauth1Settings);
+      });
+
+      test('isCustomSettings is undefined', () => {
+        assert.isFalse(element.isCustomSettings);
+      });
+
+      test('api-oauth2-settings-document is rendered', () => {
+        const node = element.shadowRoot.querySelector('api-oauth2-settings-document');
+        assert.ok(node);
+      });
+
+      test('hasQueryParameters is computed', () => {
+        assert.isTrue(element.hasQueryParameters);
+      });
+
+      test('queryParameters is computed', () => {
+        assert.typeOf(element.queryParameters, 'array');
+        assert.lengthOf(element.queryParameters, 1);
+      });
+
+      test('Query Parameters table is rendered', () => {
+        const node = element.shadowRoot.querySelector('api-parameters-document');
+        assert.ok(node);
+      });
+
+      test('hasHeaders is computed', () => {
+        assert.isTrue(element.hasHeaders);
+      });
+
+      test('headers is computed', () => {
+        assert.typeOf(element.headers, 'array');
+        assert.lengthOf(element.headers, 1);
+      });
+
+      test('headers table is rendered', () => {
+        const node = element.shadowRoot.querySelector('api-headers-document');
+        assert.ok(node);
+      });
+
+      test('hasResponses is computed', () => {
+        assert.isTrue(element.hasResponses);
+      });
+
+      test('responses is computed', () => {
+        assert.typeOf(element.responses, 'array');
+        assert.lengthOf(element.responses, 2);
+      });
+
+      test('responses table is rendered', () => {
+        const node = element.shadowRoot.querySelector('api-responses-document');
+        assert.ok(node);
+      });
+    });
+
   });
   </script>
 </body>
