@@ -1,0 +1,4033 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "`api-oauth2-settings-document`\n\nDocumentation view for AMF OAuth2 security settings\n\n## Styling\n\n`<api-oauth2-settings-document>` provides the following custom properties and mixins for styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--api-oauth2-settings-document` | Mixin applied to this elment | `{}`",
+      "summary": "",
+      "path": "api-oauth2-settings-document.html",
+      "properties": [
+        {
+          "name": "amfModel",
+          "type": "(Object | Array)",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only usefult for the element to resolve references.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 71,
+              "column": 8
+            },
+            "end": {
+              "line": 71,
+              "column": 24
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "settings",
+          "type": "Object",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 78,
+              "column": 8
+            },
+            "end": {
+              "line": 78,
+              "column": 24
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "hasCustomProperties",
+          "type": "boolean",
+          "description": "Computed value from current `method`. True if the model contains\ncustom properties (annotations in RAML).",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 83,
+              "column": 8
+            },
+            "end": {
+              "line": 86,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "accessTokenUri",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 88,
+              "column": 8
+            },
+            "end": {
+              "line": 91,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasAccessTokenUri",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 93,
+              "column": 8
+            },
+            "end": {
+              "line": 96,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "authorizationUri",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 98,
+              "column": 8
+            },
+            "end": {
+              "line": 101,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasAuthorizationUri",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 103,
+              "column": 8
+            },
+            "end": {
+              "line": 106,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "authorizationGrants",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 108,
+              "column": 8
+            },
+            "end": {
+              "line": 111,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasAuthorizationGrants",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 113,
+              "column": 8
+            },
+            "end": {
+              "line": 116,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "scopes",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 118,
+              "column": 8
+            },
+            "end": {
+              "line": 121,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasScopes",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 123,
+              "column": 8
+            },
+            "end": {
+              "line": 126,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "_getValue",
+          "description": "Gets a signle scalar value from a model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 80,
+              "column": 4
+            },
+            "end": {
+              "line": 90,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Amf model to extract the value from."
+            },
+            {
+              "name": "key",
+              "type": "String",
+              "description": "Model key to search for the value"
+            }
+          ],
+          "return": {
+            "type": "any",
+            "desc": "Value for key"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getValueArray",
+          "description": "Gets values from a model as an array of `@value` properties.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 97,
+              "column": 4
+            },
+            "end": {
+              "line": 103,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Amf model to extract the value from."
+            },
+            {
+              "name": "key",
+              "type": "String",
+              "description": "Model key to search for the value"
+            }
+          ],
+          "return": {
+            "type": "Array.<any>",
+            "desc": "Value for key"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_hasType",
+          "description": "Checks if a model has a type.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 110,
+              "column": 4
+            },
+            "end": {
+              "line": 118,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Model to test"
+            },
+            {
+              "name": "type",
+              "type": "String",
+              "description": "Type name"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "True if model has a type."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_hasProperty",
+          "description": "Checks if a shape has a property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 125,
+              "column": 4
+            },
+            "end": {
+              "line": 127,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model"
+            },
+            {
+              "name": "key",
+              "type": "?String",
+              "description": "Property name to test"
+            }
+          ],
+          "return": {
+            "type": "Boolean"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyArray",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 129,
+              "column": 4
+            },
+            "end": {
+              "line": 138,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            },
+            {
+              "name": "key"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyObject",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 140,
+              "column": 4
+            },
+            "end": {
+              "line": 143,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            },
+            {
+              "name": "key"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasStringValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 145,
+              "column": 4
+            },
+            "end": {
+              "line": 147,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasArrayValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 149,
+              "column": 4
+            },
+            "end": {
+              "line": 151,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeDescription",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 153,
+              "column": 4
+            },
+            "end": {
+              "line": 155,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHeaders",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 157,
+              "column": 4
+            },
+            "end": {
+              "line": 159,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeQueryParameters",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 161,
+              "column": 4
+            },
+            "end": {
+              "line": 163,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeResponses",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 165,
+              "column": 4
+            },
+            "end": {
+              "line": 167,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeServerVariables",
+          "description": "Computes value for `serverVariables` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 175,
+              "column": 4
+            },
+            "end": {
+              "line": 177,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Variables if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeEndpointVariables",
+          "description": "Computes value for `endpointVariables` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 184,
+              "column": 4
+            },
+            "end": {
+              "line": 186,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "endpoint",
+              "type": "Object",
+              "description": "Endpoint model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Parameters if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePayload",
+          "description": "Computes value for the `payload` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 193,
+              "column": 4
+            },
+            "end": {
+              "line": 195,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "expects",
+              "type": "Object",
+              "description": "Current value of `expects` property."
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Payload model if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeReturns",
+          "description": "Computes value for `returns` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 202,
+              "column": 4
+            },
+            "end": {
+              "line": 204,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeSecurity",
+          "description": "Computes value for `security` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 211,
+              "column": 4
+            },
+            "end": {
+              "line": 213,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasCustomProperties",
+          "description": "Computes value for `hasCustomProperties` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 220,
+              "column": 4
+            },
+            "end": {
+              "line": 222,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "Boolean"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeServer",
+          "description": "Computes value for `server` property that is later used with other computations.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 229,
+              "column": 4
+            },
+            "end": {
+              "line": 246,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "(Array | Object)",
+              "description": "AMF model for an API"
+            }
+          ],
+          "return": {
+            "type": "Object",
+            "desc": "The server model"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeEndpointUri",
+          "description": "Computes endpoint's URI based on `amfModel` and `endpoint` models.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 255,
+              "column": 4
+            },
+            "end": {
+              "line": 262,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "Server model of AMF API."
+            },
+            {
+              "name": "endpoint",
+              "type": "Object",
+              "description": "Endpoint model"
+            },
+            {
+              "name": "baseUri",
+              "type": "?String",
+              "description": "Current value of `baseUri` property"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Endpoint's URI"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getBaseUri",
+          "description": "Computes base URI value from either `baseUri`, `iron-meta` with\n`ApiBaseUri` key or `amfModel` value (in this order).",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 271,
+              "column": 4
+            },
+            "end": {
+              "line": 282,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "baseUri",
+              "type": "String",
+              "description": "Value of `baseUri` property"
+            },
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Base uri value. Can be empty string."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getAmfBaseUri",
+          "description": "Computes base URI from AMF model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 289,
+              "column": 4
+            },
+            "end": {
+              "line": 291,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)",
+            "desc": "Base uri value if exists."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeExpects",
+          "description": "Computes value for the `expects` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 298,
+              "column": 4
+            },
+            "end": {
+              "line": 305,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "Object"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyValue",
+          "description": "Tries to find an example value (whether it's default value or from an\nexample) to put it into snippet's values.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 313,
+              "column": 4
+            },
+            "end": {
+              "line": 330,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "item",
+              "type": "Object",
+              "description": "A http://raml.org/vocabularies/http#Parameter property"
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeAccessTokenUri",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 4
+            },
+            "end": {
+              "line": 132,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings"
+            }
+          ]
+        },
+        {
+          "name": "_computeAuthorizationUri",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 134,
+              "column": 4
+            },
+            "end": {
+              "line": 136,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings"
+            }
+          ]
+        },
+        {
+          "name": "_computeAuthorizationGrants",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 138,
+              "column": 4
+            },
+            "end": {
+              "line": 140,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings"
+            }
+          ]
+        },
+        {
+          "name": "_computeScopes",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 142,
+              "column": 4
+            },
+            "end": {
+              "line": 153,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 74,
+          "column": 2
+        },
+        "end": {
+          "line": 154,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "ApiElements.ApiOauth2SettingsDocument",
+      "attributes": [
+        {
+          "name": "amf-model",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only usefult for the element to resolve references.",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 71,
+              "column": 8
+            },
+            "end": {
+              "line": 71,
+              "column": 24
+            }
+          },
+          "metadata": {},
+          "type": "(Object | Array)",
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "settings",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 78,
+              "column": 8
+            },
+            "end": {
+              "line": 78,
+              "column": 24
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "has-custom-properties",
+          "description": "Computed value from current `method`. True if the model contains\ncustom properties (annotations in RAML).",
+          "sourceRange": {
+            "start": {
+              "line": 83,
+              "column": 8
+            },
+            "end": {
+              "line": 86,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "access-token-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 88,
+              "column": 8
+            },
+            "end": {
+              "line": 91,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "has-access-token-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 93,
+              "column": 8
+            },
+            "end": {
+              "line": 96,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "authorization-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 98,
+              "column": 8
+            },
+            "end": {
+              "line": 101,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "has-authorization-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 103,
+              "column": 8
+            },
+            "end": {
+              "line": 106,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "authorization-grants",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 108,
+              "column": 8
+            },
+            "end": {
+              "line": 111,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "has-authorization-grants",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 113,
+              "column": 8
+            },
+            "end": {
+              "line": 116,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "scopes",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 118,
+              "column": 8
+            },
+            "end": {
+              "line": 121,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "has-scopes",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 123,
+              "column": 8
+            },
+            "end": {
+              "line": 126,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "api-oauth2-settings-document",
+      "mixins": [
+        "ApiElements.AmfHelperMixin"
+      ]
+    },
+    {
+      "description": "`api-oauth1-settings-document`\n\nDocumentation view for AMF OAuth2 security settings\n\n## Styling\n\n`<api-oauth1-settings-document>` provides the following custom properties and mixins for styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--api-oauth1-settings-document` | Mixin applied to this elment | `{}`",
+      "summary": "",
+      "path": "api-oauth1-settings-document.html",
+      "properties": [
+        {
+          "name": "amfModel",
+          "type": "(Object | Array)",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only usefult for the element to resolve references.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 71,
+              "column": 8
+            },
+            "end": {
+              "line": 71,
+              "column": 24
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "settings",
+          "type": "Object",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 74,
+              "column": 8
+            },
+            "end": {
+              "line": 74,
+              "column": 24
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "hasCustomProperties",
+          "type": "boolean",
+          "description": "Computed value from current `method`. True if the model contains\ncustom properties (annotations in RAML).",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 79,
+              "column": 8
+            },
+            "end": {
+              "line": 82,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "requestTokenUri",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 84,
+              "column": 8
+            },
+            "end": {
+              "line": 87,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasRequestTokenUri",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 89,
+              "column": 8
+            },
+            "end": {
+              "line": 92,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "authorizationUri",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 94,
+              "column": 8
+            },
+            "end": {
+              "line": 97,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasAuthorizationUri",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 99,
+              "column": 8
+            },
+            "end": {
+              "line": 102,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "tokenCredentialsUri",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 104,
+              "column": 8
+            },
+            "end": {
+              "line": 107,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasTokenCredentialsUri",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 109,
+              "column": 8
+            },
+            "end": {
+              "line": 112,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "signatures",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 114,
+              "column": 8
+            },
+            "end": {
+              "line": 117,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasSignatures",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 119,
+              "column": 8
+            },
+            "end": {
+              "line": 122,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "_getValue",
+          "description": "Gets a signle scalar value from a model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 80,
+              "column": 4
+            },
+            "end": {
+              "line": 90,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Amf model to extract the value from."
+            },
+            {
+              "name": "key",
+              "type": "String",
+              "description": "Model key to search for the value"
+            }
+          ],
+          "return": {
+            "type": "any",
+            "desc": "Value for key"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getValueArray",
+          "description": "Gets values from a model as an array of `@value` properties.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 97,
+              "column": 4
+            },
+            "end": {
+              "line": 103,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Amf model to extract the value from."
+            },
+            {
+              "name": "key",
+              "type": "String",
+              "description": "Model key to search for the value"
+            }
+          ],
+          "return": {
+            "type": "Array.<any>",
+            "desc": "Value for key"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_hasType",
+          "description": "Checks if a model has a type.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 110,
+              "column": 4
+            },
+            "end": {
+              "line": 118,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Model to test"
+            },
+            {
+              "name": "type",
+              "type": "String",
+              "description": "Type name"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "True if model has a type."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_hasProperty",
+          "description": "Checks if a shape has a property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 125,
+              "column": 4
+            },
+            "end": {
+              "line": 127,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model"
+            },
+            {
+              "name": "key",
+              "type": "?String",
+              "description": "Property name to test"
+            }
+          ],
+          "return": {
+            "type": "Boolean"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyArray",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 129,
+              "column": 4
+            },
+            "end": {
+              "line": 138,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            },
+            {
+              "name": "key"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyObject",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 140,
+              "column": 4
+            },
+            "end": {
+              "line": 143,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            },
+            {
+              "name": "key"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasStringValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 145,
+              "column": 4
+            },
+            "end": {
+              "line": 147,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasArrayValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 149,
+              "column": 4
+            },
+            "end": {
+              "line": 151,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeDescription",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 153,
+              "column": 4
+            },
+            "end": {
+              "line": 155,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHeaders",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 157,
+              "column": 4
+            },
+            "end": {
+              "line": 159,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeQueryParameters",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 161,
+              "column": 4
+            },
+            "end": {
+              "line": 163,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeResponses",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 165,
+              "column": 4
+            },
+            "end": {
+              "line": 167,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeServerVariables",
+          "description": "Computes value for `serverVariables` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 175,
+              "column": 4
+            },
+            "end": {
+              "line": 177,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Variables if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeEndpointVariables",
+          "description": "Computes value for `endpointVariables` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 184,
+              "column": 4
+            },
+            "end": {
+              "line": 186,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "endpoint",
+              "type": "Object",
+              "description": "Endpoint model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Parameters if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePayload",
+          "description": "Computes value for the `payload` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 193,
+              "column": 4
+            },
+            "end": {
+              "line": 195,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "expects",
+              "type": "Object",
+              "description": "Current value of `expects` property."
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Payload model if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeReturns",
+          "description": "Computes value for `returns` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 202,
+              "column": 4
+            },
+            "end": {
+              "line": 204,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeSecurity",
+          "description": "Computes value for `security` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 211,
+              "column": 4
+            },
+            "end": {
+              "line": 213,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasCustomProperties",
+          "description": "Computes value for `hasCustomProperties` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 220,
+              "column": 4
+            },
+            "end": {
+              "line": 222,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "Boolean"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeServer",
+          "description": "Computes value for `server` property that is later used with other computations.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 229,
+              "column": 4
+            },
+            "end": {
+              "line": 246,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "(Array | Object)",
+              "description": "AMF model for an API"
+            }
+          ],
+          "return": {
+            "type": "Object",
+            "desc": "The server model"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeEndpointUri",
+          "description": "Computes endpoint's URI based on `amfModel` and `endpoint` models.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 255,
+              "column": 4
+            },
+            "end": {
+              "line": 262,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "Server model of AMF API."
+            },
+            {
+              "name": "endpoint",
+              "type": "Object",
+              "description": "Endpoint model"
+            },
+            {
+              "name": "baseUri",
+              "type": "?String",
+              "description": "Current value of `baseUri` property"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Endpoint's URI"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getBaseUri",
+          "description": "Computes base URI value from either `baseUri`, `iron-meta` with\n`ApiBaseUri` key or `amfModel` value (in this order).",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 271,
+              "column": 4
+            },
+            "end": {
+              "line": 282,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "baseUri",
+              "type": "String",
+              "description": "Value of `baseUri` property"
+            },
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Base uri value. Can be empty string."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getAmfBaseUri",
+          "description": "Computes base URI from AMF model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 289,
+              "column": 4
+            },
+            "end": {
+              "line": 291,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)",
+            "desc": "Base uri value if exists."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeExpects",
+          "description": "Computes value for the `expects` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 298,
+              "column": 4
+            },
+            "end": {
+              "line": 305,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "Object"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyValue",
+          "description": "Tries to find an example value (whether it's default value or from an\nexample) to put it into snippet's values.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 313,
+              "column": 4
+            },
+            "end": {
+              "line": 330,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "item",
+              "type": "Object",
+              "description": "A http://raml.org/vocabularies/http#Parameter property"
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeRequestTokenUri",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 126,
+              "column": 4
+            },
+            "end": {
+              "line": 128,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings"
+            }
+          ]
+        },
+        {
+          "name": "_computeAuthorizationUri",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 130,
+              "column": 4
+            },
+            "end": {
+              "line": 132,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings"
+            }
+          ]
+        },
+        {
+          "name": "_computeTokenCredentialsUri",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 134,
+              "column": 4
+            },
+            "end": {
+              "line": 136,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings"
+            }
+          ]
+        },
+        {
+          "name": "_computeSignatures",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 138,
+              "column": 4
+            },
+            "end": {
+              "line": 140,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "settings"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 70,
+          "column": 2
+        },
+        "end": {
+          "line": 142,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "ApiElements.ApiOauth1SettingsDocument",
+      "attributes": [
+        {
+          "name": "amf-model",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only usefult for the element to resolve references.",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 71,
+              "column": 8
+            },
+            "end": {
+              "line": 71,
+              "column": 24
+            }
+          },
+          "metadata": {},
+          "type": "(Object | Array)",
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "settings",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 74,
+              "column": 8
+            },
+            "end": {
+              "line": 74,
+              "column": 24
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "has-custom-properties",
+          "description": "Computed value from current `method`. True if the model contains\ncustom properties (annotations in RAML).",
+          "sourceRange": {
+            "start": {
+              "line": 79,
+              "column": 8
+            },
+            "end": {
+              "line": 82,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "request-token-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 84,
+              "column": 8
+            },
+            "end": {
+              "line": 87,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "has-request-token-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 89,
+              "column": 8
+            },
+            "end": {
+              "line": 92,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "authorization-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 94,
+              "column": 8
+            },
+            "end": {
+              "line": 97,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "has-authorization-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 99,
+              "column": 8
+            },
+            "end": {
+              "line": 102,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "token-credentials-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 104,
+              "column": 8
+            },
+            "end": {
+              "line": 107,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "has-token-credentials-uri",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 109,
+              "column": 8
+            },
+            "end": {
+              "line": 112,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "signatures",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 114,
+              "column": 8
+            },
+            "end": {
+              "line": 117,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "has-signatures",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 119,
+              "column": 8
+            },
+            "end": {
+              "line": 122,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "api-oauth1-settings-document",
+      "mixins": [
+        "ApiElements.AmfHelperMixin"
+      ]
+    },
+    {
+      "description": "`api-security-documentation`\n\nDocumentation view for AMF security description\n\n## Styling\n\n`<api-security-documentation>` provides the following custom properties and mixins for styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--api-security-documentation` | Mixin applied to this elment | `{}`",
+      "summary": "",
+      "path": "api-security-documentation.html",
+      "properties": [
+        {
+          "name": "amfModel",
+          "type": "(Object | Array)",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only usefult for the element to resolve references.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 71,
+              "column": 8
+            },
+            "end": {
+              "line": 71,
+              "column": 24
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "aware",
+          "type": "string",
+          "description": "`raml-aware` scope property to use.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 122,
+              "column": 8
+            },
+            "end": {
+              "line": 122,
+              "column": 21
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "security",
+          "type": "Object",
+          "description": "A security definition to render.\nThis should be AMF's type of `http://raml.org/vocabularies/security#SecurityScheme`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 129,
+              "column": 8
+            },
+            "end": {
+              "line": 129,
+              "column": 24
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "description": "Security scheme type.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 133,
+              "column": 8
+            },
+            "end": {
+              "line": 136,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "name",
+          "type": "Object",
+          "description": "Security scheme name",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 142,
+              "column": 8
+            },
+            "end": {
+              "line": 145,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasName",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 147,
+              "column": 8
+            },
+            "end": {
+              "line": 150,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 152,
+              "column": 8
+            },
+            "end": {
+              "line": 155,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasDescription",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 157,
+              "column": 8
+            },
+            "end": {
+              "line": 160,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "headers",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 162,
+              "column": 8
+            },
+            "end": {
+              "line": 165,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasHeaders",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 167,
+              "column": 8
+            },
+            "end": {
+              "line": 170,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "queryParameters",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 172,
+              "column": 8
+            },
+            "end": {
+              "line": 175,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasQueryParameters",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 177,
+              "column": 8
+            },
+            "end": {
+              "line": 180,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "responses",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 182,
+              "column": 8
+            },
+            "end": {
+              "line": 185,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasResponses",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 187,
+              "column": 8
+            },
+            "end": {
+              "line": 190,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "settings",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 192,
+              "column": 8
+            },
+            "end": {
+              "line": 195,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasSettings",
+          "type": "Array",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 197,
+              "column": 8
+            },
+            "end": {
+              "line": 200,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "isOauth2Settings",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 202,
+              "column": 8
+            },
+            "end": {
+              "line": 205,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "isOauth1Settings",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 207,
+              "column": 8
+            },
+            "end": {
+              "line": 210,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "isCustomSettings",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 212,
+              "column": 8
+            },
+            "end": {
+              "line": 215,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
+        {
+          "name": "hasCustomProperties",
+          "type": "boolean",
+          "description": "Computed value from current `method`. True if the model contains\ncustom properties (annotations in RAML).",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 220,
+              "column": 8
+            },
+            "end": {
+              "line": 223,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "_getValue",
+          "description": "Gets a signle scalar value from a model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 80,
+              "column": 4
+            },
+            "end": {
+              "line": 90,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Amf model to extract the value from."
+            },
+            {
+              "name": "key",
+              "type": "String",
+              "description": "Model key to search for the value"
+            }
+          ],
+          "return": {
+            "type": "any",
+            "desc": "Value for key"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getValueArray",
+          "description": "Gets values from a model as an array of `@value` properties.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 97,
+              "column": 4
+            },
+            "end": {
+              "line": 103,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Amf model to extract the value from."
+            },
+            {
+              "name": "key",
+              "type": "String",
+              "description": "Model key to search for the value"
+            }
+          ],
+          "return": {
+            "type": "Array.<any>",
+            "desc": "Value for key"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_hasType",
+          "description": "Checks if a model has a type.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 110,
+              "column": 4
+            },
+            "end": {
+              "line": 118,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "Object",
+              "description": "Model to test"
+            },
+            {
+              "name": "type",
+              "type": "String",
+              "description": "Type name"
+            }
+          ],
+          "return": {
+            "type": "Boolean",
+            "desc": "True if model has a type."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_hasProperty",
+          "description": "Checks if a shape has a property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 125,
+              "column": 4
+            },
+            "end": {
+              "line": 127,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model"
+            },
+            {
+              "name": "key",
+              "type": "?String",
+              "description": "Property name to test"
+            }
+          ],
+          "return": {
+            "type": "Boolean"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyArray",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 129,
+              "column": 4
+            },
+            "end": {
+              "line": 138,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            },
+            {
+              "name": "key"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyObject",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 140,
+              "column": 4
+            },
+            "end": {
+              "line": 143,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            },
+            {
+              "name": "key"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasStringValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 145,
+              "column": 4
+            },
+            "end": {
+              "line": 147,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasArrayValue",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 149,
+              "column": 4
+            },
+            "end": {
+              "line": 151,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeDescription",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 153,
+              "column": 4
+            },
+            "end": {
+              "line": 155,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHeaders",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 157,
+              "column": 4
+            },
+            "end": {
+              "line": 159,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeQueryParameters",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 161,
+              "column": 4
+            },
+            "end": {
+              "line": 163,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeResponses",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 165,
+              "column": 4
+            },
+            "end": {
+              "line": 167,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ],
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeServerVariables",
+          "description": "Computes value for `serverVariables` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 175,
+              "column": 4
+            },
+            "end": {
+              "line": 177,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Variables if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeEndpointVariables",
+          "description": "Computes value for `endpointVariables` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 184,
+              "column": 4
+            },
+            "end": {
+              "line": 186,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "endpoint",
+              "type": "Object",
+              "description": "Endpoint model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Parameters if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePayload",
+          "description": "Computes value for the `payload` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 193,
+              "column": 4
+            },
+            "end": {
+              "line": 195,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "expects",
+              "type": "Object",
+              "description": "Current value of `expects` property."
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)",
+            "desc": "Payload model if defined."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeReturns",
+          "description": "Computes value for `returns` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 202,
+              "column": 4
+            },
+            "end": {
+              "line": 204,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeSecurity",
+          "description": "Computes value for `security` property",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 211,
+              "column": 4
+            },
+            "end": {
+              "line": 213,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "(Array.<Object> | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeHasCustomProperties",
+          "description": "Computes value for `hasCustomProperties` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 272,
+              "column": 4
+            },
+            "end": {
+              "line": 274,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "Boolean"
+          }
+        },
+        {
+          "name": "_computeServer",
+          "description": "Computes value for `server` property that is later used with other computations.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 229,
+              "column": 4
+            },
+            "end": {
+              "line": 246,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "model",
+              "type": "(Array | Object)",
+              "description": "AMF model for an API"
+            }
+          ],
+          "return": {
+            "type": "Object",
+            "desc": "The server model"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeEndpointUri",
+          "description": "Computes endpoint's URI based on `amfModel` and `endpoint` models.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 255,
+              "column": 4
+            },
+            "end": {
+              "line": 262,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "Server model of AMF API."
+            },
+            {
+              "name": "endpoint",
+              "type": "Object",
+              "description": "Endpoint model"
+            },
+            {
+              "name": "baseUri",
+              "type": "?String",
+              "description": "Current value of `baseUri` property"
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Endpoint's URI"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getBaseUri",
+          "description": "Computes base URI value from either `baseUri`, `iron-meta` with\n`ApiBaseUri` key or `amfModel` value (in this order).",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 271,
+              "column": 4
+            },
+            "end": {
+              "line": 282,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "baseUri",
+              "type": "String",
+              "description": "Value of `baseUri` property"
+            },
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "String",
+            "desc": "Base uri value. Can be empty string."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_getAmfBaseUri",
+          "description": "Computes base URI from AMF model.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 289,
+              "column": 4
+            },
+            "end": {
+              "line": 291,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "server",
+              "type": "Object",
+              "description": "AMF API model for Server."
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)",
+            "desc": "Base uri value if exists."
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeExpects",
+          "description": "Computes value for the `expects` property.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 298,
+              "column": 4
+            },
+            "end": {
+              "line": 305,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "method",
+              "type": "Object",
+              "description": "AMF `supportedOperation` model"
+            }
+          ],
+          "return": {
+            "type": "Object"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computePropertyValue",
+          "description": "Tries to find an example value (whether it's default value or from an\nexample) to put it into snippet's values.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 313,
+              "column": 4
+            },
+            "end": {
+              "line": 330,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "item",
+              "type": "Object",
+              "description": "A http://raml.org/vocabularies/http#Parameter property"
+            }
+          ],
+          "return": {
+            "type": "(String | undefined)"
+          },
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "_computeType",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 227,
+              "column": 4
+            },
+            "end": {
+              "line": 229,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ]
+        },
+        {
+          "name": "_computeName",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 231,
+              "column": 4
+            },
+            "end": {
+              "line": 240,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ]
+        },
+        {
+          "name": "_computeSettings",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 242,
+              "column": 4
+            },
+            "end": {
+              "line": 244,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "shape"
+            }
+          ]
+        },
+        {
+          "name": "_computeIsOauth2Settings",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 246,
+              "column": 4
+            },
+            "end": {
+              "line": 251,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "hasSettings"
+            },
+            {
+              "name": "settings"
+            }
+          ]
+        },
+        {
+          "name": "_computeIsOauth1Settings",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 253,
+              "column": 4
+            },
+            "end": {
+              "line": 258,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "hasSettings"
+            },
+            {
+              "name": "settings"
+            }
+          ]
+        },
+        {
+          "name": "_computeIsCustomSettings",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 260,
+              "column": 4
+            },
+            "end": {
+              "line": 265,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "hasSettings"
+            },
+            {
+              "name": "isOauth2Settings"
+            },
+            {
+              "name": "isOauth1Settings"
+            },
+            {
+              "name": "settings"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 115,
+          "column": 2
+        },
+        "end": {
+          "line": 275,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "ApiElements.ApiSecurityDocumentation",
+      "attributes": [
+        {
+          "name": "amf-model",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only usefult for the element to resolve references.",
+          "sourceRange": {
+            "file": "bower_components/amf-helper-mixin/amf-helper-mixin.html",
+            "start": {
+              "line": 71,
+              "column": 8
+            },
+            "end": {
+              "line": 71,
+              "column": 24
+            }
+          },
+          "metadata": {},
+          "type": "(Object | Array)",
+          "inheritedFrom": "ApiElements.AmfHelperMixin"
+        },
+        {
+          "name": "aware",
+          "description": "`raml-aware` scope property to use.",
+          "sourceRange": {
+            "start": {
+              "line": 122,
+              "column": 8
+            },
+            "end": {
+              "line": 122,
+              "column": 21
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "security",
+          "description": "A security definition to render.\nThis should be AMF's type of `http://raml.org/vocabularies/security#SecurityScheme`.",
+          "sourceRange": {
+            "start": {
+              "line": 129,
+              "column": 8
+            },
+            "end": {
+              "line": 129,
+              "column": 24
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "type",
+          "description": "Security scheme type.",
+          "sourceRange": {
+            "start": {
+              "line": 133,
+              "column": 8
+            },
+            "end": {
+              "line": 136,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "description": "Security scheme name",
+          "sourceRange": {
+            "start": {
+              "line": 142,
+              "column": 8
+            },
+            "end": {
+              "line": 145,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "has-name",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 147,
+              "column": 8
+            },
+            "end": {
+              "line": 150,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "description",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 152,
+              "column": 8
+            },
+            "end": {
+              "line": 155,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "has-description",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 157,
+              "column": 8
+            },
+            "end": {
+              "line": 160,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "headers",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 162,
+              "column": 8
+            },
+            "end": {
+              "line": 165,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "has-headers",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 167,
+              "column": 8
+            },
+            "end": {
+              "line": 170,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "query-parameters",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 172,
+              "column": 8
+            },
+            "end": {
+              "line": 175,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "has-query-parameters",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 177,
+              "column": 8
+            },
+            "end": {
+              "line": 180,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "responses",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 182,
+              "column": 8
+            },
+            "end": {
+              "line": 185,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "has-responses",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 187,
+              "column": 8
+            },
+            "end": {
+              "line": 190,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "settings",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 192,
+              "column": 8
+            },
+            "end": {
+              "line": 195,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "has-settings",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 197,
+              "column": 8
+            },
+            "end": {
+              "line": 200,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "Array"
+        },
+        {
+          "name": "is-oauth2-settings",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 202,
+              "column": 8
+            },
+            "end": {
+              "line": 205,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "is-oauth1-settings",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 207,
+              "column": 8
+            },
+            "end": {
+              "line": 210,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "is-custom-settings",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 212,
+              "column": 8
+            },
+            "end": {
+              "line": 215,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "has-custom-properties",
+          "description": "Computed value from current `method`. True if the model contains\ncustom properties (annotations in RAML).",
+          "sourceRange": {
+            "start": {
+              "line": 220,
+              "column": 8
+            },
+            "end": {
+              "line": 223,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "api-security-documentation",
+      "mixins": [
+        "ApiElements.AmfHelperMixin"
+      ]
+    }
+  ]
+}
