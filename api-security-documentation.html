@@ -111,9 +111,9 @@
    * @polymer
    * @demo demo/index.html
    * @memberof ApiElements
-   * @appliesMixin ApiComponents.AmfHelperMixin
+   * @appliesMixin ApiElements.AmfHelperMixin
    */
-  class ApiSecurityDocumentation extends ApiComponents.AmfHelperMixin(Polymer.Element) {
+  class ApiSecurityDocumentation extends ApiElements.AmfHelperMixin(Polymer.Element) {
     static get is() { return 'api-security-documentation'; }
     static get properties() {
       return {
