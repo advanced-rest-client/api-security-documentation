@@ -54,9 +54,6 @@
     </template>
     <section class="title">
       <h1>[[type]]</h1>
-      <template is="dom-if" if="[[hasName]]">
-        <h2 class="name">[[name]]</h2>
-      </template>
     </section>
     <template is="dom-if" if="[[hasCustomProperties]]">
       <api-annotation-document shape="[[security]]"></api-annotation-document>
@@ -134,20 +131,6 @@
         type: {
           type: String,
           computed: '_computeType(security)'
-        },
-        /**
-         * Security scheme name
-         *
-         * @type {Object}
-         */
-        name: {
-          type: String,
-          computed: '_computeName(security)'
-        },
-
-        hasName: {
-          type: Boolean,
-          computed: '_computeHasStringValue(name)'
         },
 
         description: {
@@ -227,17 +210,6 @@
 
     _computeType(shape) {
       return this._getValue(shape, 'http://raml.org/vocabularies/security#type');
-    }
-
-    _computeName(shape) {
-      if (!shape) {
-        return;
-      }
-      let name = this._getValue(shape, 'http://schema.org/displayName');
-      if (!name) {
-        name = this._getValue(shape, 'http://raml.org/vocabularies/security#name');
-      }
-      return name;
     }
 
     _computeSettings(shape) {

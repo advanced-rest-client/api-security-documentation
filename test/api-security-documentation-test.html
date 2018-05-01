@@ -42,14 +42,6 @@
         assert.equal(element.type, 'x-custom');
       });
 
-      test('name is computed', () => {
-        assert.equal(element.name, 'x-custom');
-      });
-
-      test('hasName is computed', () => {
-        assert.isTrue(element.hasName);
-      });
-
       test('hasDescription is computed', () => {
         assert.isTrue(element.hasDescription);
       });
@@ -137,14 +129,6 @@
 
       test('type is computed', () => {
         assert.equal(element.type, 'OAuth 2.0');
-      });
-
-      test('name is computed', () => {
-        assert.equal(element.name, 'oauth_2_0');
-      });
-
-      test('hasName is computed', () => {
-        assert.isTrue(element.hasName);
       });
 
       test('hasDescription is computed', () => {
