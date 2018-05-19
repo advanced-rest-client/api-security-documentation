@@ -56,12 +56,6 @@ declare namespace ApiElements {
      * Security scheme type.
      */
     readonly type: string|null|undefined;
-
-    /**
-     * Security scheme name
-     */
-    readonly name: object|null;
-    readonly hasName: boolean|null|undefined;
     readonly description: string|null|undefined;
     readonly hasDescription: boolean|null|undefined;
     readonly headers: any[]|null|undefined;
@@ -89,7 +83,6 @@ declare namespace ApiElements {
      */
     _computeHasCustomProperties(shape: object|null): Boolean|null;
     _computeType(shape: any): any;
-    _computeName(shape: any): any;
     _computeSettings(shape: any): any;
     _computeIsOauth2Settings(hasSettings: any, settings: any): any;
     _computeIsOauth1Settings(hasSettings: any, settings: any): any;
