@@ -125,19 +125,19 @@
     }
 
     _computeRequestTokenUri(settings) {
-      return this._getValue(settings, 'http://raml.org/vocabularies/security#requestTokenUri');
+      return this._getValue(settings, this.ns.raml.vocabularies.security + 'requestTokenUri');
     }
 
     _computeAuthorizationUri(settings) {
-      return this._getValue(settings, 'http://raml.org/vocabularies/security#authorizationUri');
+      return this._getValue(settings, this.ns.raml.vocabularies.security + 'authorizationUri');
     }
 
     _computeTokenCredentialsUri(settings) {
-      return this._getValueArray(settings, 'http://raml.org/vocabularies/security#tokenCredentialsUri');
+      return this._getValueArray(settings, this.ns.raml.vocabularies.security + 'tokenCredentialsUri');
     }
 
     _computeSignatures(settings) {
-      return this._getValueArray(settings, 'http://raml.org/vocabularies/security#signature');
+      return this._getValueArray(settings, this.ns.raml.vocabularies.security + 'signature');
     }
 
   }

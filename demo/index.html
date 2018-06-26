@@ -109,7 +109,7 @@
       };
 
       app.setTypeData = function(id) {
-        const d = app.amfModel[0]['http://raml.org/vocabularies/document#declares'];
+        const d = app.amfModel[0]['http://a.ml/vocabularies/document#declares'];
         const security = d.find((item) => item['@id'] === id);
         if (!security) {
           app.hasData = false;

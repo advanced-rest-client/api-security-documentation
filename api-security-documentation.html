@@ -209,32 +209,32 @@
     }
 
     _computeType(shape) {
-      return this._getValue(shape, 'http://raml.org/vocabularies/security#type');
+      return this._getValue(shape, this.ns.raml.vocabularies.security + 'type');
     }
 
     _computeSettings(shape) {
-      return this._computePropertyObject(shape, 'http://raml.org/vocabularies/security#settings');
+      return this._computePropertyObject(shape, this.ns.raml.vocabularies.security + 'settings');
     }
 
     _computeIsOauth2Settings(hasSettings, settings) {
       if (!hasSettings || !settings) {
         return false;
       }
-      return this._hasType(settings, 'http://raml.org/vocabularies/security#OAuth2Settings');
+      return this._hasType(settings, this.ns.raml.vocabularies.security + 'OAuth2Settings');
     }
 
     _computeIsOauth1Settings(hasSettings, settings) {
       if (!hasSettings || !settings) {
         return false;
       }
-      return this._hasType(settings, 'http://raml.org/vocabularies/security#OAuth1Settings');
+      return this._hasType(settings, this.ns.raml.vocabularies.security + 'OAuth1Settings');
     }
 
     _computeIsCustomSettings(hasSettings, isOauth2Settings, isOauth1Settings, settings) {
       if (!hasSettings || isOauth1Settings || isOauth2Settings || !settings) {
         return false;
       }
-      return this._hasType(settings, 'http://raml.org/vocabularies/security#Settings');
+      return this._hasType(settings, this.ns.raml.vocabularies.security + 'Settings');
     }
     /**
      * Computes value for `hasCustomProperties` property.
@@ -243,7 +243,7 @@
      * @return {Boolean}
      */
     _computeHasCustomProperties(shape) {
-      return !!(shape && (shape && 'http://raml.org/vocabularies/document#customDomainProperties' in shape));
+      return !!(shape && (shape && this.ns.raml.vocabularies.document + 'customDomainProperties' in shape));
     }
   }
   window.customElements.define(ApiSecurityDocumentation.is, ApiSecurityDocumentation);
