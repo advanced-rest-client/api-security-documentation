@@ -129,26 +129,26 @@
     }
 
     _computeAccessTokenUri(settings) {
-      return this._getValue(settings, 'http://raml.org/vocabularies/security#accessTokenUri');
+      return this._getValue(settings, this.ns.raml.vocabularies.security + 'accessTokenUri');
     }
 
     _computeAuthorizationUri(settings) {
-      return this._getValue(settings, 'http://raml.org/vocabularies/security#authorizationUri');
+      return this._getValue(settings, this.ns.raml.vocabularies.security + 'authorizationUri');
     }
 
     _computeAuthorizationGrants(settings) {
-      return this._getValueArray(settings, 'http://raml.org/vocabularies/security#authorizationGrant');
+      return this._getValueArray(settings, this.ns.raml.vocabularies.security + 'authorizationGrant');
     }
 
     _computeScopes(settings) {
-      if (!this._hasProperty(settings, 'http://raml.org/vocabularies/security#scope')) {
+      if (!this._hasProperty(settings, this.ns.raml.vocabularies.security + 'scope')) {
         return;
       }
-      const scopes = settings['http://raml.org/vocabularies/security#scope'];
+      const scopes = settings[this.ns.raml.vocabularies.security + 'scope'];
       return scopes.map((item) => {
         return {
           description: this._computeDescription(item),
-          label: this._getValue(item, 'http://raml.org/vocabularies/security#name')
+          label: this._getValue(item, this.ns.raml.vocabularies.security + 'name')
         };
       });
     }

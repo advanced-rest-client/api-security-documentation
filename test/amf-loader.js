@@ -13,7 +13,7 @@ AmfLoader.load = function() {
         reject(e);
         return;
       }
-      const def = data[0]['http://raml.org/vocabularies/document#declares'];
+      const def = data[0]['http://a.ml/vocabularies/document#declares'];
       resolve([data, def]);
     });
     xhr.addEventListener('error',
