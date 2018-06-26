@@ -6,17 +6,6 @@
 
 Documentation view for AMF security description
 
-<!---
-```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="api-security-documentation.html">
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
-
 ```html
 <api-security-documentation></api-security-documentation>
 ```
