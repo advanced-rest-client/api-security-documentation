@@ -21,32 +21,24 @@
     }
 
     h1 {
-      @apply --arc-font-display1;
+      @apply --arc-font-headline;
+      @apply --api-security-documentation-title;
     }
 
     h2 {
-      @apply --arc-font-headline;
-    }
-
-    h3 {
       @apply --arc-font-title;
+      @apply --api-security-documentation-main-section-title;
     }
 
-    h4 {
-      @apply --arc-font-subhead;
+    :host([narrow]) h1 {
+      font-size: 20px;
+      margin: 0;
+      @apply --api-security-documentation-title-narrow;
     }
 
-    .settings-value {
-      background: var(--code-background-color, #f5f2f0);
-      display: block;
-      padding: 1em;
-      margin: .5em 0;
-    }
-
-    .settings-list-value {
-      background: var(--code-background-color, #f5f2f0);
-      display: block;
-      padding: 1em;
+    :host([narrow]) h2 {
+      font-size: 18px;
+      @apply --api-security-documentation-main-section-title-narrow;
     }
     </style>
     <template is="dom-if" if="[[aware]]">
@@ -63,30 +55,26 @@
         <div slot="markdown-html" class="markdown-body"></div>
       </marked-element>
     </template>
-
     <template is="dom-if" if="[[hasSettings]]">
       <template is="dom-if" if="[[isOauth2Settings]]">
-        <h3>Settings</h3>
+        <h2>Settings</h2>
         <api-oauth2-settings-document settings="[[settings]]"></api-oauth2-settings-document>
       </template>
       <template is="dom-if" if="[[isOauth1Settings]]">
-        <h3>Settings</h3>
+        <h2>Settings</h2>
         <api-oauth1-settings-document settings="[[settings]]"></api-oauth1-settings-document>
       </template>
     </template>
-
     <template is="dom-if" if="[[hasQueryParameters]]">
-      <api-parameters-document amf-model="[[amfModel]]" query-opened query-parameters="[[queryParameters]]"></api-parameters-document>
+      <api-parameters-document amf-model="[[amfModel]]" query-opened query-parameters="[[queryParameters]]" narrow="[[narrow]]"></api-parameters-document>
     </template>
-
     <template is="dom-if" if="[[hasHeaders]]">
-      <api-headers-document opened amf-model="[[amfModel]]" headers="[[headers]]"></api-headers-document>
+      <api-headers-document opened amf-model="[[amfModel]]" headers="[[headers]]" narrow="[[narrow]]"></api-headers-document>
     </template>
-
     <template is="dom-if" if="[[hasResponses]]">
       <section class="response-documentation">
-        <h3>Responses</h3>
-        <api-responses-document amf-model="[[amfModel]]" returns="[[responses]]"></api-responses-document>
+        <h2>Responses</h2>
+        <api-responses-document amf-model="[[amfModel]]" returns="[[responses]]" narrow="[[narrow]]"></api-responses-document>
       </section>
     </template>
   </template>
@@ -103,6 +91,12 @@
    * Custom property | Description | Default
    * ----------------|-------------|----------
    * `--api-security-documentation` | Mixin applied to this elment | `{}`
+   * `--arc-font-headline` | Theme mixin, Applied to H1 element | `{}`
+   * `--api-security-documentation-title` | Mixin applied to the H1 element | `{}`
+   * `--api-security-documentation-title-narrow` | Mixin applied to the H1 element in narrow layout | `{}`
+   * `--arc-font-title` | Theme mixin, applied to h2 element | `{}`
+   * `--api-security-documentation-main-section-title` | Mixin applied to main sections title element | `{}`
+   * `--api-security-documentation-main-section-title-narrow` | Mixin applied to main sections title element in narrow layout | `{}`
    *
    * @customElement
    * @polymer
@@ -204,7 +198,14 @@
         hasCustomProperties: {
           type: Boolean,
           computed: '_computeHasCustomProperties(security)'
-        }
+        },
+        /**
+         * Set to render a mobile friendly view.
+         */
+         narrow: {
+           type: Boolean,
+           reflectToAttribute: true
+         }
       };
     }
 

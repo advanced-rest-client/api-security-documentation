@@ -17,11 +17,22 @@
       @apply --arc-font-subhead;
     }
 
+    ul {
+      maring: 0;
+      padding: 0;
+    }
+
     .settings-value {
       background: var(--code-background-color, #f5f2f0);
       display: block;
       padding: 1em;
       margin: .5em 0;
+    }
+
+    .settings-list-value {
+      background: var(--code-background-color, #f5f2f0);
+      display: block;
+      padding: 1em;
     }
     </style>
     <template is="dom-if" if="[[hasAccessTokenUri]]">
@@ -38,16 +49,16 @@
       <h4>Authorization grants</h4>
       <uL>
         <template is="dom-repeat" items="[[authorizationGrants]]">
-          <li class="">[[item]]</li>
+          <li class="settings-list-value">[[item]]</li>
         </template>
       </ul>
     </template>
 
     <template is="dom-if" if="[[hasScopes]]">
       <h4>Authorization scopes</h4>
-      <uL>
+      <ul>
         <template is="dom-repeat" items="[[scopes]]">
-          <li class="">[[item.label]]</li>
+          <li class="settings-list-value">[[item.label]]</li>
         </template>
       </ul>
     </template>
