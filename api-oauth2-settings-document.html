@@ -88,14 +88,6 @@
     static get properties() {
       return {
         settings: Object,
-        /**
-         * Computed value from current `method`. True if the model contains
-         * custom properties (annotations in RAML).
-         */
-        hasCustomProperties: {
-          type: Boolean,
-          computed: '_computeHasCustomProperties(settings)'
-        },
 
         accessTokenUri: {
           type: String,
