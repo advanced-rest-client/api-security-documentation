@@ -20,12 +20,12 @@
   <script>
   /* global AmfLoader */
   suite('api-security-documentation', () => {
-    let amf;
+    // let amf;
     let declares;
     suiteSetup(() => {
       return AmfLoader.load(2, 0)
       .then((data) => {
-        amf = data[0];
+        // amf = data[0];
         declares = data[1];
       });
     });
@@ -38,36 +38,32 @@
         flush(() => done());
       });
 
-      test('type is computed', () => {
-        assert.equal(element.type, 'x-custom');
+      test('_type is computed', () => {
+        assert.equal(element._type, 'x-custom');
       });
 
-      test('hasDescription is computed', () => {
-        assert.isTrue(element.hasDescription);
+      test('_hasDescription is computed', () => {
+        assert.isTrue(element._hasDescription);
       });
 
-      test('description is computed', () => {
-        assert.typeOf(element.description, 'string');
+      test('_description is computed', () => {
+        assert.typeOf(element._description, 'string');
       });
 
-      test('hasSettings is undefined', () => {
-        assert.isUndefined(element.hasSettings);
+      test('_hasSettings is undefined', () => {
+        assert.isUndefined(element._hasSettings);
       });
 
-      test('settings is undefined', () => {
-        assert.isUndefined(element.settings);
+      test('_settings is undefined', () => {
+        assert.isUndefined(element._settings);
       });
 
-      test('isOauth2Settings is undefined', () => {
-        assert.isUndefined(element.isOauth2Settings);
+      test('_hasOA2Settings is undefined', () => {
+        assert.isUndefined(element._hasOA2Settings);
       });
 
-      test('isOauth1Settings is undefined', () => {
-        assert.isUndefined(element.isOauth1Settings);
-      });
-
-      test('isCustomSettings is undefined', () => {
-        assert.isUndefined(element.isCustomSettings);
+      test('_hasOA1Settings is undefined', () => {
+        assert.isUndefined(element._hasOA1Settings);
       });
 
       test('api-oauth2-settings-document table is not rendered', () => {
@@ -75,13 +71,13 @@
         assert.notOk(node);
       });
 
-      test('hasQueryParameters is computed', () => {
-        assert.isTrue(element.hasQueryParameters);
+      test('_hasQueryParameters is computed', () => {
+        assert.isTrue(element._hasQueryParameters);
       });
 
-      test('queryParameters is computed', () => {
-        assert.typeOf(element.queryParameters, 'array');
-        assert.lengthOf(element.queryParameters, 2);
+      test('_queryParameters is computed', () => {
+        assert.typeOf(element._queryParameters, 'array');
+        assert.lengthOf(element._queryParameters, 2);
       });
 
       test('Query Parameters table is rendered', () => {
@@ -89,13 +85,13 @@
         assert.ok(node);
       });
 
-      test('hasHeaders is computed', () => {
-        assert.isTrue(element.hasHeaders);
+      test('_hasHeaders is computed', () => {
+        assert.isTrue(element._hasHeaders);
       });
 
-      test('headers is computed', () => {
-        assert.typeOf(element.headers, 'array');
-        assert.lengthOf(element.headers, 1);
+      test('_headers is computed', () => {
+        assert.typeOf(element._headers, 'array');
+        assert.lengthOf(element._headers, 1);
       });
 
       test('headers table is rendered', () => {
@@ -103,13 +99,13 @@
         assert.ok(node);
       });
 
-      test('hasResponses is computed', () => {
-        assert.isTrue(element.hasResponses);
+      test('_hasResponses is computed', () => {
+        assert.isTrue(element._hasResponses);
       });
 
-      test('responses is computed', () => {
-        assert.typeOf(element.responses, 'array');
-        assert.lengthOf(element.responses, 2);
+      test('_responses is computed', () => {
+        assert.typeOf(element._responses, 'array');
+        assert.lengthOf(element._responses, 2);
       });
 
       test('responses table is rendered', () => {
@@ -119,7 +115,7 @@
     });
 
 
-    suite('Custom schema', () => {
+    suite('Oauth 2', () => {
       let element;
       setup((done) => {
         element = fixture('Basic');
@@ -127,36 +123,32 @@
         flush(() => done());
       });
 
-      test('type is computed', () => {
-        assert.equal(element.type, 'OAuth 2.0');
+      test('_type is computed', () => {
+        assert.equal(element._type, 'OAuth 2.0');
       });
 
-      test('hasDescription is computed', () => {
-        assert.isTrue(element.hasDescription);
+      test('_hasDescription is computed', () => {
+        assert.isTrue(element._hasDescription);
       });
 
-      test('description is computed', () => {
-        assert.typeOf(element.description, 'string');
+      test('_description is computed', () => {
+        assert.typeOf(element._description, 'string');
       });
 
-      test('hasSettings is true', () => {
-        assert.isTrue(element.hasSettings);
+      test('_hasSettings is true', () => {
+        assert.isTrue(element._hasSettings);
       });
 
-      test('settings is an object', () => {
-        assert.typeOf(element.settings, 'object');
+      test('_settings is an object', () => {
+        assert.typeOf(element._settings, 'object');
       });
 
-      test('isOauth2Settings is true', () => {
-        assert.isTrue(element.isOauth2Settings);
+      test('_hasOA2Settings is true', () => {
+        assert.isTrue(element._hasOA2Settings);
       });
 
-      test('isOauth1Settings is false', () => {
-        assert.isFalse(element.isOauth1Settings);
-      });
-
-      test('isCustomSettings is undefined', () => {
-        assert.isFalse(element.isCustomSettings);
+      test('_hasOA1Settings is false', () => {
+        assert.isFalse(element._hasOA1Settings);
       });
 
       test('api-oauth2-settings-document is rendered', () => {
@@ -164,13 +156,13 @@
         assert.ok(node);
       });
 
-      test('hasQueryParameters is computed', () => {
-        assert.isTrue(element.hasQueryParameters);
+      test('_hasQueryParameters is computed', () => {
+        assert.isTrue(element._hasQueryParameters);
       });
 
-      test('queryParameters is computed', () => {
-        assert.typeOf(element.queryParameters, 'array');
-        assert.lengthOf(element.queryParameters, 1);
+      test('_queryParameters is computed', () => {
+        assert.typeOf(element._queryParameters, 'array');
+        assert.lengthOf(element._queryParameters, 1);
       });
 
       test('Query Parameters table is rendered', () => {
@@ -179,12 +171,12 @@
       });
 
       test('hasHeaders is computed', () => {
-        assert.isTrue(element.hasHeaders);
+        assert.isTrue(element._hasHeaders);
       });
 
       test('headers is computed', () => {
-        assert.typeOf(element.headers, 'array');
-        assert.lengthOf(element.headers, 1);
+        assert.typeOf(element._headers, 'array');
+        assert.lengthOf(element._headers, 1);
       });
 
       test('headers table is rendered', () => {
@@ -193,12 +185,12 @@
       });
 
       test('hasResponses is computed', () => {
-        assert.isTrue(element.hasResponses);
+        assert.isTrue(element._hasResponses);
       });
 
       test('responses is computed', () => {
-        assert.typeOf(element.responses, 'array');
-        assert.lengthOf(element.responses, 2);
+        assert.typeOf(element._responses, 'array');
+        assert.lengthOf(element._responses, 2);
       });
 
       test('responses table is rendered', () => {
@@ -206,7 +198,6 @@
         assert.ok(node);
       });
     });
-
   });
   </script>
 </body>
