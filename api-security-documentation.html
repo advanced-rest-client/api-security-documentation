@@ -45,36 +45,36 @@
       <raml-aware raml="{{amfModel}}" scope="[[aware]]"></raml-aware>
     </template>
     <section class="title">
-      <h1>[[type]]</h1>
+      <h1>[[_type]]</h1>
     </section>
     <template is="dom-if" if="[[hasCustomProperties]]">
       <api-annotation-document shape="[[security]]"></api-annotation-document>
     </template>
-    <template is="dom-if" if="[[hasDescription]]">
-      <marked-element markdown="[[description]]">
+    <template is="dom-if" if="[[_hasDescription]]">
+      <marked-element markdown="[[_description]]">
         <div slot="markdown-html" class="markdown-body"></div>
       </marked-element>
     </template>
-    <template is="dom-if" if="[[hasSettings]]">
-      <template is="dom-if" if="[[isOauth2Settings]]">
+    <template is="dom-if" if="[[_hasSettings]]">
+      <template is="dom-if" if="[[_hasOA2Settings]]">
         <h2>Settings</h2>
-        <api-oauth2-settings-document settings="[[settings]]"></api-oauth2-settings-document>
+        <api-oauth2-settings-document amf-model="[[amfModel]]" settings="[[_settings]]"></api-oauth2-settings-document>
       </template>
-      <template is="dom-if" if="[[isOauth1Settings]]">
+      <template is="dom-if" if="[[_hasOA1Settings]]">
         <h2>Settings</h2>
-        <api-oauth1-settings-document settings="[[settings]]"></api-oauth1-settings-document>
+        <api-oauth1-settings-document amf-model="[[amfModel]]" settings="[[_settings]]"></api-oauth1-settings-document>
       </template>
     </template>
-    <template is="dom-if" if="[[hasQueryParameters]]">
-      <api-parameters-document amf-model="[[amfModel]]" query-opened query-parameters="[[queryParameters]]" narrow="[[narrow]]"></api-parameters-document>
+    <template is="dom-if" if="[[_hasQueryParameters]]">
+      <api-parameters-document amf-model="[[amfModel]]" query-opened query-parameters="[[_queryParameters]]" narrow="[[narrow]]"></api-parameters-document>
     </template>
-    <template is="dom-if" if="[[hasHeaders]]">
-      <api-headers-document opened amf-model="[[amfModel]]" headers="[[headers]]" narrow="[[narrow]]"></api-headers-document>
+    <template is="dom-if" if="[[_hasHeaders]]">
+      <api-headers-document opened amf-model="[[amfModel]]" headers="[[_headers]]" narrow="[[narrow]]"></api-headers-document>
     </template>
-    <template is="dom-if" if="[[hasResponses]]">
+    <template is="dom-if" if="[[_hasResponses]]">
       <section class="response-documentation">
         <h2>Responses</h2>
-        <api-responses-document amf-model="[[amfModel]]" returns="[[responses]]" narrow="[[narrow]]"></api-responses-document>
+        <api-responses-document amf-model="[[amfModel]]" returns="[[_responses]]" narrow="[[narrow]]"></api-responses-document>
       </section>
     </template>
   </template>
@@ -105,7 +105,7 @@
    * @appliesMixin ApiElements.AmfHelperMixin
    */
   class ApiSecurityDocumentation extends ApiElements.AmfHelperMixin(Polymer.Element) {
-    static get is() { return 'api-security-documentation'; }
+    static get is() {return 'api-security-documentation';}
     static get properties() {
       return {
         /**
@@ -120,76 +120,75 @@
          */
         security: Object,
         /**
+         * Computed value, scheme of the security
+         */
+        _scheme: {type: Object, computed: '_computeScheme(security, amfModel)'},
+        /**
          * Security scheme type.
          */
-        type: {
+        _type: {
           type: String,
-          computed: '_computeType(security)'
+          computed: '_computeType(_scheme)'
         },
 
-        description: {
+        _description: {
           type: String,
-          computed: '_computeDescription(security)'
+          computed: '_computeDescription(_scheme)'
         },
 
-        hasDescription: {
+        _hasDescription: {
           type: Boolean,
-          computed: '_computeHasStringValue(description)'
+          computed: '_computeHasStringValue(_description)'
         },
 
-        headers: {
+        _headers: {
           type: Array,
-          computed: '_computeHeaders(security)'
+          computed: '_computeHeaders(_scheme)'
         },
 
-        hasHeaders: {
+        _hasHeaders: {
           type: Array,
-          computed: '_computeHasArrayValue(headers)'
+          computed: '_computeHasArrayValue(_headers)'
         },
 
-        queryParameters: {
+        _queryParameters: {
           type: Array,
-          computed: '_computeQueryParameters(security)'
+          computed: '_computeQueryParameters(_scheme)'
         },
 
-        hasQueryParameters: {
+        _hasQueryParameters: {
           type: Array,
-          computed: '_computeHasArrayValue(queryParameters)'
+          computed: '_computeHasArrayValue(_queryParameters)'
         },
 
-        responses: {
+        _responses: {
           type: Array,
-          computed: '_computeResponses(security)'
+          computed: '_computeResponses(_scheme)'
         },
 
-        hasResponses: {
+        _hasResponses: {
           type: Array,
-          computed: '_computeHasArrayValue(responses)'
+          computed: '_computeHasArrayValue(_responses)'
         },
 
-        settings: {
+        _settings: {
           type: Array,
-          computed: '_computeSettings(security)'
+          computed: '_computeSettings(_scheme)'
         },
 
-        hasSettings: {
+        _hasSettings: {
           type: Array,
-          computed: '_computeHasStringValue(settings)'
+          computed: '_computeHasStringValue(_settings)'
         },
 
-        isOauth2Settings: {
+        _hasOA2Settings: {
           type: Boolean,
-          computed: '_computeIsOauth2Settings(hasSettings, settings)'
+          computed: '_computeHasOA2Settings(_hasSettings, _settings)'
         },
 
-        isOauth1Settings: {
+        _hasOA1Settings: {
           type: Boolean,
-          computed: '_computeIsOauth1Settings(hasSettings, settings)'
-        },
-
-        isCustomSettings: {
-          type: Boolean,
-          computed: '_computeIsCustomSettings(hasSettings, isOauth2Settings, isOauth1Settings, settings)'
+          computed: '_computeHasOA1Settings(_hasSettings, _settings)'
         },
         /**
          * Computed value from current `method`. True if the model contains
@@ -209,6 +208,27 @@
       };
     }
 
+    _computeScheme(security) {
+      if (!security) {
+        return;
+      }
+      if (security instanceof Array) {
+        security = security[0];
+      }
+      if (this._hasType(security, this.ns.raml.vocabularies.security + 'SecurityScheme')) {
+        return security;
+      }
+      const key = this._getAmfKey(this.ns.raml.vocabularies.security + 'scheme');
+      let scheme = security[key];
+      if (!scheme) {
+        return;
+      }
+      if (scheme instanceof Array) {
+        scheme = scheme[0];
+      }
+      return scheme;
+    }
+
     _computeType(shape) {
       return this._getValue(shape, this.ns.raml.vocabularies.security + 'type');
     }
@@ -217,34 +237,18 @@
       return this._computePropertyObject(shape, this.ns.raml.vocabularies.security + 'settings');
     }
 
-    _computeIsOauth2Settings(hasSettings, settings) {
+    _computeHasOA2Settings(hasSettings, settings) {
       if (!hasSettings || !settings) {
         return false;
       }
       return this._hasType(settings, this.ns.raml.vocabularies.security + 'OAuth2Settings');
     }
 
-    _computeIsOauth1Settings(hasSettings, settings) {
+    _computeHasOA1Settings(hasSettings, settings) {
       if (!hasSettings || !settings) {
         return false;
       }
       return this._hasType(settings, this.ns.raml.vocabularies.security + 'OAuth1Settings');
-    }
-
-    _computeIsCustomSettings(hasSettings, isOauth2Settings, isOauth1Settings, settings) {
-      if (!hasSettings || isOauth1Settings || isOauth2Settings || !settings) {
-        return false;
-      }
-      return this._hasType(settings, this.ns.raml.vocabularies.security + 'Settings');
-    }
-    /**
-     * Computes value for `hasCustomProperties` property.
-     *
-     * @param {Object} shape AMF `supportedOperation` model
-     * @return {Boolean}
-     */
-    _computeHasCustomProperties(shape) {
-      return !!(shape && (shape && this.ns.raml.vocabularies.document + 'customDomainProperties' in shape));
     }
   }
   window.customElements.define(ApiSecurityDocumentation.is, ApiSecurityDocumentation);

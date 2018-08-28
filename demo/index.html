@@ -13,40 +13,14 @@
     <link rel="import" href="../../raml-aware/raml-aware.html">
     <link rel="import" href="../../api-navigation/api-navigation.html">
     <link rel="import" href="../../paper-styles/typography.html">
+    <link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
+    <link rel="import" href="../../paper-item/paper-item.html">
+    <link rel="import" href="../../paper-listbox/paper-listbox.html">
+    <link rel="import" href="../../neon-animation/web-animations.html">
+    <link rel="import" href="../../api-console-default-theme/api-console-default-theme.html">
     <link rel="import" href="../api-security-documentation.html">
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
-      :root {
-        --arc-font-display1: {
-          @apply --paper-font-display1;
-        };
-        --arc-font-headline: {
-          @apply --paper-font-headline;
-        };
-        --arc-font-title: {
-          @apply --paper-font-title;
-        };
-        --arc-font-subhead: {
-          @apply --paper-font-subhead;
-        };
-        --arc-font-body1: {
-          @apply --paper-font-body1;
-          word-break: break-word;
-        };
-        --arc-font-common-code: {
-          @apply --paper-font-common-code;
-          word-break: break-word !important;
-          overflow: auto;
-          white-space: pre-wrap !important;
-        };
-        --arc-font-code1: {
-          @apply --paper-font-code1;
-          word-wrap: break-word;
-          word-break: break-all;
-          overflow: auto;
-        };
-      }
-
       html,
       body {
         margin: 0;
@@ -69,12 +43,37 @@
         margin-left: 40px;
         @apply --layout-flex;
       }
+
+      header {
+        padding: 12px 24px;
+        background-color: #C5E1A5;
+        --iron-icon-fill-color: #3E2723;
+        --paper-input-container-focus-color: #33691E;
+        --paper-input-container-label: {
+          color: #3E2723;
+        };
+        @apply --layout-horizontal;
+        @apply --layout-center;
+      }
+
+      .spacer {
+        @apply --layout-flex;
+      }
       </style>
     </custom-style>
   </head>
   <body>
     <dom-bind id="demo">
       <template is="dom-bind">
+        <header>
+          <paper-dropdown-menu label="Select demo endpoint">
+            <paper-listbox slot="dropdown-content" id="enpointsList" on-selected-changed="_apiChanged">
+              <paper-item data-src="demo-api.json">Demo api</paper-item>
+              <paper-item data-src="demo-api-compact.json">Demo api - compact model</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
+          <div class="spacer"></div>
+        </header>
         <raml-aware raml="{{amfModel}}" scope="model"></raml-aware>
         <div class="vertical-section-container centered" role="main">
           <api-navigation aware="model" security-opened></api-navigation>
@@ -82,22 +81,37 @@
           <template is="dom-if" if="[[hasData]]">
             <api-security-documentation aware="model" security="[[security]]"></api-security-documentation>
           </template>
+
           <template is="dom-if" if="[[!hasData]]">
             <p>Select security in the navigation to see the demo.</p>
           </template>
         </div>
+
+        <demo-element id="helper" amf-model="{{amfModel}}"></demo-element>
       </template>
     </dom-bind>
     <script>
     (function(app) {
+      // const ns = ApiElements.Amf.ns;
+      class DemoElement extends ApiElements.AmfHelperMixin(Polymer.Element) {}
+      window.customElements.define('demo-element', DemoElement);
+
       app.hasData = false;
       app._load = function() {
-        fetch('./demo-api.json')
+        document.getElementById('enpointsList').selected = 0;
+      };
+      app._loadFile = function(file) {
+        fetch('./' + file)
         .then((response) => response.json())
         .then((data) => {
           app.amfModel = data;
         });
       };
+      app._apiChanged = function(e) {
+        const file = e.target.selectedItem.dataset.src;
+        app._loadFile(file);
+      };
+
       app._navChanged = function(e) {
         const type = e.detail.type;
         if (type === 'security') {
@@ -109,13 +123,14 @@
       };
 
       app.setTypeData = function(id) {
-        const d = app.amfModel[0]['http://a.ml/vocabularies/document#declares'];
-        const security = d.find((item) => item['@id'] === id);
+        const dec = app.$.helper._computeDeclares(app.amfModel);
+        const security = dec.find((item) => item['@id'] === id);
         if (!security) {
           app.hasData = false;
           console.error('Security not found');
           return;
         }
+        console.log(security);
         app.security = security;
         app.hasData = true;
       };

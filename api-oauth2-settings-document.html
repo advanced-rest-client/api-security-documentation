@@ -84,7 +84,7 @@
    * @appliesMixin ApiElements.AmfHelperMixin
    */
   class ApiOauth2SettingsDocument extends ApiElements.AmfHelperMixin(Polymer.Element) {
-    static get is() { return 'api-oauth2-settings-document'; }
+    static get is() {return 'api-oauth2-settings-document';}
     static get properties() {
       return {
         settings: Object,
@@ -127,6 +127,14 @@
         hasScopes: {
           type: Array,
           computed: '_computeHasArrayValue(scopes)'
+        },
+        /**
+         * Computed value from current `method`. True if the model contains
+         * custom properties (annotations in RAML).
+         */
+        hasCustomProperties: {
+          type: Boolean,
+          computed: '_computeHasCustomProperties(settings)'
         }
       };
     }
@@ -147,7 +155,8 @@
       if (!this._hasProperty(settings, this.ns.raml.vocabularies.security + 'scope')) {
         return;
       }
-      const scopes = settings[this.ns.raml.vocabularies.security + 'scope'];
+      const key = this._getAmfKey(this.ns.raml.vocabularies.security + 'scope');
+      const scopes = this._ensureArray(settings[key]);
       return scopes.map((item) => {
         return {
           description: this._computeDescription(item),
