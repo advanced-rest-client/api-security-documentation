@@ -1,8 +1,9 @@
 const AmfLoader = {};
-AmfLoader.load = function() {
+AmfLoader.load = function(type, compact) {
+  const file = '/demo-api' + (compact ? '-compact' : '') + '.json';
   const url = location.protocol + '//' + location.host +
     location.pathname.substr(0, location.pathname.lastIndexOf('/'))
-    .replace('/test', '/demo') + '/demo-api.json';
+    .replace('/test', '/demo') + file;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', (e) => {
@@ -13,8 +14,35 @@ AmfLoader.load = function() {
         reject(e);
         return;
       }
-      const def = data[0]['http://a.ml/vocabularies/document#declares'];
-      resolve([data, def]);
+      const ns = ApiElements.Amf.ns;
+      const original = data;
+      if (data instanceof Array) {
+        data = data[0];
+      }
+      const decKey = compact ? 'doc:declares' :
+        ns.raml.vocabularies.document + 'declares';
+      let declares = data[decKey];
+      if (!(declares instanceof Array)) {
+        declares = [declares];
+      }
+      const result = declares.find((item) => {
+        const key = compact ? 'document:name' :
+          ns.raml.vocabularies.document + 'name';
+        let name = item[key];
+        if (!name) {
+          const key = compact ? 'security:name' :
+            ns.raml.vocabularies.security + 'name';
+          name = item[key];
+        }
+        if (name instanceof Array) {
+          name = name[0];
+        }
+        if (name && name['@value']) {
+          name = name['@value'];
+        }
+        return name === type;
+      });
+      resolve([original, result]);
     });
     xhr.addEventListener('error',
       () => reject(new Error('Unable to load model file')));

@@ -64,20 +64,79 @@ declare namespace ApiElements {
     readonly _scheme: object|null|undefined;
 
     /**
-     * Security scheme type.
+     * Security scheme type name.
+     * The value is updated automatically when `security` property change.
      */
-    readonly _type: string|null|undefined;
-    readonly _description: string|null|undefined;
+    type: string|null|undefined;
+
+    /**
+     * Security scheme description.
+     * The value is updated automatically when `security` property change.
+     */
+    description: string|null|undefined;
+
+    /**
+     * Computed value, true when `description` has value.
+     */
     readonly _hasDescription: boolean|null|undefined;
-    readonly _headers: any[]|null|undefined;
-    readonly _hasHeaders: any[]|null|undefined;
-    readonly _queryParameters: any[]|null|undefined;
-    readonly _hasQueryParameters: any[]|null|undefined;
-    readonly _responses: any[]|null|undefined;
-    readonly _hasResponses: any[]|null|undefined;
-    readonly _settings: any[]|null|undefined;
-    readonly _hasSettings: any[]|null|undefined;
+
+    /**
+     * AMF headers model.
+     * List of headers to apply to this scheme.
+     * This value is updated automatically when `security` property change.
+     */
+    headers: Array<object|null>|null;
+
+    /**
+     * Computed value, true when `headers` property is set.
+     */
+    readonly _hasHeaders: boolean|null|undefined;
+
+    /**
+     * AMF query parameters model.
+     * List of query parameters to apply to this scheme.
+     * This value is updated automatically when `security` property change.
+     */
+    queryParameters: Array<object|null>|null;
+
+    /**
+     * Computed value, true when `queryParameters` has value.
+     */
+    readonly _hasQueryParameters: boolean|null|undefined;
+
+    /**
+     * AMF responses model.
+     * List of responses applied to this security scheme.
+     * This value is updated automatically when `security` property change.
+     */
+    responses: Array<object|null>|null;
+
+    /**
+     * Computed value, true when responses has any value.
+     */
+    readonly _hasResponses: object|null;
+
+    /**
+     * AMF settings model for a security scheme.
+     * This value is updated automatically when `security` property change.
+     */
+    settings: object|null;
+
+    /**
+     * Computed value, true when `settings` proeprty is set.
+     */
+    readonly _hasSettings: boolean|null|undefined;
+
+    /**
+     * Computed value, true when `settings` proeprty is set and represent
+     * OAuth2 security settings.
+     */
     readonly _hasOA2Settings: boolean|null|undefined;
+
+    /**
+     * Computed value, true when `settings` proeprty is set and represent
+     * OAuth1 security settings.
+     */
     readonly _hasOA1Settings: boolean|null|undefined;
 
     /**
@@ -90,11 +149,54 @@ declare namespace ApiElements {
      * Set to render a mobile friendly view.
      */
     narrow: boolean|null|undefined;
-    _computeType(shape: any): any;
-    _computeScheme(security: any): any;
-    _computeSettings(shape: any): any;
-    _computeHasOA2Settings(hasSettings: any, settings: any): any;
-    _computeHasOA1Settings(hasSettings: any, settings: any): any;
+
+    /**
+     * Computes value for security type.
+     *
+     * @param shape Scheme model.
+     */
+    _computeType(shape: object|null): String|null|undefined;
+
+    /**
+     * Computes value of security scheme's scheme model.
+     *
+     * @param security AMF security description.
+     * @returns Security's scheme model.
+     */
+    _computeScheme(security: any[]|object|null): object|null;
+
+    /**
+     * Computes values for prroperties like `type`, `description`, `headers`,
+     * `queryParameters`, `responses` and `settings` when `scheme` property
+     * change.
+     *
+     * @param scheme Scheme model to process.
+     */
+    _schemeChanged(scheme: object|null): void;
+
+    /**
+     * Computes scheme's settings model.
+     *
+     * @param shape Scheme model.
+     * @returns Settings model
+     */
+    _computeSettings(shape: object|null): object|null|undefined;
+
+    /**
+     * Computes value for `_hasOA2Settings`
+     *
+     * @param hasSettings Value of `_hasSettings` proeprty
+     * @param settings Computed settings object
+     */
+    _computeHasOA2Settings(hasSettings: Boolean|null, settings: object|null|undefined): Boolean|null;
+
+    /**
+     * Computes value for `_hasOA1Settings`
+     *
+     * @param hasSettings Value of `_hasSettings` proeprty
+     * @param settings Computed settings object
+     */
+    _computeHasOA1Settings(hasSettings: Boolean|null, settings: object|null|undefined): Boolean|null;
   }
 }
 

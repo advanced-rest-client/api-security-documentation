@@ -1,6 +1,7 @@
 #%RAML 1.0 SecurityScheme
 type: OAuth 2.0
 description: This API supports OAuth 2.0 for authenticating all API requests.
+displayName: OAuth2 (simple)
 describedBy:
   queryParameters:
     access_token:
@@ -15,7 +16,7 @@ describedBy:
       required: false
   responses:
     401:
-      description: Bad or expired token. This can happen if the user or Dropbox revoked or expired an access token. To fix, re-authenticate the user.
+      description: Bad or expired token. This can happen if the user or the service revoked or expired an access token. To fix, re-authenticate the user.
       body:
         application/json:
     403:
@@ -25,5 +26,5 @@ describedBy:
 settings:
   accessTokenUri: http://api.domain.com/oauth2/token
   authorizationUri: http://api.domain.com/oauth2/auth
-  authorizationGrants: ["authorization_code", "implicit"]
+  authorizationGrants: ["authorization_code", "implicit", "https://schema.org/auth"]
   scopes: ["profile", "email"]

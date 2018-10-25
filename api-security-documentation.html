@@ -45,36 +45,36 @@
       <raml-aware raml="{{amfModel}}" scope="[[aware]]"></raml-aware>
     </template>
     <section class="title">
-      <h1>[[_type]]</h1>
+      <h1>[[type]]</h1>
     </section>
     <template is="dom-if" if="[[hasCustomProperties]]">
       <api-annotation-document shape="[[security]]"></api-annotation-document>
     </template>
     <template is="dom-if" if="[[_hasDescription]]">
-      <marked-element markdown="[[_description]]">
+      <marked-element markdown="[[description]]">
         <div slot="markdown-html" class="markdown-body"></div>
       </marked-element>
     </template>
     <template is="dom-if" if="[[_hasSettings]]">
       <template is="dom-if" if="[[_hasOA2Settings]]">
-        <h2>Settings</h2>
-        <api-oauth2-settings-document amf-model="[[amfModel]]" settings="[[_settings]]"></api-oauth2-settings-document>
+        <h2 class="settings-title">Settings</h2>
+        <api-oauth2-settings-document amf-model="[[amfModel]]" settings="[[settings]]"></api-oauth2-settings-document>
       </template>
       <template is="dom-if" if="[[_hasOA1Settings]]">
-        <h2>Settings</h2>
-        <api-oauth1-settings-document amf-model="[[amfModel]]" settings="[[_settings]]"></api-oauth1-settings-document>
+        <h2 class="settings-title">Settings</h2>
+        <api-oauth1-settings-document amf-model="[[amfModel]]" settings="[[settings]]"></api-oauth1-settings-document>
       </template>
     </template>
     <template is="dom-if" if="[[_hasQueryParameters]]">
-      <api-parameters-document amf-model="[[amfModel]]" query-opened query-parameters="[[_queryParameters]]" narrow="[[narrow]]"></api-parameters-document>
+      <api-parameters-document amf-model="[[amfModel]]" query-opened query-parameters="[[queryParameters]]" narrow="[[narrow]]"></api-parameters-document>
     </template>
     <template is="dom-if" if="[[_hasHeaders]]">
-      <api-headers-document opened amf-model="[[amfModel]]" headers="[[_headers]]" narrow="[[narrow]]"></api-headers-document>
+      <api-headers-document opened amf-model="[[amfModel]]" headers="[[headers]]" narrow="[[narrow]]"></api-headers-document>
     </template>
     <template is="dom-if" if="[[_hasResponses]]">
       <section class="response-documentation">
         <h2>Responses</h2>
-        <api-responses-document amf-model="[[amfModel]]" returns="[[_responses]]" narrow="[[narrow]]"></api-responses-document>
+        <api-responses-document amf-model="[[amfModel]]" returns="[[responses]]" narrow="[[narrow]]"></api-responses-document>
       </section>
     </template>
   </template>
@@ -105,7 +105,9 @@
    * @appliesMixin ApiElements.AmfHelperMixin
    */
   class ApiSecurityDocumentation extends ApiElements.AmfHelperMixin(Polymer.Element) {
-    static get is() {return 'api-security-documentation';}
+    static get is() {
+      return 'api-security-documentation';
+    }
     static get properties() {
       return {
         /**
@@ -122,73 +124,95 @@
         /**
          * Computed value, scheme of the security
          */
-        _scheme: {type: Object, computed: '_computeScheme(security, amfModel)'},
+        _scheme: {type: Object, computed: '_computeScheme(security, amfModel)', observer: '_schemeChanged'},
         /**
-         * Security scheme type.
+         * Security scheme type name.
+         * The value is updated automatically when `security` property change.
          */
-        _type: {
-          type: String,
-          computed: '_computeType(_scheme)'
-        },
-
-        _description: {
-          type: String,
-          computed: '_computeDescription(_scheme)'
-        },
-
+        type: String,
+        /**
+         * Security scheme description.
+         * The value is updated automatically when `security` property change.
+         */
+        description: String,
+        /**
+         * Computed value, true when `description` has value.
+         */
         _hasDescription: {
           type: Boolean,
-          computed: '_computeHasStringValue(_description)'
+          computed: '_computeHasStringValue(description)'
         },
-
-        _headers: {
-          type: Array,
-          computed: '_computeHeaders(_scheme)'
-        },
-
+        /**
+         * AMF headers model.
+         * List of headers to apply to this scheme.
+         * This value is updated automatically when `security` property change.
+         * @type {Array<Object>}
+         */
+        headers: Array,
+        /**
+         * Computed value, true when `headers` property is set.
+         */
         _hasHeaders: {
-          type: Array,
-          computed: '_computeHasArrayValue(_headers)'
+          type: Boolean,
+          computed: '_computeHasArrayValue(headers)'
         },
-
-        _queryParameters: {
-          type: Array,
-          computed: '_computeQueryParameters(_scheme)'
-        },
-
+        /**
+         * AMF query parameters model.
+         * List of query parameters to apply to this scheme.
+         * This value is updated automatically when `security` property change.
+         * @type {Array<Object>}
+         */
+        queryParameters: Array,
+        /**
+         * Computed value, true when `queryParameters` has value.
+         */
         _hasQueryParameters: {
-          type: Array,
-          computed: '_computeHasArrayValue(_queryParameters)'
+          type: Boolean,
+          computed: '_computeHasArrayValue(queryParameters)'
         },
-
-        _responses: {
-          type: Array,
-          computed: '_computeResponses(_scheme)'
-        },
-
+        /**
+         * AMF responses model.
+         * List of responses applied to this security scheme.
+         * This value is updated automatically when `security` property change.
+         * @type {Array<Object>}
+         */
+        responses: Array,
+        /**
+         * Computed value, true when responses has any value.
+         * @type {Object}
+         */
         _hasResponses: {
-          type: Array,
-          computed: '_computeHasArrayValue(_responses)'
+          type: Boolean,
+          computed: '_computeHasArrayValue(responses)'
         },
-
-        _settings: {
-          type: Array,
-          computed: '_computeSettings(_scheme)'
-        },
-
+        /**
+         * AMF settings model for a security scheme.
+         * This value is updated automatically when `security` property change.
+         * @type {Object}
+         */
+        settings: Object,
+        /**
+         * Computed value, true when `settings` proeprty is set.
+         */
         _hasSettings: {
-          type: Array,
-          computed: '_computeHasStringValue(_settings)'
+          type: Boolean,
+          computed: '_computeHasStringValue(settings)'
         },
-
+        /**
+         * Computed value, true when `settings` proeprty is set and represent
+         * OAuth2 security settings.
+         */
         _hasOA2Settings: {
           type: Boolean,
-          computed: '_computeHasOA2Settings(_hasSettings, _settings)'
+          computed: '_computeHasOA2Settings(_hasSettings, settings)'
         },
-
+        /**
+         * Computed value, true when `settings` proeprty is set and represent
+         * OAuth1 security settings.
+         */
         _hasOA1Settings: {
           type: Boolean,
-          computed: '_computeHasOA1Settings(_hasSettings, _settings)'
+          computed: '_computeHasOA1Settings(_hasSettings, settings)'
         },
         /**
          * Computed value from current `method`. True if the model contains
@@ -207,7 +231,11 @@
          }
       };
     }
-
+    /**
+     * Computes value of security scheme's scheme model.
+     * @param {Array|Object} security AMF security description.
+     * @return {Object} Security's scheme model.
+     */
     _computeScheme(security) {
       if (!security) {
         return;
@@ -228,22 +256,66 @@
       }
       return scheme;
     }
-
+    /**
+     * Computes values for prroperties like `type`, `description`, `headers`,
+     * `queryParameters`, `responses` and `settings` when `scheme` property
+     * change.
+     * @param {Object} scheme Scheme model to process.
+     */
+    _schemeChanged(scheme) {
+      this.type = this._computeType(scheme);
+      this.description = this._computeDescription(scheme);
+      let headers = this._computeHeaders(scheme);
+      if (headers && !(headers instanceof Array)) {
+        headers = [headers];
+      }
+      this.headers = headers;
+      let queryParameters = this._computeQueryParameters(scheme);
+      if (queryParameters && !(queryParameters instanceof Array)) {
+        queryParameters = [queryParameters];
+      }
+      this.queryParameters = queryParameters;
+      let responses = this._computeResponses(scheme);
+      if (responses && !(responses instanceof Array)) {
+        responses = [responses];
+      }
+      this.responses = responses;
+      this.settings = this._computeSettings(scheme);
+    }
+    /**
+     * Computes value for security type.
+     * @param {Object} shape Scheme model.
+     * @return {String|undefined}
+     */
     _computeType(shape) {
       return this._getValue(shape, this.ns.raml.vocabularies.security + 'type');
     }
-
+    /**
+     * Computes scheme's settings model.
+     * @param {Object} shape Scheme model.
+     * @return {Object|undefined} Settings model
+     */
     _computeSettings(shape) {
       return this._computePropertyObject(shape, this.ns.raml.vocabularies.security + 'settings');
     }
-
+    /**
+     * Computes value for `_hasOA2Settings`
+     * @param {Boolean} hasSettings Value of `_hasSettings` proeprty
+     * @param {Object|undefined} settings Computed settings object
+     * @return {Boolean}
+     */
     _computeHasOA2Settings(hasSettings, settings) {
       if (!hasSettings || !settings) {
         return false;
       }
       return this._hasType(settings, this.ns.raml.vocabularies.security + 'OAuth2Settings');
     }
-
+    /**
+     * Computes value for `_hasOA1Settings`
+     * @param {Boolean} hasSettings Value of `_hasSettings` proeprty
+     * @param {Object|undefined} settings Computed settings object
+     * @return {Boolean}
+     */
     _computeHasOA1Settings(hasSettings, settings) {
       if (!hasSettings || !settings) {
         return false;
