@@ -10,8 +10,6 @@
 
 /// <reference path="../polymer/types/polymer-element.d.ts" />
 /// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../markdown-styles/markdown-styles.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
 /// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
 
 declare namespace ApiElements {
@@ -19,7 +17,26 @@ declare namespace ApiElements {
   /**
    * `api-oauth1-settings-document`
    *
-   * Documentation view for AMF OAuth2 security settings
+   * Documentation view for AMF OAuth2 security settings.
+   *
+   * Settings can be passed by setting the `settings` property to AMF's
+   * settings property of Security Scheme.
+   *
+   * ```html
+   * <api-oauth1-settings-document
+   *  amf-model="{...}"
+   *  settings="{...}"></api-oauth1-settings-document>
+   * ```
+   *
+   * It is also possible to set corresponding properties directly.
+   *
+   * ```html
+   * <api-oauth1-settings-document
+   *  amf-model="{...}"
+   *  request-token-uri="https://..."
+   *  authorization-uri="https://..."
+   *  signatures='["RSA-SHA1"]'></api-oauth1-settings-document>
+   * ```
    *
    * ## Styling
    *
@@ -32,25 +49,103 @@ declare namespace ApiElements {
   class ApiOauth1SettingsDocument extends
     ApiElements.AmfHelperMixin(
     Object) {
-    settings: object|null|undefined;
 
     /**
-     * Computed value from current `method`. True if the model contains
-     * custom properties (annotations in RAML).
+     * OAuth1 settings scheme of AMF.
+     * When this property changes it resets other properties.
      */
-    readonly hasCustomProperties: boolean|null|undefined;
-    readonly requestTokenUri: string|null|undefined;
+    settings: object|null;
+
+    /**
+     * The request token URI from the settings model.
+     * Automatically set when `settings` property change.
+     */
+    requestTokenUri: string|null|undefined;
+
+    /**
+     * Computed value. True if `requestTokenUri` is set.
+     */
     readonly hasRequestTokenUri: boolean|null|undefined;
-    readonly authorizationUri: string|null|undefined;
+
+    /**
+     * The authorization endpoint URI.
+     * Automatically set when `settings` property change.
+     */
+    authorizationUri: string|null|undefined;
+
+    /**
+     * Computed value. True if `authorizationUri` is set.
+     */
     readonly hasAuthorizationUri: boolean|null|undefined;
-    readonly tokenCredentialsUri: string|null|undefined;
+
+    /**
+     * Token credentials endpoint URI.
+     * Automatically set when `settings` property change.
+     */
+    tokenCredentialsUri: string|null|undefined;
+
+    /**
+     * Computed value. True if `tokenCredentialsUri` is set.
+     */
     readonly hasTokenCredentialsUri: boolean|null|undefined;
-    readonly signatures: any[]|null|undefined;
+
+    /**
+     * List of signatures used by this authorization server.
+     * Automatically set when `settings` property change.
+     */
+    signatures: Array<String|null>|null;
+
+    /**
+     * Computed value. True if `signatures` is set.
+     */
     readonly hasSignatures: boolean|null|undefined;
-    _computeRequestTokenUri(settings: any): any;
-    _computeAuthorizationUri(settings: any): any;
-    _computeTokenCredentialsUri(settings: any): any;
-    _computeSignatures(settings: any): any;
+
+    /**
+     * Called automatically when `settings` property change (whole object,
+     * not sub property).
+     * Sets values of all other properties to the one found in the AMF.
+     *
+     * @param settings AMF settings to process.
+     */
+    _settingsChanged(settings: object|null): void;
+
+    /**
+     * If passed argument is an array it returns first object from it. Otherwise
+     * it returns the object.
+     */
+    _deArray(result: any|null): any|null;
+
+    /**
+     * Computes value of request token endpoint URI.
+     *
+     * @param settings AMF settings to process.
+     * @returns Request token URI value
+     */
+    _computeRequestTokenUri(settings: object|null): String|null|undefined;
+
+    /**
+     * Computes value of authorization endpoint URI.
+     *
+     * @param settings AMF settings to process.
+     * @returns Authorization URI value
+     */
+    _computeAuthorizationUri(settings: object|null): String|null|undefined;
+
+    /**
+     * Computes value of token credentials endpoint URI.
+     *
+     * @param settings AMF settings to process.
+     * @returns Token credentials URI value
+     */
+    _computeTokenCredentialsUri(settings: object|null): String|null|undefined;
+
+    /**
+     * Computes value of OAuth1 signatures.
+     *
+     * @param settings AMF settings to process.
+     * @returns List of signatures.
+     */
+    _computeSignatures(settings: object|null): Array<String|null>|null|undefined;
   }
 }
 
