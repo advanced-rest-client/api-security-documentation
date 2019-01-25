@@ -8,6 +8,9 @@
  *   api-oauth2-settings-document.html
  */
 
+
+// tslint:disable:variable-name Describing an API that's defined elsewhere.
+
 /// <reference path="../polymer/types/polymer-element.d.ts" />
 /// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
 /// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
