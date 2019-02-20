@@ -5,26 +5,18 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   api-security-documentation.html
+ *   api-security-documentation.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../raml-aware/raml-aware.d.ts" />
-/// <reference path="../markdown-styles/markdown-styles.d.ts" />
-/// <reference path="../marked-element/marked-element.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-/// <reference path="../api-annotation-document/api-annotation-document.d.ts" />
-/// <reference path="../api-parameters-document/api-parameters-document.d.ts" />
-/// <reference path="../api-headers-document/api-headers-document.d.ts" />
-/// <reference path="../api-responses-document/api-responses-document.d.ts" />
-/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
-/// <reference path="api-oauth2-settings-document.d.ts" />
-/// <reference path="api-oauth1-settings-document.d.ts" />
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+
+import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 
 declare namespace ApiElements {
 
@@ -48,7 +40,7 @@ declare namespace ApiElements {
    * `--api-security-documentation-main-section-title-narrow` | Mixin applied to main sections title element in narrow layout | `{}`
    */
   class ApiSecurityDocumentation extends
-    ApiElements.AmfHelperMixin(
+    AmfHelperMixin(
     Object) {
 
     /**
@@ -204,6 +196,9 @@ declare namespace ApiElements {
   }
 }
 
-interface HTMLElementTagNameMap {
-  "api-security-documentation": ApiElements.ApiSecurityDocumentation;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "api-security-documentation": ApiElements.ApiSecurityDocumentation;
+  }
 }

@@ -1,4 +1,5 @@
-const AmfLoader = {};
+import {ns} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+export const AmfLoader = {};
 AmfLoader.load = function(type, compact) {
   const file = '/demo-api' + (compact ? '-compact' : '') + '.json';
   const url = location.protocol + '//' + location.host +
@@ -14,7 +15,6 @@ AmfLoader.load = function(type, compact) {
         reject(e);
         return;
       }
-      const ns = ApiElements.Amf.ns;
       const original = data;
       if (data instanceof Array) {
         data = data[0];
