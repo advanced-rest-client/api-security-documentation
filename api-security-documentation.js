@@ -1,15 +1,15 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
-import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
-import '@polymer/polymer/lib/elements/dom-if.js';
-import '@api-components/raml-aware/raml-aware.js';
-import '@advanced-rest-client/markdown-styles/markdown-styles.js';
-import '@polymer/marked-element/marked-element.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import '@api-components/api-annotation-document/api-annotation-document.js';
-import '@api-components/api-parameters-document/api-parameters-document.js';
-import '@api-components/api-headers-document/api-headers-document.js';
-import '@api-components/api-responses-document/api-responses-document.js';
+import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
+import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
+import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import '../../@polymer/polymer/lib/elements/dom-if.js';
+import '../../@api-components/raml-aware/raml-aware.js';
+import '../../@advanced-rest-client/markdown-styles/markdown-styles.js';
+import '../../@polymer/marked-element/marked-element.js';
+import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
+import '../../@api-components/api-annotation-document/api-annotation-document.js';
+import '../../@api-components/api-parameters-document/api-parameters-document.js';
+import '../../@api-components/api-headers-document/api-headers-document.js';
+import '../../@api-components/api-responses-document/api-responses-document.js';
 import './api-oauth2-settings-document.js';
 import './api-oauth1-settings-document.js';
 /**
