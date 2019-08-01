@@ -12,9 +12,7 @@
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import {LitElement, html, css} from 'lit-element';
 
 import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 
@@ -69,20 +67,10 @@ declare namespace ApiElements {
     requestTokenUri: string|null|undefined;
 
     /**
-     * Computed value. True if `requestTokenUri` is set.
-     */
-    readonly hasRequestTokenUri: boolean|null|undefined;
-
-    /**
      * The authorization endpoint URI.
      * Automatically set when `settings` property change.
      */
     authorizationUri: string|null|undefined;
-
-    /**
-     * Computed value. True if `authorizationUri` is set.
-     */
-    readonly hasAuthorizationUri: boolean|null|undefined;
 
     /**
      * Token credentials endpoint URI.
@@ -91,20 +79,11 @@ declare namespace ApiElements {
     tokenCredentialsUri: string|null|undefined;
 
     /**
-     * Computed value. True if `tokenCredentialsUri` is set.
-     */
-    readonly hasTokenCredentialsUri: boolean|null|undefined;
-
-    /**
      * List of signatures used by this authorization server.
      * Automatically set when `settings` property change.
      */
     signatures: Array<String|null>|null;
-
-    /**
-     * Computed value. True if `signatures` is set.
-     */
-    readonly hasSignatures: boolean|null|undefined;
+    render(): any;
 
     /**
      * Called automatically when `settings` property change (whole object,

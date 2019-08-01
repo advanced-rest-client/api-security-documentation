@@ -1,7 +1,5 @@
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
-import '../../@polymer/polymer/lib/elements/dom-if.js';
+import { LitElement, html, css } from 'lit-element';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 /**
  * `api-oauth1-settings-document`
  *
@@ -40,17 +38,16 @@ import '../../@polymer/polymer/lib/elements/dom-if.js';
  * @memberof ApiElements
  * @appliesMixin AmfHelperMixin
  */
-class ApiOauth1SettingsDocument extends AmfHelperMixin(PolymerElement) {
-  static get template() {
-    return html`
-    <style>
-    :host {
+class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
+  static get styles() {
+    return css`:host {
       display: block;
-      @apply --api-oauth1-settings-document;
     }
 
     h4 {
-      @apply --arc-font-subhead;
+      font-size: var(--arc-font-subhead-font-size);
+      font-weight: var(--arc-font-subhead-font-weight);
+      line-height: var(--arc-font-subhead-line-height);
     }
 
     .settings-value {
@@ -58,37 +55,29 @@ class ApiOauth1SettingsDocument extends AmfHelperMixin(PolymerElement) {
       display: block;
       padding: 1em;
       margin: .5em 0;
-    }
-    </style>
-    <template is="dom-if" if="[[hasRequestTokenUri]]">
-      <h4 data-type="request-token-uri">Request token URI</h4>
-      <code class="settings-value">[[requestTokenUri]]</code>
-    </template>
+    }`;
+  }
 
-    <template is="dom-if" if="[[hasAuthorizationUri]]">
-      <h4 data-type="authorization-uri">Authorization URI</h4>
-      <code class="settings-value">[[authorizationUri]]</code>
-    </template>
+  render() {
+    const { requestTokenUri, authorizationUri, tokenCredentialsUri, signatures } = this;
+    return html`
+    ${requestTokenUri ? html`<h4 data-type="request-token-uri">Request token URI</h4>
+    <code class="settings-value">${requestTokenUri}</code>` : undefined}
 
-    <template is="dom-if" if="[[hasTokenCredentialsUri]]">
-      <h4 data-type="token-credentials-uri">Token credentials URI</h4>
-      <code class="settings-value">[[tokenCredentialsUri]]</code>
-    </template>
+    ${authorizationUri ? html`<h4 data-type="authorization-uri">Authorization URI</h4>
+    <code class="settings-value">${authorizationUri}</code>` : undefined}
 
-    <template is="dom-if" if="[[hasSignatures]]">
+    ${tokenCredentialsUri ? html`<h4 data-type="token-credentials-uri">Token credentials URI</h4>
+    <code class="settings-value">${tokenCredentialsUri}</code>` : undefined}
+
+    ${signatures && signatures.length ? html`
       <h4 data-type="signatures">Supported signatures</h4>
       <ul>
-        <template is="dom-repeat" items="[[signatures]]">
-          <li>[[item]]</li>
-        </template>
+      ${signatures.map((item) => html`<li>${item}</li>`)}
       </ul>
-    </template>
-`;
+      ` : undefined}`;
   }
 
-  static get is() {
-    return 'api-oauth1-settings-document';
-  }
   static get properties() {
     return {
       /**
@@ -96,58 +85,45 @@ class ApiOauth1SettingsDocument extends AmfHelperMixin(PolymerElement) {
        * When this property changes it resets other properties.
        * @type {Object}
        */
-      settings: {type: Object, observer: '_settingsChanged'},
+      settings: { type: Object },
       /**
        * The request token URI from the settings model.
        * Automatically set when `settings` property change.
        */
-      requestTokenUri: String,
-      /**
-       * Computed value. True if `requestTokenUri` is set.
-       */
-      hasRequestTokenUri: {
-        type: Boolean,
-        computed: '_computeHasStringValue(requestTokenUri)'
-      },
+      requestTokenUri: { type: String },
       /**
        * The authorization endpoint URI.
        * Automatically set when `settings` property change.
        */
-      authorizationUri: String,
-      /**
-       * Computed value. True if `authorizationUri` is set.
-       */
-      hasAuthorizationUri: {
-        type: Boolean,
-        computed: '_computeHasStringValue(authorizationUri)'
-      },
+      authorizationUri: { type: String },
       /**
        * Token credentials endpoint URI.
        * Automatically set when `settings` property change.
        */
-      tokenCredentialsUri: String,
-      /**
-       * Computed value. True if `tokenCredentialsUri` is set.
-       */
-      hasTokenCredentialsUri: {
-        type: Boolean,
-        computed: '_computeHasStringValue(tokenCredentialsUri)'
-      },
+      tokenCredentialsUri: { type: String },
       /**
        * List of signatures used by this authorization server.
        * Automatically set when `settings` property change.
        * @type {Array<String>}
        */
-      signatures: Array,
-      /**
-       * Computed value. True if `signatures` is set.
-       */
-      hasSignatures: {
-        type: Boolean,
-        computed: '_computeHasArrayValue(signatures)'
-      }
+      signatures: { type: Array }
     };
   }
+
+  get settings() {
+    return this._settings;
+  }
+
+  set settings(value) {
+    const old = this._settings;
+    /* istanbul ignore if */
+    if (old === value) {
+      return;
+    }
+    this._settings = value;
+    this._settingsChanged(value);
+  }
+
   /**
    * Called automatically when `settings` property change (whole object,
    * not sub property).
@@ -214,4 +190,4 @@ class ApiOauth1SettingsDocument extends AmfHelperMixin(PolymerElement) {
     return this._getValueArray(settings, this.ns.raml.vocabularies.security + 'signature');
   }
 }
-window.customElements.define(ApiOauth1SettingsDocument.is, ApiOauth1SettingsDocument);
+window.customElements.define('api-oauth1-settings-document', ApiOauth1SettingsDocument);

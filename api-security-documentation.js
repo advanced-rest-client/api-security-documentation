@@ -1,15 +1,13 @@
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
-import '../../@polymer/polymer/lib/elements/dom-if.js';
-import '../../@api-components/raml-aware/raml-aware.js';
-import '../../@advanced-rest-client/markdown-styles/markdown-styles.js';
-import '../../@polymer/marked-element/marked-element.js';
-import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../../@api-components/api-annotation-document/api-annotation-document.js';
-import '../../@api-components/api-parameters-document/api-parameters-document.js';
-import '../../@api-components/api-headers-document/api-headers-document.js';
-import '../../@api-components/api-responses-document/api-responses-document.js';
+import { LitElement, html, css } from 'lit-element';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import '@api-components/raml-aware/raml-aware.js';
+import markdownStyles from '@advanced-rest-client/markdown-styles/markdown-styles.js';
+import '@advanced-rest-client/arc-marked/arc-marked.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@api-components/api-annotation-document/api-annotation-document.js';
+import '@api-components/api-parameters-document/api-parameters-document.js';
+import '@api-components/api-headers-document/api-headers-document.js';
+import '@api-components/api-responses-document/api-responses-document.js';
 import './api-oauth2-settings-document.js';
 import './api-oauth1-settings-document.js';
 /**
@@ -37,201 +35,208 @@ import './api-oauth1-settings-document.js';
  * @memberof ApiElements
  * @appliesMixin AmfHelperMixin
  */
-class ApiSecurityDocumentation extends AmfHelperMixin(PolymerElement) {
-  static get template() {
+class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
+  static get styles() {
+    return [
+      markdownStyles,
+      css`:host {
+        display: block;
+      }
+
+      h2 {
+        font-size: var(--arc-font-headline-font-size);
+        font-weight: var(--arc-font-headline-font-weight);
+        letter-spacing: var(--arc-font-headline-letter-spacing);
+        line-height: var(--arc-font-headline-line-height);
+      }
+
+      h3 {
+        font-size: var(--arc-font-title-font-size);
+        font-weight: var(--arc-font-title-font-weight);
+        line-height: var(--arc-font-title-line-height);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      :host([narrow]) h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+
+      :host([narrow]) h2 {
+        font-size: 18px;
+      }
+
+      arc-marked {
+        padding: 0;
+      }`
+    ];
+  }
+
+  render() {
+    const { description, aware, type, security, settings, amf, queryParameters, headers, responses, narrow } = this;
+    const hasCustomProperties = this._computeHasCustomProperties(security);
+    let hasOauth1Settings = false;
+    let hasOauth2Settings = false;
+    if (settings) {
+      hasOauth1Settings = this._computeHasOA1Settings(settings);
+      hasOauth2Settings = this._computeHasOA2Settings(settings);
+    }
     return html`
-    <style include="markdown-styles"></style>
-    <style>
-    :host {
-      display: block;
-      @apply --api-security-documentation;
-    }
+    ${aware ?
+      html`<raml-aware @api-changed="${this._apiChangedHandler}" .scope="${aware}"></raml-aware>` : undefined}
 
-    h1 {
-      @apply --arc-font-headline;
-      @apply --api-security-documentation-title;
-    }
-
-    h2 {
-      @apply --arc-font-title;
-      @apply --api-security-documentation-main-section-title;
-    }
-
-    :host([narrow]) h1 {
-      font-size: 20px;
-      margin: 0;
-      @apply --api-security-documentation-title-narrow;
-    }
-
-    :host([narrow]) h2 {
-      font-size: 18px;
-      @apply --api-security-documentation-main-section-title-narrow;
-    }
-    </style>
-    <template is="dom-if" if="[[aware]]">
-      <raml-aware raml="{{amfModel}}" scope="[[aware]]"></raml-aware>
-    </template>
     <section class="title">
-      <h1>[[type]]</h1>
+      <h2>${type}</h2>
     </section>
-    <template is="dom-if" if="[[hasCustomProperties]]">
-      <api-annotation-document shape="[[security]]"></api-annotation-document>
-    </template>
-    <template is="dom-if" if="[[_hasDescription]]">
-      <marked-element markdown="[[description]]">
-        <div slot="markdown-html" class="markdown-body"></div>
-      </marked-element>
-    </template>
-    <template is="dom-if" if="[[_hasSettings]]">
-      <template is="dom-if" if="[[_hasOA2Settings]]">
-        <h2 class="settings-title">Settings</h2>
-        <api-oauth2-settings-document amf-model="[[amfModel]]" settings="[[settings]]"></api-oauth2-settings-document>
-      </template>
-      <template is="dom-if" if="[[_hasOA1Settings]]">
-        <h2 class="settings-title">Settings</h2>
-        <api-oauth1-settings-document amf-model="[[amfModel]]" settings="[[settings]]"></api-oauth1-settings-document>
-      </template>
-    </template>
-    <template is="dom-if" if="[[_hasQueryParameters]]">
-      <api-parameters-document amf-model="[[amfModel]]" query-opened="" query-parameters="[[queryParameters]]" narrow="[[narrow]]"></api-parameters-document>
-    </template>
-    <template is="dom-if" if="[[_hasHeaders]]">
-      <api-headers-document opened="" amf-model="[[amfModel]]" headers="[[headers]]" narrow="[[narrow]]"></api-headers-document>
-    </template>
-    <template is="dom-if" if="[[_hasResponses]]">
-      <section class="response-documentation">
-        <h2>Responses</h2>
-        <api-responses-document amf-model="[[amfModel]]" returns="[[responses]]" narrow="[[narrow]]"></api-responses-document>
-      </section>
-    </template>
-`;
+
+    ${hasCustomProperties ? html`<api-annotation-document
+      .shape="${security}"></api-annotation-document>`:undefined}
+
+    ${description ? html`<arc-marked .markdown="${description}">
+      <div slot="markdown-html" class="markdown-body"></div>
+    </arc-marked>`:undefined}
+
+    ${hasOauth1Settings ? html`<h3 class="settings-title">Settings</h3>
+      <api-oauth1-settings-document
+      .amf="${amf}"
+      .settings="${settings}"></api-oauth1-settings-document>` : undefined}
+
+    ${hasOauth2Settings ? html`<h3 class="settings-title">Settings</h3>
+      <api-oauth2-settings-document
+      .amf="${amf}"
+      .settings="${settings}"></api-oauth2-settings-document>` : undefined}
+
+    ${queryParameters && queryParameters.length ?
+      html`<api-parameters-document
+        .amf="${amf}"
+        queryopened
+        .queryParameters="${queryParameters}"
+        ?narrow="${narrow}"></api-parameters-document>` :
+      undefined}
+
+    ${headers && headers.length ?
+      html`<api-headers-document
+        opened
+        .amf="${amf}"
+        .headers="${headers}"
+        ?narrow="${narrow}"></api-headers-document>` :
+      undefined}
+
+    ${responses && responses.length ?
+      html`<section class="response-documentation">
+        <h3>Responses</h3>
+        <api-responses-document
+          .amf="${amf}"
+          .returns="${responses}"
+          ?narrow="${narrow}"></api-responses-document>
+      </section>` :
+      undefined}`;
   }
 
-  static get is() {
-    return 'api-security-documentation';
-  }
   static get properties() {
     return {
       /**
        * `raml-aware` scope property to use.
        */
-      aware: String,
+      aware: { type: String },
       /**
        * A security definition to render.
        * This should be AMF's type of `http://raml.org/vocabularies/security#SecurityScheme`.
        *
        * @type {Object}
        */
-      security: Object,
+      security: { type: Object },
       /**
        * Computed value, scheme of the security
        */
-      _scheme: {type: Object, computed: '_computeScheme(security, amfModel)', observer: '_schemeChanged'},
+      _scheme: { type: Object },
       /**
        * Security scheme type name.
        * The value is updated automatically when `security` property change.
        */
-      type: String,
+      type: { type: String },
       /**
        * Security scheme description.
        * The value is updated automatically when `security` property change.
        */
-      description: String,
-      /**
-       * Computed value, true when `description` has value.
-       */
-      _hasDescription: {
-        type: Boolean,
-        computed: '_computeHasStringValue(description)'
-      },
+      description: { type: String },
       /**
        * AMF headers model.
        * List of headers to apply to this scheme.
        * This value is updated automatically when `security` property change.
        * @type {Array<Object>}
        */
-      headers: Array,
-      /**
-       * Computed value, true when `headers` property is set.
-       */
-      _hasHeaders: {
-        type: Boolean,
-        computed: '_computeHasArrayValue(headers)'
-      },
+      headers: { type: Array },
       /**
        * AMF query parameters model.
        * List of query parameters to apply to this scheme.
        * This value is updated automatically when `security` property change.
        * @type {Array<Object>}
        */
-      queryParameters: Array,
-      /**
-       * Computed value, true when `queryParameters` has value.
-       */
-      _hasQueryParameters: {
-        type: Boolean,
-        computed: '_computeHasArrayValue(queryParameters)'
-      },
+      queryParameters: { type: Array },
       /**
        * AMF responses model.
        * List of responses applied to this security scheme.
        * This value is updated automatically when `security` property change.
        * @type {Array<Object>}
        */
-      responses: Array,
-      /**
-       * Computed value, true when responses has any value.
-       * @type {Object}
-       */
-      _hasResponses: {
-        type: Boolean,
-        computed: '_computeHasArrayValue(responses)'
-      },
+      responses: { type: Array },
       /**
        * AMF settings model for a security scheme.
        * This value is updated automatically when `security` property change.
        * @type {Object}
        */
-      settings: Object,
-      /**
-       * Computed value, true when `settings` proeprty is set.
-       */
-      _hasSettings: {
-        type: Boolean,
-        computed: '_computeHasStringValue(settings)'
-      },
-      /**
-       * Computed value, true when `settings` proeprty is set and represent
-       * OAuth2 security settings.
-       */
-      _hasOA2Settings: {
-        type: Boolean,
-        computed: '_computeHasOA2Settings(_hasSettings, settings)'
-      },
-      /**
-       * Computed value, true when `settings` proeprty is set and represent
-       * OAuth1 security settings.
-       */
-      _hasOA1Settings: {
-        type: Boolean,
-        computed: '_computeHasOA1Settings(_hasSettings, settings)'
-      },
-      /**
-       * Computed value from current `method`. True if the model contains
-       * custom properties (annotations in RAML).
-       */
-      hasCustomProperties: {
-        type: Boolean,
-        computed: '_computeHasCustomProperties(security)'
-      },
+      settings: { type: Object },
       /**
        * Set to render a mobile friendly view.
        */
-       narrow: {
-         type: Boolean,
-         reflectToAttribute: true
-       }
+       narrow: { type: Boolean, reflect: true }
     };
+  }
+
+  get amf() {
+    return this._amf;
+  }
+
+  set amf(value) {
+    const old = this._amf;
+    /* istanbul ignore if */
+    if (old === value) {
+      return;
+    }
+    this._amf = value;
+    this._scheme = this._computeScheme(this.security);
+    this.requestUpdate('amf', old);
+  }
+
+  get security() {
+    return this._security;
+  }
+
+  set security(value) {
+    const old = this._security;
+    /* istanbul ignore if */
+    if (old === value) {
+      return;
+    }
+    this._security = value;
+    this._scheme = this._computeScheme(value);
+    this.requestUpdate('security', old);
+  }
+
+  get _scheme() {
+    return this.__scheme;
+  }
+
+  set _scheme(value) {
+    const old = this.__scheme;
+    if (old === value) {
+      return;
+    }
+    this.__scheme = value;
+    this._schemeChanged(value);
   }
   /**
    * Computes value of security scheme's scheme model.
@@ -301,28 +306,29 @@ class ApiSecurityDocumentation extends AmfHelperMixin(PolymerElement) {
     return this._computePropertyObject(shape, this.ns.raml.vocabularies.security + 'settings');
   }
   /**
-   * Computes value for `_hasOA2Settings`
-   * @param {Boolean} hasSettings Value of `_hasSettings` proeprty
    * @param {Object|undefined} settings Computed settings object
-   * @return {Boolean}
+   * @return {Boolean} True if this settings represents OAuth 2 settings
    */
-  _computeHasOA2Settings(hasSettings, settings) {
-    if (!hasSettings || !settings) {
+  _computeHasOA2Settings(settings) {
+    if (!settings) {
       return false;
     }
     return this._hasType(settings, this.ns.raml.vocabularies.security + 'OAuth2Settings');
   }
   /**
-   * Computes value for `_hasOA1Settings`
-   * @param {Boolean} hasSettings Value of `_hasSettings` proeprty
    * @param {Object|undefined} settings Computed settings object
    * @return {Boolean}
    */
-  _computeHasOA1Settings(hasSettings, settings) {
-    if (!hasSettings || !settings) {
+  _computeHasOA1Settings(settings) {
+    if (!settings) {
       return false;
     }
     return this._hasType(settings, this.ns.raml.vocabularies.security + 'OAuth1Settings');
   }
+
+  _apiChangedHandler(e) {
+    const { value } = e.detail;
+    this.amf = value;
+  }
 }
-window.customElements.define(ApiSecurityDocumentation.is, ApiSecurityDocumentation);
+window.customElements.define('api-security-documentation', ApiSecurityDocumentation);

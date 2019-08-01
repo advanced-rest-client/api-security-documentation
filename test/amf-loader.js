@@ -1,10 +1,13 @@
-import {ns} from '../../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import { LitElement } from 'lit-element';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+
+class TestHelperElement extends AmfHelperMixin(LitElement) {}
+window.customElements.define('demo-element', TestHelperElement);
+
 export const AmfLoader = {};
 AmfLoader.load = function(type, compact) {
   const file = '/demo-api' + (compact ? '-compact' : '') + '.json';
-  const url = location.protocol + '//' + location.host +
-    location.pathname.substr(0, location.pathname.lastIndexOf('/'))
-    .replace('/test', '/demo') + file;
+  const url = location.protocol + '//' + location.host + '/base/demo/' + file;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', (e) => {
@@ -19,20 +22,22 @@ AmfLoader.load = function(type, compact) {
       if (data instanceof Array) {
         data = data[0];
       }
-      const decKey = compact ? 'doc:declares' :
-        ns.raml.vocabularies.document + 'declares';
+
+      const helper = new TestHelperElement();
+      helper.amf = data;
+      const ns = helper.ns;
+
+      const decKey = helper._getAmfKey(ns.raml.vocabularies.document + 'declares');
       let declares = data[decKey];
       if (!(declares instanceof Array)) {
         declares = [declares];
       }
+      const nameKey = helper._getAmfKey(ns.raml.vocabularies.document + 'name');
+      const securityKey = helper._getAmfKey(ns.raml.vocabularies.security + 'name');
       const result = declares.find((item) => {
-        const key = compact ? 'document:name' :
-          ns.raml.vocabularies.document + 'name';
-        let name = item[key];
+        let name = item[nameKey];
         if (!name) {
-          const key = compact ? 'security:name' :
-            ns.raml.vocabularies.security + 'name';
-          name = item[key];
+          name = item[securityKey];
         }
         if (name instanceof Array) {
           name = name[0];

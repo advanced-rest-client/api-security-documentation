@@ -1,7 +1,5 @@
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
-import '../../@polymer/polymer/lib/elements/dom-if.js';
+import { LitElement, html, css } from 'lit-element';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 /**
  * `api-oauth2-settings-document`
  *
@@ -40,17 +38,17 @@ import '../../@polymer/polymer/lib/elements/dom-if.js';
  * @memberof ApiElements
  * @appliesMixin AmfHelperMixin
  */
-class ApiOauth2SettingsDocument extends AmfHelperMixin(PolymerElement) {
-  static get template() {
-    return html`
-    <style>
-    :host {
+class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
+  static get styles() {
+    return css`:host {
       display: block;
-      @apply --api-oauth2-settings-document;
     }
 
     h4 {
-      @apply --arc-font-subhead;
+      font-size: var(--arc-font-subhead-font-size);
+      font-weight: var(--arc-font-subhead-font-weight);
+      line-height: var(--arc-font-subhead-line-height);
+      user-select: text;
     }
 
     ul {
@@ -63,47 +61,38 @@ class ApiOauth2SettingsDocument extends AmfHelperMixin(PolymerElement) {
       display: block;
       padding: 1em;
       margin: .5em 0;
+      user-select: text;
     }
 
     .settings-list-value {
       background: var(--code-background-color, #f5f2f0);
       display: block;
       padding: 1em;
-    }
-    </style>
-    <template is="dom-if" if="[[hasAccessTokenUri]]">
-      <h4 data-type="access-token-uri">Access token URI</h4>
-      <code class="settings-value">[[accessTokenUri]]</code>
-    </template>
-
-    <template is="dom-if" if="[[hasAuthorizationUri]]">
-      <h4 data-type="authorization-uri">Authorization URI</h4>
-      <code class="settings-value">[[authorizationUri]]</code>
-    </template>
-
-    <template is="dom-if" if="[[hasAuthorizationGrants]]">
-      <h4 data-type="authorization-grants">Authorization grants</h4>
-      <ul>
-        <template is="dom-repeat" items="[[authorizationGrants]]">
-          <li class="settings-list-value">[[item]]</li>
-        </template>
-      </ul>
-    </template>
-
-    <template is="dom-if" if="[[hasScopes]]">
-      <h4 data-type="authorization-scopes">Authorization scopes</h4>
-      <ul>
-        <template is="dom-repeat" items="[[scopes]]">
-          <li class="settings-list-value">[[item.label]]</li>
-        </template>
-      </ul>
-    </template>
-`;
+      user-select: text;
+    }`;
   }
 
-  static get is() {
-    return 'api-oauth2-settings-document';
+  render() {
+    const { accessTokenUri, authorizationUri, authorizationGrants, scopes } = this;
+    // const hasCustomProperties = this._computeHasCustomProperties(settings);
+    return html`
+    ${accessTokenUri ? html`<h4 data-type="access-token-uri">Access token URI</h4>
+    <code class="settings-value">${accessTokenUri}</code>` : undefined}
+
+    ${authorizationUri ? html`<h4 data-type="authorization-uri">Authorization URI</h4>
+    <code class="settings-value">${authorizationUri}</code>` : undefined}
+
+    ${authorizationGrants && authorizationGrants.length ? html`<h4 data-type="authorization-grants">Authorization grants</h4>
+    <ul>
+    ${authorizationGrants.map((item) => html`<li class="settings-list-value">${item}</li>`)}
+    </ul>` : undefined}
+
+    ${scopes && scopes.length ? html`<h4 data-type="authorization-scopes">Authorization scopes</h4>
+    <ul>
+    ${scopes.map((item) => html`<li class="settings-list-value">${item.label}</li>`)}
+    </ul>` : undefined}`;
   }
+
   static get properties() {
     return {
       /**
@@ -111,44 +100,23 @@ class ApiOauth2SettingsDocument extends AmfHelperMixin(PolymerElement) {
        * When this property changes it resets other properties.
        * @type {Object}
        */
-      settings: {type: Object, observer: '_settingsChanged'},
+      settings: { type: Object },
       /**
        * Access token URI value.
        * This property is updated when `settings` property chnage.
        */
-      accessTokenUri: String,
-      /**
-       * Computed value, true when `accessTokenUri` is set.
-       */
-      hasAccessTokenUri: {
-        type: Boolean,
-        computed: '_computeHasStringValue(accessTokenUri)'
-      },
+      accessTokenUri: { type: String },
       /**
        * Authorization URI value.
        * This property is updated when `settings` property chnage.
        */
-      authorizationUri: String,
-      /**
-       * Computed value, true when `authorizationUri` is set.
-       */
-      hasAuthorizationUri: {
-        type: Boolean,
-        computed: '_computeHasStringValue(authorizationUri)'
-      },
+      authorizationUri: { type: String },
       /**
        * List of OAuth2 authorization grants.
        * This property is updated when `settings` property chnage.
        * @type {Array<String>}
        */
-      authorizationGrants: Array,
-      /**
-       * Computed value, true when `authorizationGrants` is set.
-       */
-      hasAuthorizationGrants: {
-        type: Boolean,
-        computed: '_computeHasArrayValue(authorizationGrants)'
-      },
+      authorizationGrants: { type: Array },
       /**
        * List of OAuth2 authorization scopes.
        * This property is updated when `settings` property chnage.
@@ -157,25 +125,23 @@ class ApiOauth2SettingsDocument extends AmfHelperMixin(PolymerElement) {
        * properties.
        * @type {Array<Object>}
        */
-      scopes: Array,
-      /**
-       * Computed value, true when `scopes` is set.
-       */
-      hasScopes: {
-        type: Boolean,
-        computed: '_computeHasArrayValue(scopes)'
-      },
-      /**
-       * Computed value from current `method`. True if the model contains
-       * custom properties (annotations in RAML).
-       */
-      hasCustomProperties: {
-        type: Boolean,
-        computed: '_computeHasCustomProperties(settings)'
-      }
+      scopes: { type: Array }
     };
   }
 
+  get settings() {
+    return this._settings;
+  }
+
+  set settings(value) {
+    const old = this._settings;
+    /* istanbul ignore if */
+    if (old === value) {
+      return;
+    }
+    this._settings = value;
+    this._settingsChanged(value);
+  }
   /**
    * Called automatically when `settings` property change (whole object,
    * not sub property).
@@ -243,4 +209,4 @@ class ApiOauth2SettingsDocument extends AmfHelperMixin(PolymerElement) {
     });
   }
 }
-window.customElements.define(ApiOauth2SettingsDocument.is, ApiOauth2SettingsDocument);
+window.customElements.define('api-oauth2-settings-document', ApiOauth2SettingsDocument);
