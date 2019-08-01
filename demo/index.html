@@ -3,143 +3,63 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-    <title>api-request-editor demo</title>
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <link rel="import" href="../../shadycss/apply-shim.html">
-    <link rel="import" href="../../polymer/lib/elements/custom-style.html">
-    <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../raml-aware/raml-aware.html">
-    <link rel="import" href="../../api-navigation/api-navigation.html">
-    <link rel="import" href="../../paper-styles/typography.html">
-    <link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
-    <link rel="import" href="../../paper-item/paper-item.html">
-    <link rel="import" href="../../paper-listbox/paper-listbox.html">
-    <link rel="import" href="../../neon-animation/web-animations.html">
-    <link rel="import" href="../../api-console-default-theme/api-console-default-theme.html">
-    <link rel="import" href="../api-security-documentation.html">
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
+    <title>api-security-document demo</title>
 
-      [role="main"] {
-        max-width: 1100px;
-        @apply --layout-horizontal;
-        @apply --layout-start;
-      }
+    <script src="../node_modules/web-animations-js/web-animations-next.min.js"></script>
 
-      api-navigation {
-        width: 320px;
-        min-width: 320px;
-        overflow: auto;
-      }
+    <style>
+    body.styled {
+      --arc-font-headline-font-size: 24px;
+      --arc-font-headline-font-weight: 400;
+      --arc-font-headline-letter-spacing: -.012em;
+      --arc-font-headline-line-height: 32px;
+      --arc-font-title-font-size: 20px;
+      --arc-font-title-font-weight: 500;
+      --arc-font-title-line-height: 28px;
+      --arc-font-subhead-font-size: 16px;
+      --arc-font-subhead-font-weight: 400;
+      --arc-font-subhead-line-height: 24px;
+    }
 
-      api-security-documentation {
-        margin-left: 40px;
-        @apply --layout-flex;
-      }
+    body.styled.dark {
+      /* --code-background-color: #37474F;
 
-      header {
-        padding: 12px 24px;
-        background-color: #C5E1A5;
-        --iron-icon-fill-color: #3E2723;
-        --paper-input-container-focus-color: #33691E;
-        --paper-input-container-label: {
-          color: #3E2723;
-        };
-        @apply --layout-horizontal;
-        @apply --layout-center;
-      }
+      --action-button-background-color: #fff;
+      --action-button-color: var(--primary-color);
+      --secondary-action-button-color: #fff; */
 
-      .spacer {
-        @apply --layout-flex;
-      }
-      </style>
-    </custom-style>
+      --http-method-label-get-background-color: rgb(0, 128, 0);
+      --http-method-label-get-color: #fff;
+      --http-method-label-post-background-color: rgb(33, 150, 243);
+      --http-method-label-post-color: #fff;
+      --http-method-label-put-background-color: rgb(255, 165, 0);
+      --http-method-label-put-color: fff;
+      --http-method-label-delete-background-color: rgb(244, 67, 54);
+      --http-method-label-delete-color: fff;
+
+      --code-background-color: #263238;
+      --iron-icon-fill-color: #fff;
+      --code-type-boolean-value-color: #F07178;
+      --code-type-number-value-color: #F78C6A;
+      --code-type-text-value-color: #C3E88D;
+      --code-property-value-color: #F07178;
+      --api-type-document-union-button-color: #fff;
+      --api-resource-example-document-button-active-background-color: #cddc39;
+      --api-resource-example-document-button-active-color: #000;
+      --json-table-list-property-name-color: #fff;
+      --json-table-complex-name-label-color: #9E9E9E;
+      --code-operator-value-background-color: transparent;
+      --api-type-document-type-attribute-color: #EEEEEE;
+      --api-parameters-document-toggle-view-color: #fff;
+      --api-body-document-toggle-view-color: #fff;
+      --api-body-document-description-color: #fff;
+    }
+    </style>
   </head>
   <body>
-    <dom-bind id="demo">
-      <template is="dom-bind">
-        <header>
-          <paper-dropdown-menu label="Select demo endpoint">
-            <paper-listbox slot="dropdown-content" id="enpointsList" on-selected-changed="_apiChanged">
-              <paper-item data-src="demo-api.json">Demo api</paper-item>
-              <paper-item data-src="demo-api-compact.json">Demo api - compact model</paper-item>
 
-              <paper-item data-src="oauth1-fragment.json">OAuth1 fragment</paper-item>
-              <paper-item data-src="oauth1-fragment-compact.json">OAuth1 fragment - compact model</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <div class="spacer"></div>
-        </header>
-        <raml-aware raml="{{amfModel}}" scope="model"></raml-aware>
-        <div class="vertical-section-container centered" role="main">
-          <api-navigation aware="model" security-opened></api-navigation>
+    <div id="demo"></div>
 
-          <template is="dom-if" if="[[hasData]]">
-            <api-security-documentation aware="model" security="[[security]]"></api-security-documentation>
-          </template>
-
-          <template is="dom-if" if="[[!hasData]]">
-            <p>Select security in the navigation to see the demo.</p>
-          </template>
-        </div>
-
-        <demo-element id="helper" amf-model="{{amfModel}}"></demo-element>
-      </template>
-    </dom-bind>
-    <script>
-    (function(app) {
-      // const ns = ApiElements.Amf.ns;
-      class DemoElement extends ApiElements.AmfHelperMixin(Polymer.Element) {}
-      window.customElements.define('demo-element', DemoElement);
-
-      app.hasData = false;
-      app._load = function() {
-        document.getElementById('enpointsList').selected = 0;
-      };
-      app._loadFile = function(file) {
-        fetch('./' + file)
-        .then((response) => response.json())
-        .then((data) => {
-          app.amfModel = data;
-        });
-      };
-      app._apiChanged = function(e) {
-        const file = e.target.selectedItem.dataset.src;
-        app._loadFile(file);
-      };
-
-      app._navChanged = function(e) {
-        const type = e.detail.type;
-        if (type === 'security') {
-          app.setTypeData(e.detail.selected);
-          app.hasType = true;
-        } else {
-          app.hasType = false;
-        }
-      };
-
-      app.setTypeData = function(id) {
-        const dec = app.$.helper._computeDeclares(app.amfModel);
-        const security = dec.find((item) => item['@id'] === id);
-        if (!security) {
-          app.hasData = false;
-          console.error('Security not found');
-          return;
-        }
-        console.log(security);
-        app.security = security;
-        app.hasData = true;
-      };
-      window.addEventListener('api-navigation-selection-changed', app._navChanged);
-      window.addEventListener('WebComponentsReady', () => app._load());
-    })(document.getElementById('demo'));
-  </script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

@@ -5,16 +5,16 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   api-oauth1-settings-document.html
+ *   api-oauth1-settings-document.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
+import {LitElement, html, css} from 'lit-element';
+
+import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 
 declare namespace ApiElements {
 
@@ -51,7 +51,7 @@ declare namespace ApiElements {
    * `--api-oauth1-settings-document` | Mixin applied to this elment | `{}`
    */
   class ApiOauth1SettingsDocument extends
-    ApiElements.AmfHelperMixin(
+    AmfHelperMixin(
     Object) {
 
     /**
@@ -67,20 +67,10 @@ declare namespace ApiElements {
     requestTokenUri: string|null|undefined;
 
     /**
-     * Computed value. True if `requestTokenUri` is set.
-     */
-    readonly hasRequestTokenUri: boolean|null|undefined;
-
-    /**
      * The authorization endpoint URI.
      * Automatically set when `settings` property change.
      */
     authorizationUri: string|null|undefined;
-
-    /**
-     * Computed value. True if `authorizationUri` is set.
-     */
-    readonly hasAuthorizationUri: boolean|null|undefined;
 
     /**
      * Token credentials endpoint URI.
@@ -89,20 +79,11 @@ declare namespace ApiElements {
     tokenCredentialsUri: string|null|undefined;
 
     /**
-     * Computed value. True if `tokenCredentialsUri` is set.
-     */
-    readonly hasTokenCredentialsUri: boolean|null|undefined;
-
-    /**
      * List of signatures used by this authorization server.
      * Automatically set when `settings` property change.
      */
     signatures: Array<String|null>|null;
-
-    /**
-     * Computed value. True if `signatures` is set.
-     */
-    readonly hasSignatures: boolean|null|undefined;
+    render(): any;
 
     /**
      * Called automatically when `settings` property change (whole object,
@@ -153,6 +134,9 @@ declare namespace ApiElements {
   }
 }
 
-interface HTMLElementTagNameMap {
-  "api-oauth1-settings-document": ApiElements.ApiOauth1SettingsDocument;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "api-oauth1-settings-document": ApiElements.ApiOauth1SettingsDocument;
+  }
 }

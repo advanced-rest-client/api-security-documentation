@@ -5,15 +5,16 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   api-oauth2-settings-document.html
+ *   api-oauth2-settings-document.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
+// tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
+import {LitElement, html, css} from 'lit-element';
+
+import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 
 declare namespace ApiElements {
 
@@ -50,7 +51,7 @@ declare namespace ApiElements {
    * `--api-oauth2-settings-document` | Mixin applied to this elment | `{}`
    */
   class ApiOauth2SettingsDocument extends
-    ApiElements.AmfHelperMixin(
+    AmfHelperMixin(
     Object) {
 
     /**
@@ -66,31 +67,16 @@ declare namespace ApiElements {
     accessTokenUri: string|null|undefined;
 
     /**
-     * Computed value, true when `accessTokenUri` is set.
-     */
-    readonly hasAccessTokenUri: boolean|null|undefined;
-
-    /**
      * Authorization URI value.
      * This property is updated when `settings` property chnage.
      */
     authorizationUri: string|null|undefined;
 
     /**
-     * Computed value, true when `authorizationUri` is set.
-     */
-    readonly hasAuthorizationUri: boolean|null|undefined;
-
-    /**
      * List of OAuth2 authorization grants.
      * This property is updated when `settings` property chnage.
      */
     authorizationGrants: Array<String|null>|null;
-
-    /**
-     * Computed value, true when `authorizationGrants` is set.
-     */
-    readonly hasAuthorizationGrants: boolean|null|undefined;
 
     /**
      * List of OAuth2 authorization scopes.
@@ -100,17 +86,7 @@ declare namespace ApiElements {
      * properties.
      */
     scopes: Array<object|null>|null;
-
-    /**
-     * Computed value, true when `scopes` is set.
-     */
-    readonly hasScopes: boolean|null|undefined;
-
-    /**
-     * Computed value from current `method`. True if the model contains
-     * custom properties (annotations in RAML).
-     */
-    readonly hasCustomProperties: boolean|null|undefined;
+    render(): any;
 
     /**
      * Called automatically when `settings` property change (whole object,
@@ -151,6 +127,9 @@ declare namespace ApiElements {
   }
 }
 
-interface HTMLElementTagNameMap {
-  "api-oauth2-settings-document": ApiElements.ApiOauth2SettingsDocument;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "api-oauth2-settings-document": ApiElements.ApiOauth2SettingsDocument;
+  }
 }

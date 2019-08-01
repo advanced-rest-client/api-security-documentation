@@ -5,26 +5,16 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   api-security-documentation.html
+ *   api-security-documentation.js
  */
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../raml-aware/raml-aware.d.ts" />
-/// <reference path="../markdown-styles/markdown-styles.d.ts" />
-/// <reference path="../marked-element/marked-element.d.ts" />
-/// <reference path="../iron-flex-layout/iron-flex-layout.d.ts" />
-/// <reference path="../api-annotation-document/api-annotation-document.d.ts" />
-/// <reference path="../api-parameters-document/api-parameters-document.d.ts" />
-/// <reference path="../api-headers-document/api-headers-document.d.ts" />
-/// <reference path="../api-responses-document/api-responses-document.d.ts" />
-/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
-/// <reference path="api-oauth2-settings-document.d.ts" />
-/// <reference path="api-oauth1-settings-document.d.ts" />
+import {LitElement, html, css} from 'lit-element';
+
+import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 
 declare namespace ApiElements {
 
@@ -48,13 +38,9 @@ declare namespace ApiElements {
    * `--api-security-documentation-main-section-title-narrow` | Mixin applied to main sections title element in narrow layout | `{}`
    */
   class ApiSecurityDocumentation extends
-    ApiElements.AmfHelperMixin(
+    AmfHelperMixin(
     Object) {
-
-    /**
-     * `raml-aware` scope property to use.
-     */
-    aware: string|null|undefined;
+    amf: any;
 
     /**
      * A security definition to render.
@@ -65,7 +51,12 @@ declare namespace ApiElements {
     /**
      * Computed value, scheme of the security
      */
-    readonly _scheme: object|null|undefined;
+    _scheme: object|null|undefined;
+
+    /**
+     * `raml-aware` scope property to use.
+     */
+    aware: string|null|undefined;
 
     /**
      * Security scheme type name.
@@ -80,21 +71,11 @@ declare namespace ApiElements {
     description: string|null|undefined;
 
     /**
-     * Computed value, true when `description` has value.
-     */
-    readonly _hasDescription: boolean|null|undefined;
-
-    /**
      * AMF headers model.
      * List of headers to apply to this scheme.
      * This value is updated automatically when `security` property change.
      */
     headers: Array<object|null>|null;
-
-    /**
-     * Computed value, true when `headers` property is set.
-     */
-    readonly _hasHeaders: boolean|null|undefined;
 
     /**
      * AMF query parameters model.
@@ -104,11 +85,6 @@ declare namespace ApiElements {
     queryParameters: Array<object|null>|null;
 
     /**
-     * Computed value, true when `queryParameters` has value.
-     */
-    readonly _hasQueryParameters: boolean|null|undefined;
-
-    /**
      * AMF responses model.
      * List of responses applied to this security scheme.
      * This value is updated automatically when `security` property change.
@@ -116,38 +92,10 @@ declare namespace ApiElements {
     responses: Array<object|null>|null;
 
     /**
-     * Computed value, true when responses has any value.
-     */
-    readonly _hasResponses: object|null;
-
-    /**
      * AMF settings model for a security scheme.
      * This value is updated automatically when `security` property change.
      */
     settings: object|null;
-
-    /**
-     * Computed value, true when `settings` proeprty is set.
-     */
-    readonly _hasSettings: boolean|null|undefined;
-
-    /**
-     * Computed value, true when `settings` proeprty is set and represent
-     * OAuth2 security settings.
-     */
-    readonly _hasOA2Settings: boolean|null|undefined;
-
-    /**
-     * Computed value, true when `settings` proeprty is set and represent
-     * OAuth1 security settings.
-     */
-    readonly _hasOA1Settings: boolean|null|undefined;
-
-    /**
-     * Computed value from current `method`. True if the model contains
-     * custom properties (annotations in RAML).
-     */
-    readonly hasCustomProperties: boolean|null|undefined;
 
     /**
      * Set to render a mobile friendly view.
@@ -160,6 +108,7 @@ declare namespace ApiElements {
      * @param shape Scheme model.
      */
     _computeType(shape: object|null): String|null|undefined;
+    render(): any;
 
     /**
      * Computes value of security scheme's scheme model.
@@ -187,23 +136,22 @@ declare namespace ApiElements {
     _computeSettings(shape: object|null): object|null|undefined;
 
     /**
-     * Computes value for `_hasOA2Settings`
-     *
-     * @param hasSettings Value of `_hasSettings` proeprty
      * @param settings Computed settings object
+     * @returns True if this settings represents OAuth 2 settings
      */
-    _computeHasOA2Settings(hasSettings: Boolean|null, settings: object|null|undefined): Boolean|null;
+    _computeHasOA2Settings(settings: object|null|undefined): Boolean|null;
 
     /**
-     * Computes value for `_hasOA1Settings`
-     *
-     * @param hasSettings Value of `_hasSettings` proeprty
      * @param settings Computed settings object
      */
-    _computeHasOA1Settings(hasSettings: Boolean|null, settings: object|null|undefined): Boolean|null;
+    _computeHasOA1Settings(settings: object|null|undefined): Boolean|null;
+    _apiChangedHandler(e: any): void;
   }
 }
 
-interface HTMLElementTagNameMap {
-  "api-security-documentation": ApiElements.ApiSecurityDocumentation;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "api-security-documentation": ApiElements.ApiSecurityDocumentation;
+  }
 }
