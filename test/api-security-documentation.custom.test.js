@@ -131,7 +131,9 @@ describe('<api-security-documentation>', function() {
         });
 
         it('is accessible', async () => {
-          await assert.isAccessible(element);
+          await assert.isAccessible(element, {
+            ignoredRules: ['color-contrast']
+          });
         });
       });
     });
