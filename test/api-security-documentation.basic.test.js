@@ -1,11 +1,13 @@
-import { fixture, assert, nextFrame } from '@open-wc/testing';
+import { fixture, assert, html, nextFrame } from '@open-wc/testing';
 // import sinon from 'sinon/pkg/sinon-esm.js';
 import '../api-security-documentation.js';
 import { AmfLoader } from './amf-loader.js';
 
 describe('<api-security-documentation>', function() {
-  async function basicFixture() {
-    return (await fixture(`<api-security-documentation></api-security-documentation>`));
+  async function basicFixture(amf, security) {
+    return (await fixture(html`<api-security-documentation
+      .amf="${amf}"
+      .security="${security}"></api-security-documentation>`));
   }
 
   async function awareFixture() {
@@ -19,23 +21,19 @@ describe('<api-security-documentation>', function() {
     [
       ['Regular model', false],
       ['Compact model', true]
-    ].forEach((item) => {
-      describe(item[0], () => {
+    ].forEach(([label, compact]) => {
+      describe(label, () => {
         let security;
         let amf;
 
         before(async () => {
-          const data = await AmfLoader.load('basic', item[1]);
-          amf = data[0];
-          security = data[1];
+          amf = await AmfLoader.load(compact);
+          security = AmfLoader.lookupSecurity(amf, 'basic');
         });
 
         let element;
         beforeEach(async () => {
-          element = await basicFixture();
-          element.amf = amf;
-          element.security = security;
-          await nextFrame();
+          element = await basicFixture(amf, security);
         });
 
         it('_scheme is computed', () => {
@@ -108,8 +106,7 @@ describe('<api-security-documentation>', function() {
         let amf;
 
         before(async () => {
-          const data = await AmfLoader.load('basic', item[1]);
-          amf = data[0];
+          amf = await AmfLoader.load(compact);
         });
 
         let element;
@@ -136,17 +133,13 @@ describe('<api-security-documentation>', function() {
         let amf;
 
         before(async () => {
-          const data = await AmfLoader.load('basic', item[1]);
-          amf = data[0];
-          security = data[1];
+          amf = await AmfLoader.load(compact);
+          security = AmfLoader.lookupSecurity(amf, 'basic');
         });
 
         let element;
         beforeEach(async () => {
-          element = await basicFixture();
-          element.amf = amf;
-          element.security = security;
-          await nextFrame();
+          element = await basicFixture(amf, security);
         });
 
         it('is accessible', async () => {

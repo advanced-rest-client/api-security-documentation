@@ -2,7 +2,7 @@
 {
 "@id": "",
 "@type": [
-"doc:SecuritySchemeFragment",
+"security:SecuritySchemeFragment",
 "doc:Fragment",
 "doc:Unit"
 ],
@@ -18,7 +18,7 @@
 "@value": "OAuth 1.0"
 }
 ],
-"schema-org:description": [
+"core:description": [
 {
 "@value": "OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred."
 }
@@ -130,12 +130,24 @@
 {
 "sourcemaps:element": [
 {
-"@value": "schema-org:description"
+"@value": "security:settings"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(3,0)-(4,0)]"
+"@value": "[(4,0)-(8,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "security:type"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(2,0)-(3,0)]"
 }
 ]
 },
@@ -154,18 +166,23 @@
 {
 "sourcemaps:element": [
 {
-"@value": "security:type"
+"@value": "core:description"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(2,0)-(3,0)]"
+"@value": "[(3,0)-(4,0)]"
 }
 ]
 }
 ]
 }
 ]
+}
+],
+"doc:version": [
+{
+"@value": "2.0.0"
 }
 ],
 "sourcemaps:sources": [
@@ -194,8 +211,8 @@
 "@base": "amf://id",
 "security": "http://a.ml/vocabularies/security#",
 "doc": "http://a.ml/vocabularies/document#",
-"sourcemaps": "http://a.ml/vocabularies/document-source-maps#",
-"schema-org": "http://schema.org/"
+"core": "http://a.ml/vocabularies/core#",
+"sourcemaps": "http://a.ml/vocabularies/document-source-maps#"
 }
 }
 ]
