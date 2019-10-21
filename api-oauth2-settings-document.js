@@ -39,7 +39,7 @@ import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixi
  * @appliesMixin AmfHelperMixin
  */
 class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
-  static get styles() {
+  get styles() {
     return css`:host {
       display: block;
     }
@@ -75,7 +75,7 @@ class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
   render() {
     const { accessTokenUri, authorizationUri, authorizationGrants, scopes } = this;
     // const hasCustomProperties = this._computeHasCustomProperties(settings);
-    return html`
+    return html`<style>${this.styles}</style>
     ${accessTokenUri ? html`<h4 data-type="access-token-uri">Access token URI</h4>
     <code class="settings-value">${accessTokenUri}</code>` : undefined}
 

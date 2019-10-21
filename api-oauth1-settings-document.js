@@ -39,7 +39,7 @@ import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixi
  * @appliesMixin AmfHelperMixin
  */
 class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
-  static get styles() {
+  get styles() {
     return css`:host {
       display: block;
     }
@@ -60,7 +60,7 @@ class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
 
   render() {
     const { requestTokenUri, authorizationUri, tokenCredentialsUri, signatures } = this;
-    return html`
+    return html`<style>${this.styles}</style>
     ${requestTokenUri ? html`<h4 data-type="request-token-uri">Request token URI</h4>
     <code class="settings-value">${requestTokenUri}</code>` : undefined}
 

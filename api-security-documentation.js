@@ -35,7 +35,7 @@ import './api-oauth1-settings-document.js';
  * @appliesMixin AmfHelperMixin
  */
 class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
-  static get styles() {
+  get styles() {
     return [
       markdownStyles,
       css`:host {
@@ -82,7 +82,7 @@ class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
       hasOauth1Settings = this._computeHasOA1Settings(settings);
       hasOauth2Settings = this._computeHasOA2Settings(settings);
     }
-    return html`
+    return html`<style>${this.styles}</style>
     ${aware ?
       html`<raml-aware @api-changed="${this._apiChangedHandler}" .scope="${aware}"></raml-aware>` : undefined}
 
