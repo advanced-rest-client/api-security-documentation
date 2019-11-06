@@ -162,3 +162,12 @@
 
 
 
+# 4.0.0 (2019-10-13)
+
+
+### Bug Fixes
+
+* fixing travis config ([c052eb1](https://github.com/advanced-rest-client/api-security-documentation/commit/c052eb1))
+
+
+

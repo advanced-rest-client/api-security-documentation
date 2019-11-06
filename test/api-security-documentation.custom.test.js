@@ -11,15 +11,14 @@ describe('<api-security-documentation>', function() {
     [
       ['Regular model', false],
       ['Compact model', true]
-    ].forEach((item) => {
-      describe(item[0], () => {
+    ].forEach(([label, compact]) => {
+      describe(label, () => {
         let security;
         let amf;
 
         before(async () => {
-          const data = await AmfLoader.load('x-custom', item[1]);
-          amf = data[0];
-          security = data[1];
+          amf = await AmfLoader.load(compact);
+          security = AmfLoader.lookupSecurity(amf, 'x-custom');
         });
 
         let element;
@@ -107,7 +106,7 @@ describe('<api-security-documentation>', function() {
 
         it('Responses element has properties set', () => {
           const node = element.shadowRoot.querySelector('api-responses-document');
-          assert.typeOf(node.amfModel, 'array');
+          assert.typeOf(node.amf, 'array');
           assert.typeOf(node.returns, 'array');
         });
       });
@@ -117,9 +116,8 @@ describe('<api-security-documentation>', function() {
         let amf;
 
         before(async () => {
-          const data = await AmfLoader.load('x-custom', item[1]);
-          amf = data[0];
-          security = data[1];
+          amf = await AmfLoader.load(compact);
+          security = AmfLoader.lookupSecurity(amf, 'x-custom');
         });
 
         let element;
