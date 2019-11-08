@@ -188,3 +188,20 @@
 
 
 
+## 4.0.1 (2019-11-08)
+
+
+### Bug Fixes
+
+* fixes APIC-306 - text wrapping ([d922db4](https://github.com/advanced-rest-client/api-security-documentation/commit/d922db4ea6f3491447eec38fcf6c4e230d1d6e66))
+* fixing travis config ([c052eb1](https://github.com/advanced-rest-client/api-security-documentation/commit/c052eb160c8e69c64f7c27576f75810facc588a2))
+* re-apply styling changes ([cbed0d9](https://github.com/advanced-rest-client/api-security-documentation/commit/cbed0d9184fe3713d20407d7e3fe8f7a17e0ca21))
+* update api-annotation-document verison ([653976e](https://github.com/advanced-rest-client/api-security-documentation/commit/653976ee559b5c98eda10f0725625eaf364f46fc))
+
+
+### Reverts
+
+* undo dependency updates ([68d93f0](https://github.com/advanced-rest-client/api-security-documentation/commit/68d93f0ea6aac7712011a5bfe3e777e50060c27d))
+
+
+
