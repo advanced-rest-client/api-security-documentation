@@ -61,6 +61,7 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
       padding: 1em;
       margin: .5em 0;
       user-select: text;
+      word-break: break-all;
     }
 
     .settings-list-value {
@@ -68,6 +69,7 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
       display: block;
       padding: 1em;
       user-select: text;
+      word-break: break-all;
     }`;
   }
 

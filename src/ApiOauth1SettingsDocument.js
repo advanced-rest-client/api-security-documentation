@@ -54,6 +54,8 @@ export class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
       display: block;
       padding: 1em;
       margin: .5em 0;
+      word-break: break-all;
+      user-select: text;
     }`;
   }
 

@@ -50,6 +50,8 @@ class ApiDemo extends ApiDemoPageBase {
     <paper-item data-src="demo-api-compact.json">Demo api - compact model</paper-item>
     <paper-item data-src="oauth1-fragment.json">OAuth1 fragment</paper-item>
     <paper-item data-src="oauth1-fragment-compact.json">OAuth1 fragment - compact model</paper-item>
+    <paper-item data-src="APIC-306.json">APIC-306</paper-item>
+    <paper-item data-src="APIC-306-compact.json">APIC-306 - compact model</paper-item>
     `;
   }
 

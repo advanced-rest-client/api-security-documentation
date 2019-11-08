@@ -1,4 +1,5 @@
 {
   "demo-api/demo-api.raml": "RAML 1.0",
-  "oauth1-fragment/oauth1-fragment.raml": "RAML 1.0"
+  "oauth1-fragment/oauth1-fragment.raml": "RAML 1.0",
+  "APIC-306/APIC-306.raml": "RAML 1.0"
 }
