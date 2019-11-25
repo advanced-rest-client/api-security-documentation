@@ -7,6 +7,7 @@ import '@api-components/api-annotation-document/api-annotation-document.js';
 import '@api-components/api-parameters-document/api-parameters-document.js';
 import '@api-components/api-headers-document/api-headers-document.js';
 import '@api-components/api-responses-document/api-responses-document.js';
+import '../api-oauth2-settings-documents.js';
 import '../api-oauth2-settings-document.js';
 import '../api-oauth1-settings-document.js';
 /**
@@ -101,10 +102,9 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
       .amf="${amf}"
       .settings="${settings}"></api-oauth1-settings-document>` : undefined}
 
-    ${hasOauth2Settings ? html`<h3 class="settings-title">Settings</h3>
-      <api-oauth2-settings-document
+    ${hasOauth2Settings ? html`<api-oauth2-settings-documents
       .amf="${amf}"
-      .settings="${settings}"></api-oauth2-settings-document>` : undefined}
+      .settings="${settings}"></api-oauth2-settings-documents>` : undefined}
 
     ${queryParameters && queryParameters.length ?
       html`<api-parameters-document

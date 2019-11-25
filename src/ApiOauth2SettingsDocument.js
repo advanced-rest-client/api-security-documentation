@@ -152,18 +152,13 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
   _settingsChanged(settings) {
     const accessTokenUri = this._computeAccessTokenUri(settings);
     const authorizationUri = this._computeAuthorizationUri(settings);
-    let authorizationGrants = this._computeAuthorizationGrants(settings);
     let scopes = this._computeScopes(settings);
-    if (authorizationGrants && !(authorizationGrants instanceof Array)) {
-      authorizationGrants = [authorizationGrants];
-    }
     if (scopes && !(scopes instanceof Array)) {
       scopes = [scopes];
     }
 
     this.accessTokenUri = accessTokenUri;
     this.authorizationUri = authorizationUri;
-    this.authorizationGrants = authorizationGrants;
     this.scopes = scopes;
   }
   /**
@@ -183,20 +178,12 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     return this._getValue(settings, this.ns.aml.vocabularies.security.authorizationUri);
   }
   /**
-   * Computes value for `authorizationGrants` property.
-   * @param {Object} settings OAuth2 settings from AMF model.
-   * @return {Array<String>|undefined}
-   */
-  _computeAuthorizationGrants(settings) {
-    return this._getValueArray(settings, this.ns.aml.vocabularies.security.authorizationGrant);
-  }
-  /**
    * Computes value for `scopes` property.
    * @param {Object} settings OAuth2 settings from AMF model.
    * @return {Array<Object>|undefined}
    */
   _computeScopes(settings) {
-    if (!this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Settings)) {
+    if (!this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Flow)) {
       return;
     }
     const key = this._getAmfKey(this.ns.aml.vocabularies.security.scope);

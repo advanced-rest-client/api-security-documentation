@@ -55,6 +55,7 @@ declare namespace ApiElements {
   class ApiOauth2SettingsDocument extends
     AmfHelperMixin(
     Object) {
+    readonly styles: any;
 
     /**
      * OAuth2 settings scheme of AMF.
@@ -112,13 +113,6 @@ declare namespace ApiElements {
      * @param settings OAuth2 settings from AMF model.
      */
     _computeAuthorizationUri(settings: object|null): String|null|undefined;
-
-    /**
-     * Computes value for `authorizationGrants` property.
-     *
-     * @param settings OAuth2 settings from AMF model.
-     */
-    _computeAuthorizationGrants(settings: object|null): Array<String|null>|null|undefined;
 
     /**
      * Computes value for `scopes` property.
