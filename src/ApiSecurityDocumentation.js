@@ -83,28 +83,28 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
     }
     return html`<style>${this.styles}</style>
     ${aware ?
-      html`<raml-aware @api-changed="${this._apiChangedHandler}" .scope="${aware}"></raml-aware>` : undefined}
+      html`<raml-aware @api-changed="${this._apiChangedHandler}" .scope="${aware}"></raml-aware>` : ''}
 
     <section class="title">
       <h2>${type}</h2>
     </section>
 
     ${hasCustomProperties ? html`<api-annotation-document
-      .shape="${security}"></api-annotation-document>`:undefined}
+      .shape="${security}"></api-annotation-document>`:''}
 
     ${description ? html`<arc-marked .markdown="${description}" sanitize>
       <div slot="markdown-html" class="markdown-body"></div>
-    </arc-marked>`:undefined}
+    </arc-marked>`:''}
 
     ${hasOauth1Settings ? html`<h3 class="settings-title">Settings</h3>
       <api-oauth1-settings-document
       .amf="${amf}"
-      .settings="${settings}"></api-oauth1-settings-document>` : undefined}
+      .settings="${settings}"></api-oauth1-settings-document>` : ''}
 
     ${hasOauth2Settings ? html`<h3 class="settings-title">Settings</h3>
       <api-oauth2-settings-document
       .amf="${amf}"
-      .settings="${settings}"></api-oauth2-settings-document>` : undefined}
+      .settings="${settings}"></api-oauth2-settings-document>` : ''}
 
     ${queryParameters && queryParameters.length ?
       html`<api-parameters-document
@@ -112,7 +112,7 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
         queryopened
         .queryParameters="${queryParameters}"
         ?narrow="${narrow}"></api-parameters-document>` :
-      undefined}
+      ''}
 
     ${headers && headers.length ?
       html`<api-headers-document
@@ -120,7 +120,7 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
         .amf="${amf}"
         .headers="${headers}"
         ?narrow="${narrow}"></api-headers-document>` :
-      undefined}
+      ''}
 
     ${responses && responses.length ?
       html`<section class="response-documentation">
@@ -130,7 +130,7 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
           .returns="${responses}"
           ?narrow="${narrow}"></api-responses-document>
       </section>` :
-      undefined}`;
+      ''}`;
   }
 
   static get properties() {

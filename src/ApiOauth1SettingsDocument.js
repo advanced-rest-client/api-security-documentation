@@ -63,20 +63,20 @@ export class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
     const { requestTokenUri, authorizationUri, tokenCredentialsUri, signatures } = this;
     return html`<style>${this.styles}</style>
     ${requestTokenUri ? html`<h4 data-type="request-token-uri">Request token URI</h4>
-    <code class="settings-value">${requestTokenUri}</code>` : undefined}
+    <code class="settings-value">${requestTokenUri}</code>` : ''}
 
     ${authorizationUri ? html`<h4 data-type="authorization-uri">Authorization URI</h4>
-    <code class="settings-value">${authorizationUri}</code>` : undefined}
+    <code class="settings-value">${authorizationUri}</code>` : ''}
 
     ${tokenCredentialsUri ? html`<h4 data-type="token-credentials-uri">Token credentials URI</h4>
-    <code class="settings-value">${tokenCredentialsUri}</code>` : undefined}
+    <code class="settings-value">${tokenCredentialsUri}</code>` : ''}
 
     ${signatures && signatures.length ? html`
       <h4 data-type="signatures">Supported signatures</h4>
       <ul>
       ${signatures.map((item) => html`<li>${item}</li>`)}
       </ul>
-      ` : undefined}`;
+      ` : ''}`;
   }
 
   static get properties() {

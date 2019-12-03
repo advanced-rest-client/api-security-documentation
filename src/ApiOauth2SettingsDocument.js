@@ -77,20 +77,20 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     const { accessTokenUri, authorizationUri, authorizationGrants, scopes } = this;
     return html`<style>${this.styles}</style>
     ${accessTokenUri ? html`<h4 data-type="access-token-uri">Access token URI</h4>
-    <code class="settings-value">${accessTokenUri}</code>` : undefined}
+    <code class="settings-value">${accessTokenUri}</code>` : ''}
 
     ${authorizationUri ? html`<h4 data-type="authorization-uri">Authorization URI</h4>
-    <code class="settings-value">${authorizationUri}</code>` : undefined}
+    <code class="settings-value">${authorizationUri}</code>` : ''}
 
     ${authorizationGrants && authorizationGrants.length ? html`<h4 data-type="authorization-grants">Authorization grants</h4>
     <ul>
     ${authorizationGrants.map((item) => html`<li class="settings-list-value">${item}</li>`)}
-    </ul>` : undefined}
+    </ul>` : ''}
 
     ${scopes && scopes.length ? html`<h4 data-type="authorization-scopes">Authorization scopes</h4>
     <ul>
     ${scopes.map((item) => html`<li class="settings-list-value">${item.label}</li>`)}
-    </ul>` : undefined}`;
+    </ul>` : ''}`;
   }
 
   static get properties() {
