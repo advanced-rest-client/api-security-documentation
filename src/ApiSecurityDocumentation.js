@@ -6,7 +6,7 @@ import '@advanced-rest-client/arc-marked/arc-marked.js';
 import '@api-components/api-annotation-document/api-annotation-document.js';
 import '@api-components/api-parameters-document/api-parameters-document.js';
 import '@api-components/api-headers-document/api-headers-document.js';
-import '@api-components/api-responses-document/api-responses-document.js';;
+import '@api-components/api-responses-document/api-responses-document.js';
 import '../api-oauth2-settings-document.js';
 import '../api-oauth1-settings-document.js';
 /**
