@@ -77,20 +77,20 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     const { accessTokenUri, authorizationUri, authorizationGrants, scopes } = this;
     return html`<style>${this.styles}</style>
     ${accessTokenUri ? html`<h4 data-type="access-token-uri">Access token URI</h4>
-    <code class="settings-value">${accessTokenUri}</code>` : undefined}
+    <code class="settings-value">${accessTokenUri}</code>` : ''}
 
     ${authorizationUri ? html`<h4 data-type="authorization-uri">Authorization URI</h4>
-    <code class="settings-value">${authorizationUri}</code>` : undefined}
+    <code class="settings-value">${authorizationUri}</code>` : ''}
 
     ${authorizationGrants && authorizationGrants.length ? html`<h4 data-type="authorization-grants">Authorization grants</h4>
     <ul>
     ${authorizationGrants.map((item) => html`<li class="settings-list-value">${item}</li>`)}
-    </ul>` : undefined}
+    </ul>` : ''}
 
     ${scopes && scopes.length ? html`<h4 data-type="authorization-scopes">Authorization scopes</h4>
     <ul>
     ${scopes.map((item) => html`<li class="settings-list-value">${item.label}</li>`)}
-    </ul>` : undefined}`;
+    </ul>` : ''}`;
   }
 
   static get properties() {
@@ -152,13 +152,18 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
   _settingsChanged(settings) {
     const accessTokenUri = this._computeAccessTokenUri(settings);
     const authorizationUri = this._computeAuthorizationUri(settings);
+    let authorizationGrants = this._computeAuthorizationGrants(settings);
     let scopes = this._computeScopes(settings);
+    if (authorizationGrants && !(authorizationGrants instanceof Array)) {
+      authorizationGrants = [authorizationGrants];
+    }
     if (scopes && !(scopes instanceof Array)) {
       scopes = [scopes];
     }
 
     this.accessTokenUri = accessTokenUri;
     this.authorizationUri = authorizationUri;
+    this.authorizationGrants = authorizationGrants;
     this.scopes = scopes;
   }
   /**
@@ -167,6 +172,7 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
    * @return {String|undefined}
    */
   _computeAccessTokenUri(settings) {
+    settings = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows)[0]
     return this._getValue(settings, this.ns.aml.vocabularies.security.accessTokenUri);
   }
   /**
@@ -175,7 +181,16 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
    * @return {String|undefined}
    */
   _computeAuthorizationUri(settings) {
+    settings = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows)[0]
     return this._getValue(settings, this.ns.aml.vocabularies.security.authorizationUri);
+  }
+  /**
+   * Computes value for `authorizationGrants` property.
+   * @param {Object} settings OAuth2 settings from AMF model.
+   * @return {Array<String>|undefined}
+   */
+  _computeAuthorizationGrants(settings) {
+    return this._getValueArray(settings, this.ns.aml.vocabularies.security.authorizationGrant);
   }
   /**
    * Computes value for `scopes` property.
@@ -183,6 +198,7 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
    * @return {Array<Object>|undefined}
    */
   _computeScopes(settings) {
+    settings = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows)[0]
     if (!this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Flow)) {
       return;
     }

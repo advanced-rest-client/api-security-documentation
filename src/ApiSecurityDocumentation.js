@@ -6,8 +6,7 @@ import '@advanced-rest-client/arc-marked/arc-marked.js';
 import '@api-components/api-annotation-document/api-annotation-document.js';
 import '@api-components/api-parameters-document/api-parameters-document.js';
 import '@api-components/api-headers-document/api-headers-document.js';
-import '@api-components/api-responses-document/api-responses-document.js';
-import '../api-oauth2-settings-documents.js';
+import '@api-components/api-responses-document/api-responses-document.js';;
 import '../api-oauth2-settings-document.js';
 import '../api-oauth1-settings-document.js';
 /**
@@ -102,9 +101,9 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
       .amf="${amf}"
       .settings="${settings}"></api-oauth1-settings-document>` : undefined}
 
-    ${hasOauth2Settings ? html`<api-oauth2-settings-documents
+    ${hasOauth2Settings ? html`<api-oauth2-settings-document
       .amf="${amf}"
-      .settings="${settings}"></api-oauth2-settings-documents>` : undefined}
+      .settings="${settings}"></api-oauth2-settings-document>` : undefined}
 
     ${queryParameters && queryParameters.length ?
       html`<api-parameters-document
