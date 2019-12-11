@@ -101,7 +101,8 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
       .amf="${amf}"
       .settings="${settings}"></api-oauth1-settings-document>` : ''}
 
-    ${hasOauth2Settings ? html`<api-oauth2-settings-document
+    ${hasOauth2Settings ? html`<h3 class="settings-title">Settings</h3>
+      <api-oauth2-settings-document
       .amf="${amf}"
       .settings="${settings}"></api-oauth2-settings-document>` : ''}
 
