@@ -42,6 +42,7 @@ declare namespace ApiElements {
   class ApiSecurityDocumentation extends
     AmfHelperMixin(
     Object) {
+    readonly styles: any;
 
     /**
      * A security definition to render.

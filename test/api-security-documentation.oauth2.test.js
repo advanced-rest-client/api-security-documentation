@@ -155,6 +155,30 @@ describe('<api-security-documentation>', function() {
         });
       });
 
+      describe('No scopes', () => {
+        let security;
+        let amf;
+
+        before(async () => {
+          amf = await AmfLoader.load();
+          security = AmfLoader.lookupSecurity(amf, 'oauth_2_0_no_scopes');
+        });
+
+        let element;
+        beforeEach(async () => {
+          element = await OAuth2SettingsFixture();
+          element.amf = amf;
+          const settings = element._computePropertyObject(security,
+            element.ns.raml.vocabularies.security.settings);
+          element.settings = settings;
+          await nextFrame();
+        });
+
+        it('scopes is empty', () => {
+          assert.equal(element.scopes, undefined);
+        });
+      });
+
       describe('a11y', () => {
         let security;
         let amf;

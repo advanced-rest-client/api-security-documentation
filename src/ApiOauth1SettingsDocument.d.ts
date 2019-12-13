@@ -55,6 +55,7 @@ declare namespace ApiElements {
   class ApiOauth1SettingsDocument extends
     AmfHelperMixin(
     Object) {
+    readonly styles: any;
 
     /**
      * OAuth1 settings scheme of AMF.

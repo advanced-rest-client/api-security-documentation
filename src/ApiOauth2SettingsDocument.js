@@ -172,6 +172,10 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
    * @return {String|undefined}
    */
   _computeAccessTokenUri(settings) {
+    const flows = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows);
+    if (flows) {
+      settings = flows[0]
+    }
     return this._getValue(settings, this.ns.aml.vocabularies.security.accessTokenUri);
   }
   /**
@@ -180,6 +184,10 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
    * @return {String|undefined}
    */
   _computeAuthorizationUri(settings) {
+    const flows = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows);
+    if (flows) {
+      settings = flows[0]
+    }
     return this._getValue(settings, this.ns.aml.vocabularies.security.authorizationUri);
   }
   /**
@@ -196,7 +204,11 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
    * @return {Array<Object>|undefined}
    */
   _computeScopes(settings) {
-    if (!this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Settings)) {
+    const flows = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows);
+    if (flows) {
+      settings = flows[0]
+    }
+    if (!this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Flow) && !this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Settings)) {
       return;
     }
     const key = this._getAmfKey(this.ns.aml.vocabularies.security.scope);
