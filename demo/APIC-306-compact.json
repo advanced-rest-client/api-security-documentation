@@ -9,7 +9,7 @@
 ],
 "doc:encodes": [
 {
-"@id": "#6",
+"@id": "#7",
 "@type": [
 "apiContract:WebAPI",
 "doc:RootDomainElement",
@@ -22,7 +22,7 @@
 ],
 "apiContract:server": [
 {
-"@id": "#8",
+"@id": "#9",
 "@type": [
 "apiContract:Server",
 "doc:DomainElement"
@@ -34,12 +34,13 @@
 ],
 "sourcemaps:sources": [
 {
-"@id": "#8/source-map",
+"@id": "#9/source-map",
 "@type": [
 "sourcemaps:SourceMap"
 ],
 "sourcemaps:lexical": [
 {
+"@id": "#9/source-map/lexical/element_0",
 "sourcemaps:element": [
 {
 "@value": "core:urlTemplate"
@@ -54,9 +55,10 @@
 ],
 "sourcemaps:synthesized-field": [
 {
+"@id": "#9/source-map/synthesized-field/element_0",
 "sourcemaps:element": [
 {
-"@value": "amf://id#8"
+"@value": "amf://id#9"
 }
 ],
 "sourcemaps:value": [
@@ -77,7 +79,7 @@
 ],
 "apiContract:endpoint": [
 {
-"@id": "#7",
+"@id": "#8",
 "@type": [
 "apiContract:EndPoint",
 "doc:DomainElement"
@@ -89,15 +91,16 @@
 ],
 "sourcemaps:sources": [
 {
-"@id": "#7/source-map",
+"@id": "#8/source-map",
 "@type": [
 "sourcemaps:SourceMap"
 ],
 "sourcemaps:lexical": [
 {
+"@id": "#8/source-map/lexical/element_0",
 "sourcemaps:element": [
 {
-"@value": "amf://id#7"
+"@value": "amf://id#8"
 }
 ],
 "sourcemaps:value": [
@@ -113,15 +116,16 @@
 ],
 "sourcemaps:sources": [
 {
-"@id": "#6/source-map",
+"@id": "#7/source-map",
 "@type": [
 "sourcemaps:SourceMap"
 ],
 "sourcemaps:source-vendor": [
 {
+"@id": "#7/source-map/source-vendor/element_0",
 "sourcemaps:element": [
 {
-"@value": "amf://id#6"
+"@value": "amf://id#7"
 }
 ],
 "sourcemaps:value": [
@@ -133,18 +137,20 @@
 ],
 "sourcemaps:lexical": [
 {
+"@id": "#7/source-map/lexical/element_3",
 "sourcemaps:element": [
 {
-"@value": "core:version"
+"@value": "apiContract:server"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(3,0)-(4,0)]"
+"@value": "[(4,0)-(6,0)]"
 }
 ]
 },
 {
+"@id": "#7/source-map/lexical/element_1",
 "sourcemaps:element": [
 {
 "@value": "core:name"
@@ -157,26 +163,28 @@
 ]
 },
 {
+"@id": "#7/source-map/lexical/element_0",
 "sourcemaps:element": [
 {
-"@value": "amf://id#6"
+"@value": "core:version"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(3,0)-(4,0)]"
+}
+]
+},
+{
+"@id": "#7/source-map/lexical/element_2",
+"sourcemaps:element": [
+{
+"@value": "amf://id#7"
 }
 ],
 "sourcemaps:value": [
 {
 "@value": "[(2,0)-(23,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:server"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(4,0)-(6,0)]"
 }
 ]
 }
@@ -188,6 +196,11 @@
 "doc:version": [
 {
 "@value": "2.0.0"
+}
+],
+"doc:root": [
+{
+"@value": true
 }
 ],
 "doc:declares": [
@@ -277,18 +290,7 @@
 ],
 "sourcemaps:lexical": [
 {
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,10)-(19,0)]"
-}
-]
-},
-{
+"@id": "#3/source-map/lexical/element_1",
 "sourcemaps:element": [
 {
 "@value": "amf://id#3"
@@ -297,6 +299,19 @@
 "sourcemaps:value": [
 {
 "@value": "[(17,8)-(19,0)]"
+}
+]
+},
+{
+"@id": "#3/source-map/lexical/element_0",
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(18,10)-(19,0)]"
 }
 ]
 }
@@ -313,6 +328,20 @@
 ],
 "sourcemaps:lexical": [
 {
+"@id": "#2/source-map/lexical/element_2",
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(18,10)-(19,0)]"
+}
+]
+},
+{
+"@id": "#2/source-map/lexical/element_0",
 "sourcemaps:element": [
 {
 "@value": "raml-shapes:schema"
@@ -325,6 +354,7 @@
 ]
 },
 {
+"@id": "#2/source-map/lexical/element_1",
 "sourcemaps:element": [
 {
 "@value": "amf://id#2"
@@ -333,18 +363,6 @@
 "sourcemaps:value": [
 {
 "@value": "[(17,8)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(18,10)-(19,0)]"
 }
 ]
 }
@@ -358,7 +376,13 @@
 "@id": "#4",
 "@type": [
 "apiContract:Response",
+"apiContract:Message",
 "doc:DomainElement"
+],
+"apiContract:statusCode": [
+{
+"@value": "401"
+}
 ],
 "core:name": [
 {
@@ -370,11 +394,6 @@
 "@value": "Unauthorized."
 }
 ],
-"apiContract:statusCode": [
-{
-"@value": "401"
-}
-],
 "sourcemaps:sources": [
 {
 "@id": "#4/source-map",
@@ -383,18 +402,7 @@
 ],
 "sourcemaps:lexical": [
 {
-"sourcemaps:element": [
-{
-"@value": "core:description"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(21,10)-(22,0)]"
-}
-]
-},
-{
+"@id": "#4/source-map/lexical/element_1",
 "sourcemaps:element": [
 {
 "@value": "amf://id#4"
@@ -403,6 +411,19 @@
 "sourcemaps:value": [
 {
 "@value": "[(20,8)-(22,0)]"
+}
+]
+},
+{
+"@id": "#4/source-map/lexical/element_0",
+"sourcemaps:element": [
+{
+"@value": "core:description"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(21,10)-(22,0)]"
 }
 ]
 }
@@ -419,16 +440,6 @@
 "security:Settings",
 "doc:DomainElement"
 ],
-"security:authorizationUri": [
-{
-"@value": "https://login.microsoftonline.com/MasterAshley.onmicrosoft.com/oauth2/v2.0/authorize"
-}
-],
-"security:accessTokenUri": [
-{
-"@value": "https://login.microsoftonline.com/MasterAshley.onmicrosoft.com/oauth2/v2.0/token"
-}
-],
 "security:authorizationGrant": [
 {
 "@value": "client_credentials"
@@ -443,26 +454,32 @@
 "@value": "implicit"
 }
 ],
+"security:flows": [
+{
+"@id": "#6",
+"@type": [
+"security:OAuth2Flow",
+"doc:DomainElement"
+],
+"security:authorizationUri": [
+{
+"@value": "https://login.microsoftonline.com/MasterAshley.onmicrosoft.com/oauth2/v2.0/authorize"
+}
+],
+"security:accessTokenUri": [
+{
+"@value": "https://login.microsoftonline.com/MasterAshley.onmicrosoft.com/oauth2/v2.0/token"
+}
+],
 "sourcemaps:sources": [
 {
-"@id": "#5/source-map",
+"@id": "#6/source-map",
 "@type": [
 "sourcemaps:SourceMap"
 ],
 "sourcemaps:lexical": [
 {
-"sourcemaps:element": [
-{
-"@value": "security:authorizationGrant"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(11,6)-(13,0)]"
-}
-]
-},
-{
+"@id": "#6/source-map/lexical/element_2",
 "sourcemaps:element": [
 {
 "@value": "security:authorizationUri"
@@ -475,6 +492,45 @@
 ]
 },
 {
+"@id": "#6/source-map/lexical/element_0",
+"sourcemaps:element": [
+{
+"@value": "security:accessTokenUri"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(13,6)-(14,0)]"
+}
+]
+},
+{
+"@id": "#6/source-map/lexical/element_1",
+"sourcemaps:element": [
+{
+"@value": "amf://id#6"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(11,0)-(15,0)]"
+}
+]
+}
+]
+}
+]
+}
+],
+"sourcemaps:sources": [
+{
+"@id": "#5/source-map",
+"@type": [
+"sourcemaps:SourceMap"
+],
+"sourcemaps:lexical": [
+{
+"@id": "#5/source-map/lexical/element_1",
 "sourcemaps:element": [
 {
 "@value": "amf://id#5"
@@ -487,14 +543,15 @@
 ]
 },
 {
+"@id": "#5/source-map/lexical/element_0",
 "sourcemaps:element": [
 {
-"@value": "security:accessTokenUri"
+"@value": "security:authorizationGrant"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(13,6)-(14,0)]"
+"@value": "[(11,6)-(13,0)]"
 }
 ]
 }
@@ -511,6 +568,7 @@
 ],
 "sourcemaps:declared-element": [
 {
+"@id": "#1/source-map/declared-element/element_0",
 "sourcemaps:element": [
 {
 "@value": "amf://id#1"
@@ -525,54 +583,20 @@
 ],
 "sourcemaps:lexical": [
 {
+"@id": "#1/source-map/lexical/element_6",
 "sourcemaps:element": [
 {
-"@value": "security:settings"
+"@value": "apiContract:response"
 }
 ],
 "sourcemaps:value": [
 {
-"@value": "[(10,4)-(15,0)]"
+"@value": "[(19,6)-(22,0)]"
 }
 ]
 },
 {
-"sourcemaps:element": [
-{
-"@value": "apiContract:header"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(16,6)-(19,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "security:type"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(9,4)-(10,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "amf://id#1"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(7,2)-(22,0)]"
-}
-]
-},
-{
+"@id": "#1/source-map/lexical/element_4",
 "sourcemaps:element": [
 {
 "@value": "core:name"
@@ -585,6 +609,59 @@
 ]
 },
 {
+"@id": "#1/source-map/lexical/element_2",
+"sourcemaps:element": [
+{
+"@value": "security:type"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(9,4)-(10,0)]"
+}
+]
+},
+{
+"@id": "#1/source-map/lexical/element_0",
+"sourcemaps:element": [
+{
+"@value": "security:settings"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(10,4)-(15,0)]"
+}
+]
+},
+{
+"@id": "#1/source-map/lexical/element_1",
+"sourcemaps:element": [
+{
+"@value": "apiContract:header"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(16,6)-(19,0)]"
+}
+]
+},
+{
+"@id": "#1/source-map/lexical/element_3",
+"sourcemaps:element": [
+{
+"@value": "amf://id#1"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(7,2)-(22,0)]"
+}
+]
+},
+{
+"@id": "#1/source-map/lexical/element_5",
 "sourcemaps:element": [
 {
 "@value": "core:description"
@@ -593,18 +670,6 @@
 "sourcemaps:value": [
 {
 "@value": "[(8,4)-(9,0)]"
-}
-]
-},
-{
-"sourcemaps:element": [
-{
-"@value": "apiContract:response"
-}
-],
-"sourcemaps:value": [
-{
-"@value": "[(19,6)-(22,0)]"
 }
 ]
 }
