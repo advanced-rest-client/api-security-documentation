@@ -8,8 +8,8 @@ window.customElements.define('helper-element', HelperElement);
 
 const helper = new HelperElement();
 
-AmfLoader.load = function(compact) {
-  const file = '/demo-api' + (compact ? '-compact' : '') + '.json';
+AmfLoader.load = function(compact, fileName) {
+  const file = (fileName || '/demo-api') + (compact ? '-compact' : '') + '.json';
   const url = location.protocol + '//' + location.host + '/base/demo/' + file;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();

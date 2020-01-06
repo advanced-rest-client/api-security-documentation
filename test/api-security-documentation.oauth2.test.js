@@ -179,6 +179,28 @@ describe('<api-security-documentation>', function() {
         });
       });
 
+      describe('raml-example-api', () => {
+        let security;
+        let amf;
+
+        before(async () => {
+          amf = await AmfLoader.load(compact, 'raml-example-api');
+          security = amf[0]['doc:encodes'][0]['apiContract:endpoint'][0]['apiContract:supportedOperation'][0]['security:security'][0];
+        });
+
+        let element;
+        beforeEach(async () => {
+          element = await basicFixture();
+          element.amf = amf;
+          element.security = security;
+          await nextFrame();
+        });
+
+        it('rendered auth', () => {
+          assert(element.type, 'OAuth 2.0');
+        })
+      });
+
       describe('a11y', () => {
         let security;
         let amf;
