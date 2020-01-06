@@ -240,6 +240,19 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
     if (this._hasType(security, this.ns.aml.vocabularies.security.SecurityScheme)) {
       return security;
     }
+
+    // For now, we need to get the first "security:schemes" element so as to not break compatibility
+    if (this._hasType(security, this.ns.aml.vocabularies.security.securityRequirement)) {
+      const schemesKey = this._getAmfKey(this.ns.aml.vocabularies.security.schemes);
+      const schemes = security[schemesKey];
+
+      if (schemes instanceof Array) {
+        security = schemes[0];
+      } else {
+        security = schemes;
+      }
+    }
+
     const key = this._getAmfKey(this.ns.aml.vocabularies.security.scheme);
     let scheme = security[key];
     if (!scheme) {
