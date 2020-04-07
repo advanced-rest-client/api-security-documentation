@@ -156,9 +156,9 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
 
   _renderAuthorizationGrants() {
     const { authorizationGrants = [] } = this;
-    return html`<h4 data-type="authorization-grant">Authorization grants</h4>
+    return html`<h4 data-type="authorization-grants">Authorization grants</h4>
     <ul>
-    ${authorizationGrants.map(grant => html`<li class="settings-list-value"">${grant}</li>`)}
+    ${authorizationGrants.map(grant => html`<li data-type="authorization-grant" class="settings-list-value"">${grant}</li>`)}
     </ul>`;
   }
 
