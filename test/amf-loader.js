@@ -56,11 +56,9 @@ AmfLoader.lookupFlowFromSettings = function (amf, settings, grantType) {
   }
   const flowKey = helper._getAmfKey(helper.ns.aml.vocabularies.security.flows);
   const flows = helper._getValueArray(settings, flowKey);
-  console.log('lookupFlowFromSettings', { flowKey, flows })
   return flows.find(flow => {
     const grantKey = helper._getAmfKey(helper.ns.aml.vocabularies.security.flow);
     const flowType = helper._getValue(flow, grantKey);
-    console.log({ grantKey, flowType, grantType });
     return flowType === grantType;
   });
 }
