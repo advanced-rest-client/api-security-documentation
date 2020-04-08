@@ -52,6 +52,8 @@ class ApiDemo extends ApiDemoPageBase {
     <paper-item data-src="oauth1-fragment-compact.json">OAuth1 fragment - compact model</paper-item>
     <paper-item data-src="APIC-306.json">APIC-306</paper-item>
     <paper-item data-src="APIC-306-compact.json">APIC-306 - compact model</paper-item>
+    <paper-item data-src="multi-oauth2-flow.json">Multiple OAuth2 flows</paper-item>
+    <paper-item data-src="multi-oauth2-flow-compact.json">Multiple OAuth2 flows - compact model</paper-item>
     `;
   }
 

@@ -3,12 +3,12 @@ import { LitElement } from 'lit-element';
 
 export const AmfLoader = {};
 
-class HelperElement extends AmfHelperMixin(LitElement) {}
+class HelperElement extends AmfHelperMixin(LitElement) { }
 window.customElements.define('helper-element', HelperElement);
 
 const helper = new HelperElement();
 
-AmfLoader.load = function(compact, fileName) {
+AmfLoader.load = function (compact, fileName) {
   const file = (fileName || '/demo-api') + (compact ? '-compact' : '') + '.json';
   const url = location.protocol + '//' + location.host + '/base/demo/' + file;
   return new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ AmfLoader.load = function(compact, fileName) {
   });
 };
 
-AmfLoader.lookupSecurity = function(model, type) {
+AmfLoader.lookupSecurity = function (model, type) {
   helper.amf = model;
   const declares = helper._computeDeclares(model);
   const nameKey = helper._getAmfKey(helper.ns.aml.vocabularies.core.name);
@@ -48,3 +48,17 @@ AmfLoader.lookupSecurity = function(model, type) {
     return name === type;
   });
 };
+
+AmfLoader.lookupFlowFromSettings = function (amf, settings, grantType) {
+  helper.amf = amf
+  if (Array.isArray(settings)) {
+    settings = settings[0];
+  }
+  const flowKey = helper._getAmfKey(helper.ns.aml.vocabularies.security.flows);
+  const flows = helper._getValueArray(settings, flowKey);
+  return flows.find(flow => {
+    const grantKey = helper._getAmfKey(helper.ns.aml.vocabularies.security.flow);
+    const flowType = helper._getValue(flow, grantKey);
+    return flowType === grantType;
+  });
+}
