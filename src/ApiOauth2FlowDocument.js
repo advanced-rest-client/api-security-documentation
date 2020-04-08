@@ -161,10 +161,12 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
       case 'implicit':
         return 'Implicit';
       case 'authorization_code':
+      case 'authorizationCode':
         return 'Authorization code';
       case 'password':
         return 'Password';
       case 'client_credentials':
+      case 'clientCredentials':
         return 'Client credentials';
       default:
         return grant;
@@ -173,12 +175,11 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
 
   render() {
     return html`<style>${this.styles}</style>
-    <div>
-        ${this._renderGrantType()}
-        ${this._renderAccessTokenUri()}
-        ${this._renderAuthorizationUri()}
-        ${this._renderScopes()}
-     </div>`;
+    ${this._renderGrantType()}
+    ${this._renderAccessTokenUri()}
+    ${this._renderAuthorizationUri()}
+    ${this._renderScopes()}
+    `;
   }
 
   _renderGrantType() {
