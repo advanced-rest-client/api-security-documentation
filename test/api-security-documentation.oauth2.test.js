@@ -1,24 +1,39 @@
+/* eslint-disable prefer-destructuring */
 import { fixture, assert, nextFrame } from '@open-wc/testing';
-// import sinon from 'sinon/pkg/sinon-esm.js';
 import '../api-security-documentation.js';
 import { AmfLoader } from './amf-loader.js';
 
-describe('<api-security-documentation>', function () {
+/** @typedef {import('../').ApiSecurityDocumentation} ApiSecurityDocumentation */
+/** @typedef {import('../').ApiOauth2SettingsDocument} ApiOauth2SettingsDocument */
+/** @typedef {import('../').ApiOauth2FlowDocument} ApiOauth2FlowDocument */
+
+describe('<api-security-documentation>', () => {
+  /**
+   * @returns {Promise<ApiSecurityDocumentation>} 
+   */
   async function basicFixture() {
-    return (await fixture(`<api-security-documentation></api-security-documentation>`));
+    return fixture(`<api-security-documentation></api-security-documentation>`);
   }
+
+  /**
+   * @returns {Promise<ApiOauth2SettingsDocument>} 
+   */
   async function OAuth2SettingsFixture() {
-    return (await fixture(`<api-oauth2-settings-document></api-oauth2-settings-document>`));
+    return fixture(`<api-oauth2-settings-document></api-oauth2-settings-document>`);
   }
+
+  /**
+   * @returns {Promise<ApiOauth2FlowDocument>} 
+   */
   async function OAuth2FlowFixture() {
-    return (await fixture(`<api-oauth2-flow-document></api-oauth2-settings-document>`));
+    return fixture(`<api-oauth2-flow-document></api-oauth2-settings-document>`);
   }
   describe('OAuth2 auth', () => {
     [
       ['Regular model', false],
       ['Compact model', true]
     ].forEach(([label, compact]) => {
-      describe(label, () => {
+      describe(String(label), () => {
         let security;
         let amf;
 
@@ -27,7 +42,7 @@ describe('<api-security-documentation>', function () {
           security = AmfLoader.lookupSecurity(amf, 'oauth2Annotated');
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture();
           element.amf = amf;
@@ -99,7 +114,7 @@ describe('<api-security-documentation>', function () {
       describe('api-oauth2-flow-document', () => {
         let security;
         let amf;
-        let element;
+        let element = /** @type ApiOauth2FlowDocument */ (null);
 
         describe('OAS 3.0 model', () => {
           before(async () => {
@@ -145,7 +160,7 @@ describe('<api-security-documentation>', function () {
             assert.exists(element.shadowRoot.querySelector('[data-type="access-token-uri"]'));
           });
 
-          it('Authorizartion uri is rendered', () => {
+          it('Authorization uri is rendered', () => {
             assert.exists(element.shadowRoot.querySelector('[data-type="authorization-uri"]'));
           });
 
@@ -169,6 +184,7 @@ describe('<api-security-documentation>', function () {
               settings = settings[0];
             }
             const flowKey = element.ns.raml.vocabularies.security.flows;
+            // @ts-ignore
             const flow = element._computePropertyObject(settings, flowKey);
             element.flow = flow;
             await nextFrame();
@@ -197,7 +213,7 @@ describe('<api-security-documentation>', function () {
             assert.exists(node);
           });
 
-          it('Authorizartion uri is rendered', () => {
+          it('Authorization uri is rendered', () => {
             const node = element.shadowRoot.querySelector('[data-type="authorization-uri"]');
             assert.exists(node);
           });
@@ -212,7 +228,7 @@ describe('<api-security-documentation>', function () {
       describe('api-oauth2-settings-document', () => {
         let security;
         let amf;
-        let element;
+        let element = /** @type ApiOauth2SettingsDocument */ (null);
 
         beforeEach(async () => {
           element = await OAuth2SettingsFixture();
@@ -276,13 +292,13 @@ describe('<api-security-documentation>', function () {
           security = AmfLoader.lookupSecurity(amf, 'oauth_2_0_no_scopes');
         });
 
-        let element;
+        let element = /** @type ApiOauth2FlowDocument */ (null);
         beforeEach(async () => {
-          element = await OAuth2SettingsFixture();
+          element = await OAuth2FlowFixture();
           element.amf = amf;
-          const settings = element._computePropertyObject(security,
-            element.ns.raml.vocabularies.security.settings);
-          element.settings = settings;
+          const settings = /** @type any */ (element._computePropertyObject(security, element.ns.raml.vocabularies.security.settings));
+          const flows = /** @type any[] */ (element._getValueArray(settings, element.ns.aml.vocabularies.security.flows));
+          element.flow = flows[0];
           await nextFrame();
         });
 
@@ -300,7 +316,7 @@ describe('<api-security-documentation>', function () {
           security = amf[0]['doc:encodes'][0]['apiContract:endpoint'][0]['apiContract:supportedOperation'][0]['security:security'][0];
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture();
           element.amf = amf;
@@ -322,7 +338,7 @@ describe('<api-security-documentation>', function () {
           security = AmfLoader.lookupSecurity(amf, 'oauth_2_0');
         });
 
-        let element;
+        let element = /** @type ApiOauth2SettingsDocument */ (null);
         beforeEach(async () => {
           element = await OAuth2SettingsFixture();
           element.amf = amf;

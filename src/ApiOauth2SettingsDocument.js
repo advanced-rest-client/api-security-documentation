@@ -1,5 +1,6 @@
+/* eslint-disable class-methods-use-this */
 import { LitElement, html, css } from 'lit-element';
-import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin';
 import '../api-oauth2-flow-document.js';
 /**
  * `api-oauth2-settings-document`
@@ -24,19 +25,6 @@ import '../api-oauth2-flow-document.js';
  *  authorization-uri="https://..."
  *  authorization-grants='["implicit"]'></api-oauth1-settings-document>
  * ```
- *
- * ## Styling
- *
- * `<api-oauth2-settings-document>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--api-oauth2-settings-document` | Mixin applied to this elment | `{}`
- *
- * @customElement
- * @demo demo/index.html
- * @memberof ApiElements
- * @appliesMixin AmfHelperMixin
  */
 export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
   static get properties() {
@@ -44,21 +32,18 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
       /**
        * OAuth2 settings scheme of AMF.
        * When this property changes it resets other properties.
-       * @type {Object}
        */
       settings: { type: Object },
       /**
        * List of OAuth2 authorization flows.
        * This property is updated when `settings` property changes.
        * Only available in OAS 3.0+
-       * @type {Array<String>}
        */
       flows: { type: Array },
       /**
        * List of OAuth2 authorization grants.
        * This property is updated when `settings` property changes.
        * Not available in OAS 3.0+
-       * @type {Array<String>}
        */
       authorizationGrants: { type: Array },
     };
@@ -77,7 +62,7 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     }
 
     ul {
-      maring: 0;
+      margin: 0;
       padding: 0;
     }
 
@@ -112,12 +97,13 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     this._settings = value;
     this._settingsChanged(value);
   }
+
   /**
    * Called automatically when `settings` property change (whole object,
    * not sub property).
    * Sets values of all other properties to the one found in the AMF.
    *
-   * @param {Object} settings AMF settings to process.
+   * @param {any} settings AMF settings to process.
    */
   _settingsChanged(settings) {
     const flows = this._computeFlows(settings);
@@ -131,24 +117,25 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
 
   /**
    * Computes value for `flows` property.
-   * @param {Object} settings OAuth2 settings from AMF model.
-   * @return {Array<String>|undefined}
+   * @param {any} settings OAuth2 settings from AMF model.
+   * @return {any[]|undefined}
    */
   _computeFlows(settings) {
-    return this._getValueArray(settings, this.ns.aml.vocabularies.security.flows);
+    return /** @type any[] */ (this._getValueArray(settings, this.ns.aml.vocabularies.security.flows));
   }
 
   /**
    * Computes value for `authorizationGrants` property.
-   * @param {Object} settings OAuth2 settings from AMF model.
-   * @return {Array<String>|undefined}
+   * @param {any} settings OAuth2 settings from AMF model.
+   * @return {string[]|undefined}
    */
   _computeAuthorizationGrants(settings) {
-    return this._getValueArray(settings, this.ns.aml.vocabularies.security.authorizationGrant);
+    return /** @type string[] */ (this._getValueArray(settings, this.ns.aml.vocabularies.security.authorizationGrant));
   }
 
   render() {
-    return html`<style>${this.styles}</style>
+    return html`
+    <style>${this.styles}</style>
     ${this._renderAuthorizationGrants()}
     ${this._renderFlows()}
     `;
@@ -156,9 +143,12 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
 
   _renderAuthorizationGrants() {
     const { authorizationGrants = [] } = this;
+    if (!authorizationGrants.length) {
+      return '';
+    }
     return html`<h4 data-type="authorization-grants">Authorization grants</h4>
     <ul>
-    ${authorizationGrants.map(grant => html`<li data-type="authorization-grant" class="settings-list-value"">${grant}</li>`)}
+    ${authorizationGrants.map(grant => html`<li data-type="authorization-grant" class="settings-list-value">${grant}</li>`)}
     </ul>`;
   }
 
@@ -167,6 +157,6 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     if (!flows || !flows.length) {
       return '';
     }
-    return html`${flows.map(flow => html`<api-oauth2-flow-document .flow=${flow}></api-oauth2-flow-document>`)}`;
+    return html`${flows.map(flow => html`<api-oauth2-flow-document .amf="${this.amf}" .flow=${flow}></api-oauth2-flow-document>`)}`;
   }
 }

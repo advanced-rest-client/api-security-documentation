@@ -1,7 +1,8 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable class-methods-use-this */
 import { LitElement, html, css } from 'lit-element';
-import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
-import '@api-components/raml-aware/raml-aware.js';
-import markdownStyles from '@advanced-rest-client/markdown-styles/markdown-styles.js';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin';
+import markdownStyles from '@advanced-rest-client/markdown-styles';
 import '@advanced-rest-client/arc-marked/arc-marked.js';
 import '@api-components/api-annotation-document/api-annotation-document.js';
 import '@api-components/api-parameters-document/api-parameters-document.js';
@@ -13,25 +14,6 @@ import '../api-oauth1-settings-document.js';
  * `api-security-documentation`
  *
  * Documentation view for AMF security description
- *
- * ## Styling
- *
- * `<api-security-documentation>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--api-security-documentation` | Mixin applied to this elment | `{}`
- * `--arc-font-headline` | Theme mixin, Applied to H1 element | `{}`
- * `--api-security-documentation-title` | Mixin applied to the H1 element | `{}`
- * `--api-security-documentation-title-narrow` | Mixin applied to the H1 element in narrow layout | `{}`
- * `--arc-font-title` | Theme mixin, applied to h2 element | `{}`
- * `--api-security-documentation-main-section-title` | Mixin applied to main sections title element | `{}`
- * `--api-security-documentation-main-section-title-narrow` | Mixin applied to main sections title element in narrow layout | `{}`
- *
- * @customElement
- * @demo demo/index.html
- * @memberof ApiElements
- * @appliesMixin AmfHelperMixin
  */
 export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
   get styles() {
@@ -75,7 +57,7 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
   }
 
   render() {
-    const { description, aware, type, security, settings, amf, queryParameters, headers, responses, narrow } = this;
+    const { description, type, security, settings, amf, queryParameters, headers, responses, narrow } = this;
     const hasCustomProperties = this._computeHasCustomProperties(security);
     let hasOauth1Settings = false;
     let hasOauth2Settings = false;
@@ -83,14 +65,11 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
       hasOauth1Settings = this._computeHasOA1Settings(settings);
       hasOauth2Settings = this._computeHasOA2Settings(settings);
     }
-    return html`<style>${this.styles}</style>
-    ${aware ?
-      html`<raml-aware @api-changed="${this._apiChangedHandler}" .scope="${aware}"></raml-aware>` : ''}
-
+    return html`
+    <style>${this.styles}</style>
     <section class="title">
       <h2>${type}</h2>
     </section>
-
     ${hasCustomProperties ? html`<api-annotation-document
       .shape="${security}"></api-annotation-document>`:''}
 
@@ -111,7 +90,7 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
     ${queryParameters && queryParameters.length ?
       html`<api-parameters-document
         .amf="${amf}"
-        queryopened
+        queryOpened
         .queryParameters="${queryParameters}"
         ?narrow="${narrow}"></api-parameters-document>` :
       ''}
@@ -138,10 +117,6 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
   static get properties() {
     return {
       /**
-       * `raml-aware` scope property to use.
-       */
-      aware: { type: String },
-      /**
        * A security definition to render.
        * This should be AMF's type of `http://raml.org/vocabularies/security#SecurityScheme`.
        *
@@ -166,27 +141,26 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
        * AMF headers model.
        * List of headers to apply to this scheme.
        * This value is updated automatically when `security` property change.
-       * @type {Array<Object>}
+       * {Array<Object>}
        */
       headers: { type: Array },
       /**
        * AMF query parameters model.
        * List of query parameters to apply to this scheme.
        * This value is updated automatically when `security` property change.
-       * @type {Array<Object>}
+       * {Array<Object>}
        */
       queryParameters: { type: Array },
       /**
        * AMF responses model.
        * List of responses applied to this security scheme.
        * This value is updated automatically when `security` property change.
-       * @type {Array<Object>}
+       * {Array<Object>}
        */
       responses: { type: Array },
       /**
        * AMF settings model for a security scheme.
        * This value is updated automatically when `security` property change.
-       * @type {Object}
        */
       settings: { type: Object },
       /**
@@ -224,32 +198,40 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
     this._schemeChanged(value);
   }
 
-  __amfChanged(amf) {
+  constructor() {
+    super();
+    /** 
+     * @type {any[]}
+     */
+    this.headers = undefined;
+    this.narrow = false;
+  }
+
+  __amfChanged() {
     this._scheme = this._computeScheme(this.security);
   }
+
   /**
    * Computes value of security scheme's scheme model.
-   * @param {Array|Object} security AMF security description.
-   * @return {Object} Security's scheme model.
+   * @param {any} security AMF security description.
+   * @return {any|undefined} Security's scheme model.
    */
   _computeScheme(security) {
     if (!security) {
-      return;
+      return undefined;
     }
-    if (security instanceof Array) {
-      security = security[0];
+    if (Array.isArray(security)) {
+      [security] = security;
     }
     if (this._hasType(security, this.ns.aml.vocabularies.security.SecurityScheme)) {
       return security;
     }
-
     // For now, we need to get the first "security:schemes" element so as to not break compatibility
     if (this._hasType(security, this.ns.aml.vocabularies.security.securityRequirement)) {
       const schemesKey = this._getAmfKey(this.ns.aml.vocabularies.security.schemes);
       const schemes = security[schemesKey];
-
-      if (schemes instanceof Array) {
-        security = schemes[0];
+      if (Array.isArray(schemes)) {
+        [security] = schemes;
       } else {
         security = schemes;
       }
@@ -258,27 +240,28 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
     const key = this._getAmfKey(this.ns.aml.vocabularies.security.scheme);
     let scheme = security[key];
     if (!scheme) {
-      return;
+      return undefined;
     }
-    if (scheme instanceof Array) {
-      scheme = scheme[0];
+    if (Array.isArray(scheme)) {
+      [scheme] = scheme;
     }
     return scheme;
   }
+
   /**
-   * Computes values for prroperties like `type`, `description`, `headers`,
+   * Computes values for properties like `type`, `description`, `headers`,
    * `queryParameters`, `responses` and `settings` when `scheme` property
    * change.
-   * @param {Object} scheme Scheme model to process.
+   * @param {any} scheme Scheme model to process.
    */
   _schemeChanged(scheme) {
-    this.type = this._computeType(scheme);
+    this.type = this._computeSecurityType(scheme);
     this.description = this._computeDescription(scheme);
     let headers = this._computeHeaders(scheme);
-    if (headers && !(headers instanceof Array)) {
+    if (headers && !Array.isArray(headers)) {
       headers = [headers];
     }
-    this.headers = headers;
+    this.headers = /** @type any[] */ (headers);
     let queryParameters = this._computeQueryParameters(scheme);
     if (queryParameters && !(queryParameters instanceof Array)) {
       queryParameters = [queryParameters];
@@ -291,25 +274,28 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
     this.responses = responses;
     this.settings = this._computeSettings(scheme);
   }
+
   /**
    * Computes value for security type.
-   * @param {Object} shape Scheme model.
-   * @return {String|undefined}
+   * @param {any} shape Scheme model.
+   * @return {string|undefined}
    */
-  _computeType(shape) {
-    return this._getValue(shape, this.ns.aml.vocabularies.security.type);
+  _computeSecurityType(shape) {
+    return /** @type string */ (this._getValue(shape, this.ns.aml.vocabularies.security.type));
   }
+
   /**
    * Computes scheme's settings model.
-   * @param {Object} shape Scheme model.
-   * @return {Object|undefined} Settings model
+   * @param {any} shape Scheme model.
+   * @return {any|undefined} Settings model
    */
   _computeSettings(shape) {
     return this._computePropertyObject(shape, this.ns.aml.vocabularies.security.settings);
   }
+
   /**
-   * @param {Object|undefined} settings Computed settings object
-   * @return {Boolean} True if this settings represents OAuth 2 settings
+   * @param {any} settings Computed settings object
+   * @return {boolean} True if this settings represents OAuth 2 settings
    */
   _computeHasOA2Settings(settings) {
     if (!settings) {
@@ -317,19 +303,15 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
     }
     return this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Settings);
   }
+
   /**
-   * @param {Object|undefined} settings Computed settings object
-   * @return {Boolean}
+   * @param {any} settings Computed settings object
+   * @return {boolean}
    */
   _computeHasOA1Settings(settings) {
     if (!settings) {
       return false;
     }
     return this._hasType(settings, this.ns.aml.vocabularies.security.OAuth1Settings);
-  }
-
-  _apiChangedHandler(e) {
-    const { value } = e.detail;
-    this.amf = value;
   }
 }

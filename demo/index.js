@@ -1,27 +1,18 @@
 import { html } from 'lit-html';
-import { LitElement } from 'lit-element';
-import { ApiDemoPageBase } from '@advanced-rest-client/arc-demo-helper/ApiDemoPage.js';
-import '@api-components/api-navigation/api-navigation.js';
+import { ApiDemoPage } from '@advanced-rest-client/arc-demo-helper';
+import '@anypoint-web-components/anypoint-styles/colors.js';
+import '@anypoint-web-components/anypoint-item/anypoint-item.js';
 import '../api-security-documentation.js';
 
-import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
-class DemoElement extends AmfHelperMixin(LitElement) {}
-window.customElements.define('demo-element', DemoElement);
-
-class ApiDemo extends ApiDemoPageBase {
+class ApiDemo extends ApiDemoPage {
   constructor() {
     super();
-
+    this.initObservableProperties([
+      'security',
+    ]);
     this.endpointsOpened = false;
     this.securityOpened = true;
-  }
-
-  get security() {
-    return this._security;
-  }
-
-  set security(value) {
-    this._setObservableProperty('security', value);
+    this.renderViewControls = true;
   }
 
   _navChanged(e) {
@@ -34,7 +25,10 @@ class ApiDemo extends ApiDemoPageBase {
   }
 
   setTypeData(selected) {
-    const dec = document.getElementById('helper')._computeDeclares(this.amf);
+    let dec = this._computeDeclares(this.amf);
+    if (!dec) {
+      dec = [this._computeEncodes(this.amf)];
+    }
     const security = dec.find((item) => item['@id'] === selected);
     if (!security) {
       this.hasData = false;
@@ -45,26 +39,24 @@ class ApiDemo extends ApiDemoPageBase {
   }
 
   _apiListTemplate() {
-    return html`
-    <paper-item data-src="demo-api.json">Demo api</paper-item>
-    <paper-item data-src="demo-api-compact.json">Demo api - compact model</paper-item>
-    <paper-item data-src="oauth1-fragment.json">OAuth1 fragment</paper-item>
-    <paper-item data-src="oauth1-fragment-compact.json">OAuth1 fragment - compact model</paper-item>
-    <paper-item data-src="APIC-306.json">APIC-306</paper-item>
-    <paper-item data-src="APIC-306-compact.json">APIC-306 - compact model</paper-item>
-    <paper-item data-src="multi-oauth2-flow.json">Multiple OAuth2 flows</paper-item>
-    <paper-item data-src="multi-oauth2-flow-compact.json">Multiple OAuth2 flows - compact model</paper-item>
-    `;
+    return [
+      ['demo-api', 'Demo API'],
+      ['oauth1-fragment', 'OAuth1 fragment'],
+      ['APIC-306', 'APIC-306'],
+      ['multi-oauth2-flow', 'Multiple OAuth2 flows'],
+    ].map(([file, label]) => html`
+      <anypoint-item data-src="${file}-compact.json">${label} - compact model</anypoint-item>
+      <anypoint-item data-src="${file}.json">${label}</anypoint-item>
+      `);
   }
 
   contentTemplate() {
     return html`
-    <demo-element id="helper" .amf="${this.amf}"></demo-element>
     ${this.hasData ?
       html`<api-security-documentation
         .amf="${this.amf}"
         .security="${this.security}"
-        ?narrow="${this.narrowActive}"></api-security-documentation>` :
+        ?narrow="${this.narrow}"></api-security-documentation>` :
       html`<p>Select security in the navigation to see the demo.</p>`}
     `;
   }

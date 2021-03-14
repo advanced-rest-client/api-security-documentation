@@ -3,19 +3,30 @@ import { fixture, assert, nextFrame } from '@open-wc/testing';
 import '../api-security-documentation.js';
 import { AmfLoader } from './amf-loader.js';
 
-describe('<api-security-documentation>', function() {
+/** @typedef {import('../').ApiSecurityDocumentation} ApiSecurityDocumentation */
+/** @typedef {import('../').ApiOauth1SettingsDocument} ApiOauth1SettingsDocument */
+
+describe('ApiOauth1SettingsDocument', () => {
+  /**
+   * @returns {Promise<ApiSecurityDocumentation>} 
+   */
   async function basicFixture() {
-    return (await fixture(`<api-security-documentation></api-security-documentation>`));
+    return fixture(`<api-security-documentation></api-security-documentation>`);
   }
+
+  /**
+   * @returns {Promise<ApiOauth1SettingsDocument>} 
+   */
   async function OAuth1SettingsFixture() {
-    return (await fixture(`<api-oauth1-settings-document></api-oauth1-settings-document>`));
+    return fixture(`<api-oauth1-settings-document></api-oauth1-settings-document>`);
   }
+
   describe('OAuth1 auth', () => {
     [
       ['Regular model', false],
       ['Compact model', true]
     ].forEach(([label, compact]) => {
-      describe(label, () => {
+      describe(String(label), () => {
         let security;
         let amf;
 
@@ -24,7 +35,7 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'oauth_1_0');
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture();
           element.amf = amf;
@@ -124,7 +135,7 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'oauth_1_0');
         });
 
-        let element;
+        let element = /** @type ApiOauth1SettingsDocument */ (null);
         beforeEach(async () => {
           element = await OAuth1SettingsFixture();
           element.amf = amf;
@@ -155,7 +166,7 @@ describe('<api-security-documentation>', function() {
           assert.ok(node);
         });
 
-        it('Authorizartion uri is rendered', () => {
+        it('Authorization uri is rendered', () => {
           const node = element.shadowRoot.querySelector('[data-type="authorization-uri"]');
           assert.ok(node);
         });
@@ -180,7 +191,7 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'oauth_1_0');
         });
 
-        let element;
+        let element = /** @type ApiOauth1SettingsDocument */ (null);
         beforeEach(async () => {
           element = await OAuth1SettingsFixture();
           element.amf = amf;
