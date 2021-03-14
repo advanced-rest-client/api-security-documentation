@@ -313,7 +313,8 @@ describe('<api-security-documentation>', () => {
 
         before(async () => {
           amf = await AmfLoader.load(compact, 'raml-example-api');
-          security = amf[0]['doc:encodes'][0]['apiContract:endpoint'][0]['apiContract:supportedOperation'][0]['security:security'][0];
+          const all = AmfLoader.lookupOperationSecurity(amf, '/test-parameters/{feature}', 'get');
+          security = all[0];
         });
 
         let element = /** @type ApiSecurityDocumentation */ (null);
@@ -324,7 +325,7 @@ describe('<api-security-documentation>', () => {
           await nextFrame();
         });
 
-        it('rendered auth', () => {
+        it('renders OAuth2 documentation', () => {
           assert(element.type, 'OAuth 2.0');
         })
       });

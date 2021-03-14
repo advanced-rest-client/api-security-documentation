@@ -2,5 +2,6 @@
   "demo-api/demo-api.raml": "RAML 1.0",
   "oauth1-fragment/oauth1-fragment.raml": "RAML 1.0",
   "APIC-306/APIC-306.raml": "RAML 1.0",
-  "multi-oauth2-flow/multi-oauth2-flow.yaml": "OAS 3.0"
+  "multi-oauth2-flow/multi-oauth2-flow.yaml": "OAS 3.0",
+  "raml-example-api/raml-example-api.raml": "RAML 1.0"
 }
