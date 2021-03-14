@@ -1,5 +1,7 @@
+/* eslint-disable class-methods-use-this */
 import { LitElement, html, css } from 'lit-element';
-import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin';
+import '../api-oauth2-flow-document.js';
 /**
  * `api-oauth2-settings-document`
  *
@@ -23,21 +25,30 @@ import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixi
  *  authorization-uri="https://..."
  *  authorization-grants='["implicit"]'></api-oauth1-settings-document>
  * ```
- *
- * ## Styling
- *
- * `<api-oauth2-settings-document>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--api-oauth2-settings-document` | Mixin applied to this elment | `{}`
- *
- * @customElement
- * @demo demo/index.html
- * @memberof ApiElements
- * @appliesMixin AmfHelperMixin
  */
 export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
+  static get properties() {
+    return {
+      /**
+       * OAuth2 settings scheme of AMF.
+       * When this property changes it resets other properties.
+       */
+      settings: { type: Object },
+      /**
+       * List of OAuth2 authorization flows.
+       * This property is updated when `settings` property changes.
+       * Only available in OAS 3.0+
+       */
+      flows: { type: Array },
+      /**
+       * List of OAuth2 authorization grants.
+       * This property is updated when `settings` property changes.
+       * Not available in OAS 3.0+
+       */
+      authorizationGrants: { type: Array },
+    };
+  }
+
   get styles() {
     return css`:host {
       display: block;
@@ -51,7 +62,7 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     }
 
     ul {
-      maring: 0;
+      margin: 0;
       padding: 0;
     }
 
@@ -73,62 +84,6 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     }`;
   }
 
-  render() {
-    const { accessTokenUri, authorizationUri, authorizationGrants, scopes } = this;
-    return html`<style>${this.styles}</style>
-    ${accessTokenUri ? html`<h4 data-type="access-token-uri">Access token URI</h4>
-    <code class="settings-value">${accessTokenUri}</code>` : ''}
-
-    ${authorizationUri ? html`<h4 data-type="authorization-uri">Authorization URI</h4>
-    <code class="settings-value">${authorizationUri}</code>` : ''}
-
-    ${authorizationGrants && authorizationGrants.length ? html`<h4 data-type="authorization-grants">Authorization grants</h4>
-    <ul>
-    ${authorizationGrants.map((item) => html`<li class="settings-list-value">${item}</li>`)}
-    </ul>` : ''}
-
-    ${scopes && scopes.length ? html`<h4 data-type="authorization-scopes">Authorization scopes</h4>
-    <ul>
-    ${scopes.map((item) => html`<li class="settings-list-value">${item.label}</li>`)}
-    </ul>` : ''}`;
-  }
-
-  static get properties() {
-    return {
-      /**
-       * OAuth2 settings scheme of AMF.
-       * When this property changes it resets other properties.
-       * @type {Object}
-       */
-      settings: { type: Object },
-      /**
-       * Access token URI value.
-       * This property is updated when `settings` property chnage.
-       */
-      accessTokenUri: { type: String },
-      /**
-       * Authorization URI value.
-       * This property is updated when `settings` property chnage.
-       */
-      authorizationUri: { type: String },
-      /**
-       * List of OAuth2 authorization grants.
-       * This property is updated when `settings` property chnage.
-       * @type {Array<String>}
-       */
-      authorizationGrants: { type: Array },
-      /**
-       * List of OAuth2 authorization scopes.
-       * This property is updated when `settings` property chnage.
-       *
-       * Each array item must have `label` and optional `description`
-       * properties.
-       * @type {Array<Object>}
-       */
-      scopes: { type: Array }
-    };
-  }
-
   get settings() {
     return this._settings;
   }
@@ -142,85 +97,66 @@ export class ApiOauth2SettingsDocument extends AmfHelperMixin(LitElement) {
     this._settings = value;
     this._settingsChanged(value);
   }
+
   /**
    * Called automatically when `settings` property change (whole object,
    * not sub property).
    * Sets values of all other properties to the one found in the AMF.
    *
-   * @param {Object} settings AMF settings to process.
+   * @param {any} settings AMF settings to process.
    */
   _settingsChanged(settings) {
-    const accessTokenUri = this._computeAccessTokenUri(settings);
-    const authorizationUri = this._computeAuthorizationUri(settings);
+    const flows = this._computeFlows(settings);
     let authorizationGrants = this._computeAuthorizationGrants(settings);
-    let scopes = this._computeScopes(settings);
     if (authorizationGrants && !(authorizationGrants instanceof Array)) {
       authorizationGrants = [authorizationGrants];
     }
-    if (scopes && !(scopes instanceof Array)) {
-      scopes = [scopes];
-    }
-
-    this.accessTokenUri = accessTokenUri;
-    this.authorizationUri = authorizationUri;
     this.authorizationGrants = authorizationGrants;
-    this.scopes = scopes;
+    this.flows = flows;
   }
+
   /**
-   * Computes value for `accessTokenUri` property.
-   * @param {Object} settings OAuth2 settings from AMF model.
-   * @return {String|undefined}
+   * Computes value for `flows` property.
+   * @param {any} settings OAuth2 settings from AMF model.
+   * @return {any[]|undefined}
    */
-  _computeAccessTokenUri(settings) {
-    const flows = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows);
-    if (flows) {
-      settings = flows[0]
-    }
-    return this._getValue(settings, this.ns.aml.vocabularies.security.accessTokenUri);
+  _computeFlows(settings) {
+    return /** @type any[] */ (this._getValueArray(settings, this.ns.aml.vocabularies.security.flows));
   }
-  /**
-   * Computes value for `authorizationUri` property.
-   * @param {Object} settings OAuth2 settings from AMF model.
-   * @return {String|undefined}
-   */
-  _computeAuthorizationUri(settings) {
-    const flows = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows);
-    if (flows) {
-      settings = flows[0]
-    }
-    return this._getValue(settings, this.ns.aml.vocabularies.security.authorizationUri);
-  }
+
   /**
    * Computes value for `authorizationGrants` property.
-   * @param {Object} settings OAuth2 settings from AMF model.
-   * @return {Array<String>|undefined}
+   * @param {any} settings OAuth2 settings from AMF model.
+   * @return {string[]|undefined}
    */
   _computeAuthorizationGrants(settings) {
-    return this._getValueArray(settings, this.ns.aml.vocabularies.security.authorizationGrant);
+    return /** @type string[] */ (this._getValueArray(settings, this.ns.aml.vocabularies.security.authorizationGrant));
   }
-  /**
-   * Computes value for `scopes` property.
-   * @param {Object} settings OAuth2 settings from AMF model.
-   * @return {Array<Object>|undefined}
-   */
-  _computeScopes(settings) {
-    const flows = this._getValueArray(settings, this.ns.aml.vocabularies.security.flows);
-    if (flows) {
-      settings = flows[0]
+
+  render() {
+    return html`
+    <style>${this.styles}</style>
+    ${this._renderAuthorizationGrants()}
+    ${this._renderFlows()}
+    `;
+  }
+
+  _renderAuthorizationGrants() {
+    const { authorizationGrants = [] } = this;
+    if (!authorizationGrants.length) {
+      return '';
     }
-    if (!this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Flow) && !this._hasType(settings, this.ns.aml.vocabularies.security.OAuth2Settings)) {
-      return;
+    return html`<h4 data-type="authorization-grants">Authorization grants</h4>
+    <ul>
+    ${authorizationGrants.map(grant => html`<li data-type="authorization-grant" class="settings-list-value">${grant}</li>`)}
+    </ul>`;
+  }
+
+  _renderFlows() {
+    const { flows } = this;
+    if (!flows || !flows.length) {
+      return '';
     }
-    const key = this._getAmfKey(this.ns.aml.vocabularies.security.scope);
-    const scopes = this._ensureArray(settings[key]);
-    if (!scopes) {
-      return;
-    }
-    return scopes.map((item) => {
-      return {
-        description: this._computeDescription(item),
-        label: this._getValue(item, this.ns.aml.vocabularies.core.name)
-      };
-    });
+    return html`${flows.map(flow => html`<api-oauth2-flow-document .amf="${this.amf}" .flow=${flow}></api-oauth2-flow-document>`)}`;
   }
 }

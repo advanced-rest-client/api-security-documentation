@@ -1,18 +1,22 @@
 import { fixture, assert, nextFrame } from '@open-wc/testing';
-// import sinon from 'sinon/pkg/sinon-esm.js';
 import '../api-security-documentation.js';
 import { AmfLoader } from './amf-loader.js';
 
-describe('<api-security-documentation>', function() {
+/** @typedef {import('../').ApiSecurityDocumentation} ApiSecurityDocumentation */
+
+describe('ApiSecurityDocumentation', () => {
+  /**
+   * @returns {Promise<ApiSecurityDocumentation>} 
+   */
   async function basicFixture() {
-    return (await fixture(`<api-security-documentation></api-security-documentation>`));
+    return fixture(`<api-security-documentation></api-security-documentation>`);
   }
   describe('RAML custom auth', () => {
     [
       ['Regular model', false],
       ['Compact model', true]
     ].forEach(([label, compact]) => {
-      describe(label, () => {
+      describe(String(label), () => {
         let security;
         let amf;
 
@@ -21,7 +25,7 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'x-custom');
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture();
           element.amf = amf;
@@ -120,7 +124,7 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'x-custom');
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture();
           element.amf = amf;

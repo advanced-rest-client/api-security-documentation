@@ -1,0 +1,248 @@
+{
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "api-oauth1-settings-document",
+      "path": "./api-oauth1-settings-document.js",
+      "description": "`api-oauth1-settings-document`\n\nDocumentation view for AMF OAuth2 security settings.\n\nSettings can be passed by setting the `settings` property to AMF's\nsettings property of Security Scheme.\n\n```html\n<api-oauth1-settings-document\n  amf-model=\"{...}\"\n  settings=\"{...}\"></api-oauth1-settings-document>\n```\n\nIt is also possible to set corresponding properties directly.\n\n```html\n<api-oauth1-settings-document\n  amf-model=\"{...}\"\n  request-token-uri=\"https://...\"\n  authorization-uri=\"https://...\"\n  signatures='[\"RSA-SHA1\"]'></api-oauth1-settings-document>\n```",
+      "attributes": [
+        {
+          "name": "requestTokenUri",
+          "description": "The request token URI from the settings model.\nAutomatically set when `settings` property change.",
+          "type": "string"
+        },
+        {
+          "name": "authorizationUri",
+          "description": "The authorization endpoint URI.\nAutomatically set when `settings` property change.",
+          "type": "string"
+        },
+        {
+          "name": "tokenCredentialsUri",
+          "description": "Token credentials endpoint URI.\nAutomatically set when `settings` property change.",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "styles",
+          "type": "CSSResult"
+        },
+        {
+          "name": "settings",
+          "description": "OAuth1 settings scheme of AMF.\nWhen this property changes it resets other properties."
+        },
+        {
+          "name": "requestTokenUri",
+          "attribute": "requestTokenUri",
+          "description": "The request token URI from the settings model.\nAutomatically set when `settings` property change.",
+          "type": "string"
+        },
+        {
+          "name": "authorizationUri",
+          "attribute": "authorizationUri",
+          "description": "The authorization endpoint URI.\nAutomatically set when `settings` property change.",
+          "type": "string"
+        },
+        {
+          "name": "tokenCredentialsUri",
+          "attribute": "tokenCredentialsUri",
+          "description": "Token credentials endpoint URI.\nAutomatically set when `settings` property change.",
+          "type": "string"
+        },
+        {
+          "name": "signatures",
+          "description": "List of signatures used by this authorization server.\nAutomatically set when `settings` property change.",
+          "type": "string[]"
+        },
+        {
+          "name": "ns",
+          "description": "A namespace for AMF model.",
+          "type": "Namespace"
+        },
+        {
+          "name": "amf",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only useful for the element to resolve references.",
+          "type": "object | object[] | undefined"
+        }
+      ]
+    },
+    {
+      "name": "api-oauth2-flow-document",
+      "path": "./api-oauth2-flow-document.js",
+      "attributes": [
+        {
+          "name": "accessTokenUri",
+          "description": "Access token URI value.\nThis property is updated when `flow` property changes.",
+          "type": "string"
+        },
+        {
+          "name": "authorizationUri",
+          "description": "Authorization URI value.\nThis property is updated when `flow` property changes.",
+          "type": "string"
+        },
+        {
+          "name": "authorizationGrant",
+          "description": "Value of OAuth2 authorization grant.\nThis property is updated when `flow` property changes.\nOnly available in OAS 3.0+",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "accessTokenUri",
+          "attribute": "accessTokenUri",
+          "description": "Access token URI value.\nThis property is updated when `flow` property changes.",
+          "type": "string"
+        },
+        {
+          "name": "authorizationUri",
+          "attribute": "authorizationUri",
+          "description": "Authorization URI value.\nThis property is updated when `flow` property changes.",
+          "type": "string"
+        },
+        {
+          "name": "authorizationGrant",
+          "attribute": "authorizationGrant",
+          "description": "Value of OAuth2 authorization grant.\nThis property is updated when `flow` property changes.\nOnly available in OAS 3.0+",
+          "type": "string"
+        },
+        {
+          "name": "scopes",
+          "description": "List of OAuth2 authorization scopes.\nThis property is updated when `flow` property changes.\n\nEach array item must have `label` and optional `description`\nproperties.",
+          "type": "FlowScope[]"
+        },
+        {
+          "name": "styles",
+          "type": "CSSResult"
+        },
+        {
+          "name": "flow",
+          "description": "The flow definition to render."
+        },
+        {
+          "name": "ns",
+          "description": "A namespace for AMF model.",
+          "type": "Namespace"
+        },
+        {
+          "name": "amf",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only useful for the element to resolve references.",
+          "type": "object | object[] | undefined"
+        }
+      ]
+    },
+    {
+      "name": "api-oauth2-settings-document",
+      "path": "./api-oauth2-settings-document.js",
+      "description": "`api-oauth2-settings-document`\n\nDocumentation view for AMF OAuth2 security settings.\n\nSettings can be passed by setting the `settings` property to AMF's\nsettings property of Security Scheme.\n\n```html\n<api-oauth2-settings-document\n  amf-model=\"{...}\"\n  settings=\"{...}\"></api-oauth1-settings-document>\n```\n\nIt is also possible to set corresponding properties directly.\n\n```html\n<api-oauth2-settings-document\n  amf-model=\"{...}\"\n  access-token-uri=\"https://...\"\n  authorization-uri=\"https://...\"\n  authorization-grants='[\"implicit\"]'></api-oauth1-settings-document>\n```",
+      "properties": [
+        {
+          "name": "settings",
+          "description": "OAuth2 settings scheme of AMF.\nWhen this property changes it resets other properties."
+        },
+        {
+          "name": "flows",
+          "description": "List of OAuth2 authorization flows.\nThis property is updated when `settings` property changes.\nOnly available in OAS 3.0+",
+          "type": "array"
+        },
+        {
+          "name": "authorizationGrants",
+          "description": "List of OAuth2 authorization grants.\nThis property is updated when `settings` property changes.\nNot available in OAS 3.0+",
+          "type": "string[]"
+        },
+        {
+          "name": "styles",
+          "type": "CSSResult"
+        },
+        {
+          "name": "ns",
+          "description": "A namespace for AMF model.",
+          "type": "Namespace"
+        },
+        {
+          "name": "amf",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only useful for the element to resolve references.",
+          "type": "object | object[] | undefined"
+        }
+      ]
+    },
+    {
+      "name": "api-security-documentation",
+      "path": "./api-security-documentation.js",
+      "description": "`api-security-documentation`\n\nDocumentation view for AMF security description",
+      "attributes": [
+        {
+          "name": "type",
+          "description": "Security scheme type name.\nThe value is updated automatically when `security` property change.",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "description": "Security scheme description.\nThe value is updated automatically when `security` property change.",
+          "type": "string"
+        },
+        {
+          "name": "narrow",
+          "description": "Set to render a mobile friendly view.",
+          "type": "boolean"
+        }
+      ],
+      "properties": [
+        {
+          "name": "styles",
+          "type": "CSSResult[]"
+        },
+        {
+          "name": "security",
+          "description": "A security definition to render.\nThis should be AMF's type of `http://raml.org/vocabularies/security#SecurityScheme`."
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "description": "Security scheme type name.\nThe value is updated automatically when `security` property change.",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "attribute": "description",
+          "description": "Security scheme description.\nThe value is updated automatically when `security` property change.",
+          "type": "string"
+        },
+        {
+          "name": "headers",
+          "description": "AMF headers model.\nList of headers to apply to this scheme.\nThis value is updated automatically when `security` property change.\n{Array<Object>}",
+          "type": "array"
+        },
+        {
+          "name": "queryParameters",
+          "description": "AMF query parameters model.\nList of query parameters to apply to this scheme.\nThis value is updated automatically when `security` property change.\n{Array<Object>}",
+          "type": "array"
+        },
+        {
+          "name": "responses",
+          "description": "AMF responses model.\nList of responses applied to this security scheme.\nThis value is updated automatically when `security` property change.\n{Array<Object>}",
+          "type": "array"
+        },
+        {
+          "name": "settings",
+          "description": "AMF settings model for a security scheme.\nThis value is updated automatically when `security` property change."
+        },
+        {
+          "name": "narrow",
+          "attribute": "narrow",
+          "description": "Set to render a mobile friendly view.",
+          "type": "boolean"
+        },
+        {
+          "name": "ns",
+          "description": "A namespace for AMF model.",
+          "type": "Namespace"
+        },
+        {
+          "name": "amf",
+          "description": "Generated AMF json/ld model form the API spec.\nThe element assumes the object of the first array item to be a\ntype of `\"http://raml.org/vocabularies/document#Document`\non AMF vocabulary.\n\nIt is only useful for the element to resolve references.",
+          "type": "object | object[] | undefined"
+        }
+      ]
+    }
+  ]
+}

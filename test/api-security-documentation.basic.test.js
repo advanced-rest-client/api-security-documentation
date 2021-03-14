@@ -1,20 +1,19 @@
-import { fixture, assert, html, nextFrame } from '@open-wc/testing';
-// import sinon from 'sinon/pkg/sinon-esm.js';
+import { fixture, assert, html } from '@open-wc/testing';
 import '../api-security-documentation.js';
 import { AmfLoader } from './amf-loader.js';
 
-describe('<api-security-documentation>', function() {
-  async function basicFixture(amf, security) {
-    return (await fixture(html`<api-security-documentation
-      .amf="${amf}"
-      .security="${security}"></api-security-documentation>`));
-  }
+/** @typedef {import('../').ApiSecurityDocumentation} ApiSecurityDocumentation */
 
-  async function awareFixture() {
-    return (await fixture(`<div>
-      <api-security-documentation aware="test-api"></api-security-documentation>
-      <raml-aware scope="test-api"></raml-aware>
-      </div>`));
+describe('ApiSecurityDocumentation', () => {
+  /**
+   * @param {*} amf
+   * @param {*} security
+   * @returns {Promise<ApiSecurityDocumentation>} 
+   */
+  async function basicFixture(amf, security) {
+    return fixture(html`<api-security-documentation
+      .amf="${amf}"
+      .security="${security}"></api-security-documentation>`);
   }
 
   describe('Basic auth', () => {
@@ -22,7 +21,7 @@ describe('<api-security-documentation>', function() {
       ['Regular model', false],
       ['Compact model', true]
     ].forEach(([label, compact]) => {
-      describe(label, () => {
+      describe(String(label), () => {
         let security;
         let amf;
 
@@ -31,7 +30,7 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'basic');
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture(amf, security);
         });
@@ -102,32 +101,6 @@ describe('<api-security-documentation>', function() {
         });
       });
 
-      describe('raml-aware', () => {
-        let amf;
-
-        before(async () => {
-          amf = await AmfLoader.load(compact);
-        });
-
-        let element;
-        beforeEach(async () => {
-          const region = await awareFixture();
-          const aware = region.querySelector('raml-aware');
-          element = region.querySelector('api-security-documentation');
-          aware.api = amf;
-          await nextFrame();
-        });
-
-        it('renders aware component', () => {
-          const node = element.shadowRoot.querySelector('raml-aware');
-          assert.ok(node);
-        });
-
-        it('sets amf property when aware changes', () => {
-          assert.typeOf(element.amf, 'array');
-        });
-      });
-
       describe('a11y', () => {
         let security;
         let amf;
@@ -137,13 +110,13 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'basic');
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture(amf, security);
         });
 
         it('is accessible', async () => {
-          await assert.isAccessible(element);
+          await assert.isAccessible(element, { ignoredRules: ['color-contrast'] });
         });
       });
     });

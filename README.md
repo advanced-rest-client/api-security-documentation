@@ -1,12 +1,10 @@
-[![Published on NPM](https://img.shields.io/npm/v/@api-components/api-security-documentation.svg)](https://www.npmjs.com/package/@api-components/api-security-documentation)
-
-[![Build Status](https://travis-ci.org/advanced-rest-client/api-security-documentation.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/api-security-documentation)
-
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/advanced-rest-client/api-security-documentation)
-
-## &lt;api-security-documentation&gt;
+# api-security-documentation
 
 Documentation view for AMF security model of an API.
+
+[![Published on NPM](https://img.shields.io/npm/v/@api-components/api-security-documentation.svg)](https://www.npmjs.com/package/@api-components/api-security-documentation)
+
+[![Tests and publishing](https://github.com/advanced-rest-client/api-security-documentation/actions/workflows/deployment.yml/badge.svg)](https://github.com/advanced-rest-client/api-security-documentation/actions/workflows/deployment.yml)
 
 ## Version compatibility
 
@@ -16,7 +14,8 @@ For compatibility with previous model version use `3.x.x` version of the compone
 ## Usage
 
 ### Installation
-```
+
+```sh
 npm install --save @api-components/api-security-documentation
 ```
 
@@ -76,10 +75,7 @@ npm start
 ```
 
 ### Running the tests
+
 ```sh
 npm test
 ```
-
-## API components
-
-This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)

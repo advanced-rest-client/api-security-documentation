@@ -1,21 +1,39 @@
+/* eslint-disable prefer-destructuring */
 import { fixture, assert, nextFrame } from '@open-wc/testing';
-// import sinon from 'sinon/pkg/sinon-esm.js';
 import '../api-security-documentation.js';
 import { AmfLoader } from './amf-loader.js';
 
-describe('<api-security-documentation>', function() {
+/** @typedef {import('../').ApiSecurityDocumentation} ApiSecurityDocumentation */
+/** @typedef {import('../').ApiOauth2SettingsDocument} ApiOauth2SettingsDocument */
+/** @typedef {import('../').ApiOauth2FlowDocument} ApiOauth2FlowDocument */
+
+describe('<api-security-documentation>', () => {
+  /**
+   * @returns {Promise<ApiSecurityDocumentation>} 
+   */
   async function basicFixture() {
-    return (await fixture(`<api-security-documentation></api-security-documentation>`));
+    return fixture(`<api-security-documentation></api-security-documentation>`);
   }
+
+  /**
+   * @returns {Promise<ApiOauth2SettingsDocument>} 
+   */
   async function OAuth2SettingsFixture() {
-    return (await fixture(`<api-oauth2-settings-document></api-oauth2-settings-document>`));
+    return fixture(`<api-oauth2-settings-document></api-oauth2-settings-document>`);
+  }
+
+  /**
+   * @returns {Promise<ApiOauth2FlowDocument>} 
+   */
+  async function OAuth2FlowFixture() {
+    return fixture(`<api-oauth2-flow-document></api-oauth2-settings-document>`);
   }
   describe('OAuth2 auth', () => {
     [
       ['Regular model', false],
       ['Compact model', true]
     ].forEach(([label, compact]) => {
-      describe(label, () => {
+      describe(String(label), () => {
         let security;
         let amf;
 
@@ -24,7 +42,7 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'oauth2Annotated');
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture();
           element.amf = amf;
@@ -93,16 +111,125 @@ describe('<api-security-documentation>', function() {
         });
       });
 
+      describe('api-oauth2-flow-document', () => {
+        let security;
+        let amf;
+        let element = /** @type ApiOauth2FlowDocument */ (null);
+
+        describe('OAS 3.0 model', () => {
+          before(async () => {
+            amf = await AmfLoader.load(compact, 'multi-oauth2-flow');
+            security = AmfLoader.lookupSecurity(amf, 'oAuthSample');
+          });
+
+          beforeEach(async () => {
+            element = await OAuth2FlowFixture();
+            element.amf = amf;
+            const settingsKey = element.ns.raml.vocabularies.security.settings;
+            let settings = element._computePropertyObject(security, settingsKey);
+            if (Array.isArray(settings)) {
+              settings = settings[0];
+            }
+            const flow = AmfLoader.lookupFlowFromSettings(amf, settings, 'authorizationCode');
+            element.flow = flow;
+            await nextFrame();
+          });
+
+          it('accessTokenUri is set', () => {
+            assert.equal(element.accessTokenUri, 'https://example.com/oauth/token');
+          });
+
+          it('authorizationUri is set', () => {
+            assert.equal(element.authorizationUri, 'https://example.com/oauth/authorize');
+          });
+
+          it('scopes is set', () => {
+            assert.deepEqual(element.scopes, [{
+              label: 'read',
+              description: 'Grants read access'
+            }, {
+              label: 'write',
+              description: 'Grants write access'
+            }, {
+              label: 'admin',
+              description: 'Grants access to admin operations'
+            }]);
+          });
+
+          it('Access token uri is rendered', () => {
+            assert.exists(element.shadowRoot.querySelector('[data-type="access-token-uri"]'));
+          });
+
+          it('Authorization uri is rendered', () => {
+            assert.exists(element.shadowRoot.querySelector('[data-type="authorization-uri"]'));
+          });
+
+          it('Authorization scopes list is rendered', () => {
+            assert.exists(element.shadowRoot.querySelector('[data-type="authorization-scopes"]'));
+          });
+        });
+
+        describe('RAML model', () => {
+          before(async () => {
+            amf = await AmfLoader.load(compact);
+            security = AmfLoader.lookupSecurity(amf, 'oauth_2_0');
+          });
+
+          beforeEach(async () => {
+            element = await OAuth2FlowFixture();
+            element.amf = amf;
+            const settingsKey = element.ns.raml.vocabularies.security.settings;
+            let settings = element._computePropertyObject(security, settingsKey);
+            if (Array.isArray(settings)) {
+              settings = settings[0];
+            }
+            const flowKey = element.ns.raml.vocabularies.security.flows;
+            // @ts-ignore
+            const flow = element._computePropertyObject(settings, flowKey);
+            element.flow = flow;
+            await nextFrame();
+          });
+
+          it('accessTokenUri is set', () => {
+            assert.equal(element.accessTokenUri, 'http://api.domain.com/oauth2/token');
+          });
+
+          it('authorizationUri is set', () => {
+            assert.equal(element.authorizationUri, 'http://api.domain.com/oauth2/auth');
+          });
+
+          it('scopes is set', () => {
+            assert.deepEqual(element.scopes, [{
+              label: 'profile',
+              description: undefined
+            }, {
+              label: 'email',
+              description: undefined
+            }]);
+          });
+
+          it('Access token uri is rendered', () => {
+            const node = element.shadowRoot.querySelector('[data-type="access-token-uri"]');
+            assert.exists(node);
+          });
+
+          it('Authorization uri is rendered', () => {
+            const node = element.shadowRoot.querySelector('[data-type="authorization-uri"]');
+            assert.exists(node);
+          });
+
+          it('Authorization scopes list is rendered', () => {
+            const node = element.shadowRoot.querySelector('[data-type="authorization-scopes"]');
+            assert.exists(node);
+          });
+        });
+      });
+
       describe('api-oauth2-settings-document', () => {
         let security;
         let amf;
+        let element = /** @type ApiOauth2SettingsDocument */ (null);
 
-        before(async () => {
-          amf = await AmfLoader.load(compact);
-          security = AmfLoader.lookupSecurity(amf, 'oauth_2_0');
-        });
-
-        let element;
         beforeEach(async () => {
           element = await OAuth2SettingsFixture();
           element.amf = amf;
@@ -112,46 +239,47 @@ describe('<api-security-documentation>', function() {
           await nextFrame();
         });
 
-        it('accessTokenUri is set', () => {
-          assert.equal(element.accessTokenUri, 'http://api.domain.com/oauth2/token');
+        describe('OAS 3.0 model', () => {
+          before(async () => {
+            amf = await AmfLoader.load(compact, 'multi-oauth2-flow');
+            security = AmfLoader.lookupSecurity(amf, 'oAuthSample');
+          });
+
+          it('Authorization grants list is not rendered', () => {
+            assert.isEmpty(element.shadowRoot.querySelectorAll('[data-type="authorization-grant"]'));
+          });
+
+          it('api-oauth2-flow-document is rendered', () => {
+            assert.exists(element.shadowRoot.querySelector('api-oauth2-flow-document'));
+          });
+
+          it('3 api-oauth2-flow-document components are rendered', () => {
+            assert.lengthOf(element.shadowRoot.querySelectorAll('api-oauth2-flow-document'), 3);
+          });
         });
 
-        it('authorizationUri is set', () => {
-          assert.equal(element.authorizationUri, 'http://api.domain.com/oauth2/auth');
-        });
+        describe('RAML model', () => {
+          before(async () => {
+            amf = await AmfLoader.load(compact);
+            security = AmfLoader.lookupSecurity(amf, 'oauth_2_0');
+          });
 
-        it('authorizationGrants is set', () => {
-          assert.deepEqual(element.authorizationGrants, ['authorization_code', 'implicit', 'https://schema.org/auth']);
-        });
+          it('authorizationGrants is set', () => {
+            assert.deepEqual(element.authorizationGrants, ['authorization_code', 'implicit', 'https://schema.org/auth']);
+          });
 
-        it('scopes is set', () => {
-          assert.deepEqual(element.scopes, [{
-            label: 'profile',
-            description: undefined
-          }, {
-            label: 'email',
-            description: undefined
-          }]);
-        });
+          it('Authorization grants list is rendered', () => {
+            const node = element.shadowRoot.querySelectorAll('[data-type="authorization-grant"]');
+            assert.lengthOf(node, 3);
+          });
 
-        it('Access token uri is rendered', () => {
-          const node = element.shadowRoot.querySelector('[data-type="access-token-uri"]');
-          assert.ok(node);
-        });
+          it('api-oauth2-flow-document is rendered', () => {
+            assert.exists(element.shadowRoot.querySelector('api-oauth2-flow-document'));
+          });
 
-        it('Authorizartion uri is rendered', () => {
-          const node = element.shadowRoot.querySelector('[data-type="authorization-uri"]');
-          assert.ok(node);
-        });
-
-        it('Authorization grants list is rendered', () => {
-          const node = element.shadowRoot.querySelector('[data-type="authorization-grants"]');
-          assert.ok(node);
-        });
-
-        it('Authorization scopes list is rendered', () => {
-          const node = element.shadowRoot.querySelector('[data-type="authorization-scopes"]');
-          assert.ok(node);
+          it('only 1 api-oauth2-flow-document is rendered', () => {
+            assert.lengthOf(element.shadowRoot.querySelectorAll('api-oauth2-flow-document'), 1);
+          });
         });
       });
 
@@ -164,13 +292,13 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'oauth_2_0_no_scopes');
         });
 
-        let element;
+        let element = /** @type ApiOauth2FlowDocument */ (null);
         beforeEach(async () => {
-          element = await OAuth2SettingsFixture();
+          element = await OAuth2FlowFixture();
           element.amf = amf;
-          const settings = element._computePropertyObject(security,
-            element.ns.raml.vocabularies.security.settings);
-          element.settings = settings;
+          const settings = /** @type any */ (element._computePropertyObject(security, element.ns.raml.vocabularies.security.settings));
+          const flows = /** @type any[] */ (element._getValueArray(settings, element.ns.aml.vocabularies.security.flows));
+          element.flow = flows[0];
           await nextFrame();
         });
 
@@ -185,10 +313,11 @@ describe('<api-security-documentation>', function() {
 
         before(async () => {
           amf = await AmfLoader.load(compact, 'raml-example-api');
-          security = amf[0]['doc:encodes'][0]['apiContract:endpoint'][0]['apiContract:supportedOperation'][0]['security:security'][0];
+          const all = AmfLoader.lookupOperationSecurity(amf, '/test-parameters/{feature}', 'get');
+          security = all[0];
         });
 
-        let element;
+        let element = /** @type ApiSecurityDocumentation */ (null);
         beforeEach(async () => {
           element = await basicFixture();
           element.amf = amf;
@@ -196,7 +325,7 @@ describe('<api-security-documentation>', function() {
           await nextFrame();
         });
 
-        it('rendered auth', () => {
+        it('renders OAuth2 documentation', () => {
           assert(element.type, 'OAuth 2.0');
         })
       });
@@ -210,7 +339,7 @@ describe('<api-security-documentation>', function() {
           security = AmfLoader.lookupSecurity(amf, 'oauth_2_0');
         });
 
-        let element;
+        let element = /** @type ApiOauth2SettingsDocument */ (null);
         beforeEach(async () => {
           element = await OAuth2SettingsFixture();
           element.amf = amf;

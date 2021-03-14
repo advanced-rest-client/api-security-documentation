@@ -1,5 +1,7 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-param-reassign */
 import { LitElement, html, css } from 'lit-element';
-import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin';
 /**
  * `api-oauth1-settings-document`
  *
@@ -23,19 +25,6 @@ import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixi
  *  authorization-uri="https://..."
  *  signatures='["RSA-SHA1"]'></api-oauth1-settings-document>
  * ```
- *
- * ## Styling
- *
- * `<api-oauth1-settings-document>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--api-oauth1-settings-document` | Mixin applied to this elment | `{}`
- *
- * @customElement
- * @demo demo/index.html
- * @memberof ApiElements
- * @appliesMixin AmfHelperMixin
  */
 export class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
   get styles() {
@@ -105,9 +94,8 @@ export class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
       /**
        * List of signatures used by this authorization server.
        * Automatically set when `settings` property change.
-       * @type {Array<String>}
        */
-      signatures: { type: Array }
+      signatures: { type: Array },
     };
   }
 
@@ -130,7 +118,7 @@ export class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
    * not sub property).
    * Sets values of all other properties to the one found in the AMF.
    *
-   * @param {Object} settings AMF settings to process.
+   * @param {any} settings AMF settings to process.
    */
   _settingsChanged(settings) {
     const requestTokenUri = this._computeRequestTokenUri(settings);
@@ -143,6 +131,7 @@ export class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
     this.tokenCredentialsUri = tokenCredentialsUri;
     this.signatures = signatures;
   }
+
   /**
    * If passed argument is an array it returns first object from it. Otherwise
    * it returns the object.
@@ -150,44 +139,48 @@ export class ApiOauth1SettingsDocument extends AmfHelperMixin(LitElement) {
    * @return {any}
    */
   _deArray(result) {
-    if (result instanceof Array) {
-      result = result[0];
+    if (Array.isArray(result)) {
+      [result] = result;
     }
     return result;
   }
+
   /**
    * Computes value of request token endpoint URI.
-   * @param {Object} settings AMF settings to process.
+   * @param {any} settings AMF settings to process.
    * @return {String|undefined} Request token URI value
    */
   _computeRequestTokenUri(settings) {
     const result = this._getValue(settings, this.ns.aml.vocabularies.security.requestTokenUri);
     return this._deArray(result);
   }
+
   /**
    * Computes value of authorization endpoint URI.
-   * @param {Object} settings AMF settings to process.
+   * @param {any} settings AMF settings to process.
    * @return {String|undefined} Authorization URI value
    */
   _computeAuthorizationUri(settings) {
     const result = this._getValue(settings, this.ns.aml.vocabularies.security.authorizationUri);
     return this._deArray(result);
   }
+
   /**
    * Computes value of token credentials endpoint URI.
-   * @param {Object} settings AMF settings to process.
+   * @param {any} settings AMF settings to process.
    * @return {String|undefined} Token credentials URI value
    */
   _computeTokenCredentialsUri(settings) {
     const result = this._getValue(settings, this.ns.aml.vocabularies.security.tokenCredentialsUri);
     return this._deArray(result);
   }
+
   /**
    * Computes value of OAuth1 signatures.
-   * @param {Object} settings AMF settings to process.
+   * @param {any} settings AMF settings to process.
    * @return {Array<String>|undefined} List of signatures.
    */
   _computeSignatures(settings) {
-    return this._getValueArray(settings, this.ns.aml.vocabularies.security.signature);
+    return /** @type string[] */ (this._getValueArray(settings, this.ns.aml.vocabularies.security.signature));
   }
 }
