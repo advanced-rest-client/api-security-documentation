@@ -16,7 +16,8 @@ For compatibility with previous model version use `3.x.x` version of the compone
 ## Usage
 
 ### Installation
-```
+
+```sh
 npm install --save @api-components/api-security-documentation
 ```
 
@@ -76,10 +77,11 @@ npm start
 ```
 
 ### Running the tests
+
 ```sh
 npm test
 ```
 
 ## API components
 
-This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)
+This component is a part of [API components ecosystem](https://elements.advancedrestclient.com/)

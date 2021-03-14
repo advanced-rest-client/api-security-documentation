@@ -46,12 +46,14 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
         font-weight: var(--arc-font-headline-font-weight);
         letter-spacing: var(--arc-font-headline-letter-spacing);
         line-height: var(--arc-font-headline-line-height);
+        color: var(--arc-font-headline-color);
       }
 
       h3 {
         font-size: var(--arc-font-title-font-size);
         font-weight: var(--arc-font-title-font-weight);
         line-height: var(--arc-font-title-line-height);
+        color: var(--arc-font-title-color);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
