@@ -69,6 +69,10 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
         user-select: text;
         word-break: break-all;
       }
+      
+      h5 {
+        font-size: var(--api-security-documentation-schemes-font-size);
+      }
     `;
   }
 
