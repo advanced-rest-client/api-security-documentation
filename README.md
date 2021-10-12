@@ -1,4 +1,8 @@
-# api-security-documentation
+# DEPRECATED
+
+This component is being deprecated. The code base has been moved to [amf-components](https://github.com/advanced-rest-client/amf-components) module. This module will be archived when [PR 1](https://github.com/advanced-rest-client/amf-components/pull/1) is merged.
+
+-----
 
 Documentation view for AMF security model of an API.
 
