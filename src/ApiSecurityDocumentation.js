@@ -284,13 +284,42 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
     return /** @type string */ (this._getValue(shape, this.ns.aml.vocabularies.security.type));
   }
 
+  _computeSecurityScheme(security = this.security) {
+    if (!security) {
+      return undefined;
+    }
+    if (Array.isArray(security)) {
+      [security] = security;
+    }
+    if (this._hasType(security, this.ns.aml.vocabularies.security.SecurityScheme)) {
+      return security;
+    }
+    // For now, we need to get the first "security:schemes" element so as to not break compatibility
+    if (this._hasType(security, this.ns.aml.vocabularies.security.securityRequirement)) {
+      const schemesKey = this._getAmfKey(this.ns.aml.vocabularies.security.schemes);
+      const schemes = security[schemesKey];
+      if (Array.isArray(schemes)) {
+        [security] = schemes;
+      } else {
+        security = schemes;
+      }
+    }
+
+    return security;
+  }
+
   /**
    * Computes scheme's settings model.
    * @param {any} shape Scheme model.
    * @return {any|undefined} Settings model
    */
   _computeSettings(shape) {
-    return this._computePropertyObject(shape, this.ns.aml.vocabularies.security.settings);
+    const settingsProp = this.ns.aml.vocabularies.security.settings
+    const settingsShape = this._computePropertyObject(shape, settingsProp)
+    if (!settingsShape) return settingsShape
+
+    const securityShape = this._computeSecurityScheme()
+    return !securityShape ? settingsShape : this._computePropertyObject(securityShape, settingsProp)
   }
 
   /**
