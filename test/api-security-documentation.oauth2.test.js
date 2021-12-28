@@ -353,6 +353,35 @@ describe('<api-security-documentation>', () => {
           await assert.isAccessible(element);
         });
       });
+
+      describe('Scopes', () => {
+        let security;
+        let amf;
+
+        before(async () => {
+          amf = await AmfLoader.load(compact, 'APIC-772');
+          const all = AmfLoader.lookupOperationSecurity(amf, '/pets', 'delete');
+          security = all[0];
+        });
+
+        let element = /** @type ApiSecurityDocumentation */ (null);
+        beforeEach(async () => {
+          element = await basicFixture();
+          element.amf = amf;
+          element.security = security;
+          await nextFrame();
+        });
+
+        it('should add scopes defined at method level', async () => {
+          const oauth2Settings = element.shadowRoot.querySelector('api-oauth2-settings-document')
+          const oauth2Flow = oauth2Settings.shadowRoot.querySelector('api-oauth2-flow-document')
+          assert.lengthOf(oauth2Flow.shadowRoot.querySelectorAll('.settings-list-value'), 1);
+        });
+
+        it('settings is set', () => {
+          assert.typeOf(element.settings, 'object');
+        });
+      });
     });
   });
 });
