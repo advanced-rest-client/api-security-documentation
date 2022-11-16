@@ -73,6 +73,10 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
       h5 {
         font-size: var(--api-security-documentation-schemes-font-size);
       }
+      
+      .scope-description {
+        color: rgb(150, 150, 150);
+      }
     `;
   }
 
@@ -256,7 +260,10 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
       <h5 data-type="authorization-scopes">Authorization scopes</h5>
       <ul>
         ${scopes.map(
-          (item) => html`<li class="settings-list-value">${item.label}</li>`
+          (item) => html`<li class="settings-list-value">
+            <div>${item.label}</div>
+            ${item.description && html`<div class="scope-description">${item.description}</div>`}
+          </li>`
         )}
       </ul>
     </div>`;
