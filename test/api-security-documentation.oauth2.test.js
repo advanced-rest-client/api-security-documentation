@@ -167,6 +167,14 @@ describe('<api-security-documentation>', () => {
           it('Authorization scopes list is rendered', () => {
             assert.exists(element.shadowRoot.querySelector('[data-type="authorization-scopes"]'));
           });
+
+          it('should render description for scopes', () => {
+            const scopeDescriptionElements = Array.from(element.shadowRoot.querySelectorAll('.scope-description'));
+            assert.lengthOf(scopeDescriptionElements, 3);
+            assert.equal(scopeDescriptionElements[0].textContent, 'Grants read access')
+            assert.equal(scopeDescriptionElements[1].textContent, 'Grants write access')
+            assert.equal(scopeDescriptionElements[2].textContent, 'Grants access to admin operations')
+          })
         });
 
         describe('RAML model', () => {
