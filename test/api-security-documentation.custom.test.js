@@ -134,7 +134,7 @@ describe('ApiSecurityDocumentation', () => {
 
         it('is accessible', async () => {
           await assert.isAccessible(element, {
-            ignoredRules: ['color-contrast']
+            ignoredRules: ['color-contrast', 'aria-required-children']
           });
         });
       });
