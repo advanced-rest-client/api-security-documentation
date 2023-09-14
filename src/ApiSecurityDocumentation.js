@@ -190,10 +190,6 @@ export class ApiSecurityDocumentation extends AmfHelperMixin(LitElement) {
   }
 
   set _scheme(value) {
-    const old = this.__scheme;
-    if (old === value) {
-      return;
-    }
     this.__scheme = value;
     this._schemeChanged(value);
   }
