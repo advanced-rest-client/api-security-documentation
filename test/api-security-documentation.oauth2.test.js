@@ -392,4 +392,53 @@ describe('<api-security-documentation>', () => {
       });
     });
   });
+
+  describe('OAS 3.2 device authorization flow', () => {
+    /** Recursively find the first node in a compact model carrying the device URI. */
+    function findDeviceFlow(model) {
+      const graph = Array.isArray(model) ? model : (model['@graph'] || [model]);
+      let found;
+      (function walk(node) {
+        if (found) return;
+        if (Array.isArray(node)) { node.forEach(walk); return; }
+        if (node && typeof node === 'object') {
+          if (Object.keys(node).some((k) => k.endsWith('deviceAuthorizationUri'))) {
+            found = node;
+            return;
+          }
+          Object.values(node).forEach(walk);
+        }
+      })(graph);
+      return found;
+    }
+
+    let amf;
+    let element = /** @type ApiOauth2FlowDocument */ (null);
+
+    before(async () => {
+      const url = `${location.protocol}//${location.host}/base/demo/oas32-compact.json`;
+      amf = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', (e) => resolve(JSON.parse(e.target.response)));
+        xhr.addEventListener('error', () => reject(new Error('cannot load oas32')));
+        xhr.open('GET', url);
+        xhr.send();
+      });
+    });
+
+    beforeEach(async () => {
+      element = await OAuth2FlowFixture();
+      element.amf = amf;
+      element.flow = findDeviceFlow(amf);
+      await nextFrame();
+    });
+
+    it('deviceAuthorizationUri is set', () => {
+      assert.equal(element.deviceAuthorizationUri, 'https://example.com/oauth/device/authorize');
+    });
+
+    it('device authorization uri is rendered', () => {
+      assert.exists(element.shadowRoot.querySelector('[data-type="device-authorization-uri"]'));
+    });
+  });
 });
