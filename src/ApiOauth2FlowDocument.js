@@ -32,6 +32,11 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
        * properties.
        */
       scopes: { type: Array },
+      /**
+       * Device authorization endpoint URI (OAS 3.2 device flow).
+       * This property is updated when `flow` property changes.
+       */
+      deviceAuthorizationUri: { type: String },
     };
   }
 
@@ -103,6 +108,7 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
     const accessTokenUri = this._computeAccessTokenUri(flow);
     const authorizationUri = this._computeAuthorizationUri(flow);
     const authorizationGrant = this._computeAuthorizationGrant(flow);
+    const deviceAuthorizationUri = this._computeDeviceAuthorizationUri(flow);
     let scopes = this._computeScopes(flow);
     if (scopes && !Array.isArray(scopes)) {
       scopes = [scopes];
@@ -110,6 +116,7 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
     this.accessTokenUri = accessTokenUri;
     this.authorizationUri = authorizationUri;
     this.authorizationGrant = authorizationGrant;
+    this.deviceAuthorizationUri = deviceAuthorizationUri;
     this.scopes = scopes;
   }
 
@@ -145,6 +152,25 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
     return /** @type string */ (this._getValue(
       flow,
       this.ns.aml.vocabularies.security.authorizationUri
+    ));
+  }
+
+  /**
+   * Computes value for `deviceAuthorizationUri` property.
+   * @param {any} flow OAuth2 flow from AMF model.
+   * @return {string|undefined}
+   */
+  _computeDeviceAuthorizationUri(flow) {
+    const flows = this._getValueArray(
+      flow,
+      this.ns.aml.vocabularies.security.flows
+    );
+    if (flows) {
+      [flow] = flows;
+    }
+    return /** @type string */ (this._getValue(
+      flow,
+      this.ns.aml.vocabularies.security.deviceAuthorizationUri
     ));
   }
 
@@ -214,7 +240,8 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
     <style>${this.styles}</style>
     ${this._renderGrantType()}
     ${this._renderAccessTokenUri()}
-    ${this._renderAuthorizationUri()} 
+    ${this._renderAuthorizationUri()}
+    ${this._renderDeviceAuthorizationUri()}
     ${this._renderScopes()}
     `;
   }
@@ -248,6 +275,17 @@ export class ApiOauth2FlowDocument extends AmfHelperMixin(LitElement) {
     return html`<div>
       <h5 data-type="authorization-uri">Authorization URI</h5>
       <code class="settings-value">${authorizationUri}</code>
+    </div>`;
+  }
+
+  _renderDeviceAuthorizationUri() {
+    const { deviceAuthorizationUri } = this;
+    if (!deviceAuthorizationUri) {
+      return "";
+    }
+    return html`<div>
+      <h5 data-type="device-authorization-uri">Device authorization URI</h5>
+      <code class="settings-value">${deviceAuthorizationUri}</code>
     </div>`;
   }
 
